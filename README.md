@@ -202,4 +202,19 @@ set disabled dynamically by read data.user.username
   ...
       
 ```
-![alt text](/images/showBoolean.gif)
+![alt text](/images/showBoolean.jpg)
+
+## show ( string )
+hide item dynamically by read data.user.username
+```javascript
+  ...
+  items={[
+    {type:'text',label:'Name',field:'user.name'},
+    {type:'text',label:'Family',field:'user.family'},
+    {type:'text',label:'User Name',field:'user.username'},
+    {type:'text',label:'User Code',field:'user.usercode',hideCondition:'!data.user || !data.user.username'},
+  ]}
+  ...
+      
+```
+![alt text](/images/showString.gif)
