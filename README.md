@@ -88,7 +88,7 @@ class Test2 extends Component {
 }
 ```
 
-## read label from data
+## read label from data by dynamic string using calc ...
 
 ```javascript
 class Test3 extends Component {
@@ -128,3 +128,32 @@ class Test3 extends Component {
   }
 }
 ```
+
+## rowKey
+
+```javascript
+  ...
+  items={[
+    {type:'text',label:'Name',field:'user.name',rowKey:'1'},
+    {type:'text',label:'Family',field:'user.family',rowKey:'1'},
+    {type:'text',label:'User Name',field:'user.username',rowKey:'2'},
+    {type:'text',label:'User Code',field:'user.usercode',rowKey:'2'},
+  ]}
+  ...
+      
+```
+
+## rowSize
+
+```javascript
+  ...
+  items={[
+    {type:'text',label:'Name',field:'user.name',rowKey:'1',rowSize:100},
+    {type:'text',label:'Family',field:'user.family',rowKey:'1'},
+    {type:'text',label:'User Name',field:'user.username',rowKey:'2'},
+    {type:'text',label:'User Code',field:'user.usercode',rowKey:'2',rowSize:100},
+  ]}
+  ...
+      
+```
+
