@@ -32,7 +32,7 @@ class Test1 extends Component {
   }
 }
 ```
-
+[alt/text](images/basic.jpg)
 - ##### log of changedData
 ```javascript
 {
