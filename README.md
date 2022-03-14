@@ -158,3 +158,18 @@ class Test3 extends Component {
       
 ```
 ![alt text](/images/rowSize.jpg)
+
+## disabled
+
+```javascript
+  ...
+  items={[
+    {type:'text',label:'Name',field:'user.name'},
+    {type:'text',label:'Family',field:'user.family'},
+    {type:'text',label:'User Name',field:'user.username'},
+    {type:'text',label:'User Code',field:'user.usercode'},
+  ]}
+  ...
+      
+```
+![alt text](/images/rowSize.jpg)
