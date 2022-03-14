@@ -32,7 +32,7 @@ class Test1 extends Component {
   }
 }
 ```
-[alt/text](images/basic.jpg)
+![alt text](/images/basic.jpg)
 - ##### log of changedData
 ```javascript
 {
@@ -75,7 +75,7 @@ class Test2 extends Component {
   }
 }
 ```
-
+![alt text](/images/basic.jpg)
 - ##### log of chagedData
 ```javascript
 {
@@ -128,7 +128,7 @@ class Test3 extends Component {
   }
 }
 ```
-
+![alt text](/images/readlabelfromdata.jpg)
 ## rowKey
 
 ```javascript
@@ -142,6 +142,7 @@ class Test3 extends Component {
   ...
       
 ```
+![alt text](/images/rowKey.jpg)
 
 ## rowSize
 
@@ -156,4 +157,4 @@ class Test3 extends Component {
   ...
       
 ```
-
+![alt text](/images/rowSize.jpg)
