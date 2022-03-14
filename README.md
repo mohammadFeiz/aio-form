@@ -190,7 +190,7 @@ set disabled dynamically by read data.user.username
 ![alt text](/images/disabled.gif)
 
 ## show ( boolean )
-set disabled dynamically by read data.user.username
+if show = false item will be hidden
 ```javascript
   ...
   items={[
@@ -204,7 +204,7 @@ set disabled dynamically by read data.user.username
 ```
 ![alt text](/images/showBoolean.jpg)
 
-## show ( string )
+## hideCondition ( string )
 hide item dynamically by read data.user.username
 ```javascript
   ...
