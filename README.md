@@ -1,6 +1,6 @@
 # aio-form
 
-- ### Basic:
+## Basic:
 
 ```javascript
 class Test1 extends Component {
@@ -12,7 +12,6 @@ class Test1 extends Component {
   }
   render(){
     let {data} = this.state;
-    console.log(data)
     return (
       <AIOForm
         data={data}
@@ -44,7 +43,7 @@ class Test1 extends Component {
 }
 ```
 
-- ### More complicated field
+## More complicated field
 
 ```javascript
 class Test2 extends Component {
@@ -56,7 +55,6 @@ class Test2 extends Component {
   }
   render(){
     let {data} = this.state;
-    console.log(data)
     return (
       <AIOForm
         data={data}
@@ -90,7 +88,7 @@ class Test2 extends Component {
 }
 ```
 
-- ### read label from data
+## read label from data
 
 ```javascript
 class Test3 extends Component {
