@@ -175,7 +175,7 @@ class Test3 extends Component {
 ![alt text](/images/disabled.jpg)
 
 ## disabled dynamic(string)
-
+set disabled dynamically by read data.user.username
 ```javascript
   ...
   items={[
@@ -189,3 +189,17 @@ class Test3 extends Component {
 ```
 ![alt text](/images/disabled.gif)
 
+## show ( boolean )
+set disabled dynamically by read data.user.username
+```javascript
+  ...
+  items={[
+    {type:'text',label:'Name',field:'name'},
+    {type:'text',label:'Family',field:'family'},
+    {type:'text',label:'Username',field:'username'},
+    {type:'text',label:'User Code',field:'usercode',show:false},
+  ]}
+  ...
+      
+```
+![alt text](/images/showBoolean.gif)
