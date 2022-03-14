@@ -88,7 +88,7 @@ class Test2 extends Component {
 }
 ```
 
-## read label from data by dynamic string using calc ...
+## read label dynamically by execute label string.(contain calc in first of string)
 
 ```javascript
 class Test3 extends Component {
@@ -175,7 +175,7 @@ class Test3 extends Component {
 ![alt text](/images/disabled.jpg)
 
 ## disabled dynamic(string)
-set disabled dynamically by read data.user.username
+disable item dynamically by execute disabled string.(contain calc in first of string)
 ```javascript
   ...
   items={[
@@ -189,30 +189,30 @@ set disabled dynamically by read data.user.username
 ```
 ![alt text](/images/disabled.gif)
 
-## show ( boolean )
-if show = false item will be hidden
-```javascript
-  ...
-  items={[
-    {type:'text',label:'Name',field:'name'},
-    {type:'text',label:'Family',field:'family'},
-    {type:'text',label:'Username',field:'username'},
-    {type:'text',label:'User Code',field:'usercode',show:false},
-  ]}
-  ...
-      
-```
-![alt text](/images/showBoolean.jpg)
-
-## hideCondition ( string )
-hide item dynamically by read data.user.username
+## hide ( boolean )
+if hide = true item will be hidden
 ```javascript
   ...
   items={[
     {type:'text',label:'Name',field:'user.name'},
     {type:'text',label:'Family',field:'user.family'},
     {type:'text',label:'User Name',field:'user.username'},
-    {type:'text',label:'User Code',field:'user.usercode',hideCondition:'!data.user || !data.user.username'},
+    {type:'text',label:'User Code',field:'user.usercode',hide:true},
+  ]}
+  ...
+      
+```
+![alt text](/images/showBoolean.jpg)
+
+## hide ( string )
+hide item dynamically by execute hide string.(contain calc in first of string)
+```javascript
+  ...
+  items={[
+    {type:'text',label:'Name',field:'user.name'},
+    {type:'text',label:'Family',field:'user.family'},
+    {type:'text',label:'User Name',field:'user.username'},
+    {type:'text',label:'User Code',field:'user.usercode',hide:'!data.user || !data.user.username'},
   ]}
   ...
       
