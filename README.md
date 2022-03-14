@@ -159,7 +159,7 @@ class Test3 extends Component {
 ```
 ![alt text](/images/rowSize.jpg)
 
-## disabled
+## disabled(boolean)
 
 ```javascript
   ...
@@ -167,9 +167,25 @@ class Test3 extends Component {
     {type:'text',label:'Name',field:'user.name'},
     {type:'text',label:'Family',field:'user.family'},
     {type:'text',label:'User Name',field:'user.username'},
-    {type:'text',label:'User Code',field:'user.usercode'},
+    {type:'text',label:'User Code',field:'user.usercode',disabled:true},
   ]}
   ...
       
 ```
-![alt text](/images/rowSize.jpg)
+![alt text](/images/disabled.jpg)
+
+## disabled dynamic(string)
+
+```javascript
+  ...
+  items={[
+    {type:'text',label:'Name',field:'user.name'},
+    {type:'text',label:'Family',field:'user.family'},
+    {type:'text',label:'User Name',field:'user.username'},
+    {type:'text',label:'User Code',field:'user.usercode',disabled:'calc !data.user.username'},
+  ]}
+  ...
+      
+```
+![alt text](/images/disabled.gif)
+
