@@ -218,3 +218,69 @@ hide item dynamically by execute hide string.(contain calc in first of string)
       
 ```
 ![alt text](/images/showString.gif)
+
+## item.onChange ( function )
+set onChange on item for manual changing data
+```javascript
+  class Test1 extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      data:{
+        gender:'male',
+        user:{
+          name:'',
+          family:'',
+          fullName:''
+        }
+      }
+    }
+  }
+  render(){
+    let {data} = this.state;
+    return (
+      <AIOForm
+        data={data}
+        config={{
+          onChange:(changedData)=>{
+            this.setState({data:changedData}) 
+          } 
+        }}
+        items={[
+          {
+            type:'text',label:'Name',field:'user.name',
+            onChange:(data,field,value)=>{
+              data.user.name = value;
+              data.user.fullName = (data.gender === 'male'?'Mr':'Mrs') + ' ' + data.user.name + ' ' + data.user.family; 
+              return data
+            }
+          },
+          {
+            type:'text',label:'Family',field:'user.family',
+            onChange:(data,field,value)=>{
+              data.user.family = value;
+              data.user.fullName = (data.gender === 'male'?'Mr':'Mrs') + ' ' + data.user.name + ' ' + data.user.family; 
+              return data
+            }
+          },
+          {
+            type:'radio',label:'Gender',field:'gender',
+            onChange:(data,field,value)=>{
+              data.gender = value;
+              data.user.fullName = (data.gender === 'male'?'Mr':'Mrs') + ' ' + data.user.name + ' ' + data.user.family; 
+              return data
+            },
+            options:[
+              {text:'Male',value:'male'},
+              {text:'Female',value:'female'}
+            ]
+          },
+          {type:'text',label:'Full Name',field:'user.fullName',disabled:true}
+        ]}
+      />
+    );
+  }
+}
+      
+```
+![alt text](/images/onChangeFunction.gif)
