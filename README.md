@@ -284,3 +284,66 @@ set onChange on item for manual changing data
       
 ```
 ![alt text](/images/onChangeFunction.gif)
+
+## item.onChange ( string )
+set onChange on item for manual changing data
+```javascript
+  class Test1 extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      data:{
+        gender:'male',
+        user:{
+          name:'',
+          family:'',
+          fullName:''
+        }
+      }
+    }
+  }
+  render(){
+    let {data} = this.state;
+    return (
+      <AIOForm
+        data={data}
+        config={{
+          onChange:(changedData)=>{
+            this.setState({data:changedData}) 
+          } 
+        }}
+        items={[
+          {
+            type:'text',label:'Name',field:'user.name',
+            changeString:`
+              data.user.name = value; 
+              data.user.fullName = (data.gender === 'male'?'Mr':'Mrs') + ' ' + data.user.name + ' ' + data.user.family; 
+            `
+          },
+          {
+            type:'text',label:'Family',field:'user.family',
+            changeString:`
+              data.user.family = value;
+              data.user.fullName = (data.gender === 'male'?'Mr':'Mrs') + ' ' + data.user.name + ' ' + data.user.family; 
+            `
+          },
+          {
+            type:'radio',label:'Gender',field:'gender',
+            changeString:`
+              data.gender = value;
+              data.user.fullName = (data.gender === 'male'?'Mr':'Mrs') + ' ' + data.user.name + ' ' + data.user.family; 
+            `,
+            options:[
+              {text:'Male',value:'male'}, 
+              {text:'Female',value:'female'}
+            ]
+          },
+          {type:'text',label:'Full Name',field:'user.fullName',disabled:true}
+        ]}
+      /> 
+    );
+  }
+}
+      
+```
+![alt text](/images/onChangeFunction.gif)
