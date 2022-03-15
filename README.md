@@ -389,3 +389,46 @@ else placeholder will be item.placeholder
       
 ```
 ![alt text](/images/textoptions.gif)
+
+## select ( array )
+```javascript
+  class Test1 extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      data:{
+        gender:false,
+      }
+    }
+  }
+  render(){
+    let {data} = this.state;
+    return (
+      <AIOForm
+        data={data}
+        config={{
+          onChange:(changedData)=>{
+            this.setState({data:changedData}) 
+          } 
+        }}
+        items={[
+          {
+            type:'select',label:'Gender',field:'gender',
+            options:[
+              {text:'Not Selected',value:false},
+              {text:'Male',value:'male'},
+              {text:'Female',value:'female'}
+            ]
+          },
+          {
+            type:'text',label:'Gender Preview',field:'gender',disabled:true
+          },
+        ]}
+      />
+    );
+  }
+}
+      
+```
+![alt text](/images/select.gif)
+
