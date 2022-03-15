@@ -209,7 +209,7 @@ class Test3 extends Component {
 }
 ```
 ![alt text](/images/readlabelfromdata.jpg)
-## item rowKey property
+## input rowKey property
 
 ```javascript
   ...
@@ -224,7 +224,7 @@ class Test3 extends Component {
 ```
 ![alt text](/images/rowKey.jpg)
 
-## item rowSize property
+## input rowSize property
 
 ```javascript
   ...
@@ -239,7 +239,7 @@ class Test3 extends Component {
 ```
 ![alt text](/images/rowSize.jpg)
 
-## item disabled property static (boolean)
+## input disabled property static (boolean)
 
 ```javascript
   ...
@@ -254,7 +254,7 @@ class Test3 extends Component {
 ```
 ![alt text](/images/disabled.jpg)
 
-## item disabled property dynamic(string)
+## input disabled property dynamic(string)
 disable item dynamically by execute disabled string.(contain calc in first of string)
 ```javascript
   ...
@@ -269,7 +269,7 @@ disable item dynamically by execute disabled string.(contain calc in first of st
 ```
 ![alt text](/images/disabled.gif)
 
-## item hide property ( boolean )
+## input hide property ( boolean )
 hide item statically by set hide:true
 ```javascript
   ...
@@ -284,7 +284,7 @@ hide item statically by set hide:true
 ```
 ![alt text](/images/showBoolean.jpg)
 
-## item hide property ( string )
+## input hide property ( string )
 hide item dynamically by execute hide string.(contain calc in first of hide property)
 ```javascript
   ...
@@ -299,7 +299,7 @@ hide item dynamically by execute hide string.(contain calc in first of hide prop
 ```
 ![alt text](/images/showString.gif)
 
-## item onChange property ( function )
+## input onChange property ( function )
 set onChange on item for manual changing data
 ```javascript
   class Test1 extends Component {
@@ -365,7 +365,7 @@ set onChange on item for manual changing data
 ```
 ![alt text](/images/onChangeFunction.gif)
 
-## item onChange property ( string )
+## input onChange property ( string )
 set onChange string on item for manual changing data
 ```javascript
   class Test1 extends Component {
@@ -429,7 +429,7 @@ set onChange string on item for manual changing data
 ![alt text](/images/onChangeFunction.gif)
 
 
-## item placeholder property ( string )
+## input placeholder property ( string )
 if use calc in first of item.placeholder it will read placeholder value from data
 else placeholder will be placeholder value
 ```javascript
@@ -452,7 +452,7 @@ else placeholder will be placeholder value
       
 ```
 ![alt text](/images/placeholder.gif)
-## input text options propery ( array )
+## input options propery ( array )
 ```javascript
   ...
   items={[
