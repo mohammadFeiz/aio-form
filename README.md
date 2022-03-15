@@ -371,4 +371,4 @@ else placeholder will be item.placeholder
   ...
       
 ```
-![alt text](/images/placeholder.jpg)
+![alt text](/images/placeholder.gif)
