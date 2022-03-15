@@ -602,3 +602,88 @@ read text options dynamically by execute options string.(contain calc in first o
 ```
 ![alt text](/images/multiselect.gif)
 
+## radio (static options)
+```javascript
+  class Test1 extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      data:{
+        gender:'1'
+      }
+    } 
+  }
+  render(){
+    let {data} = this.state;
+    return (
+      <AIOForm
+        data={data}
+        config={{
+          onChange:(changedData)=>{
+            this.setState({data:changedData}) 
+          } 
+        }}
+        items={[
+          {
+            type:'radio',label:'Gender',field:'gender',
+            options:[
+              {text:'Male',value:'1'},
+              {text:'Female',value:'2'}
+            ]
+          },
+          {
+            type:'text',label:'Gender Preview',field:'gender',disabled:true
+          },
+        ]}
+      />
+    );
+  }
+}
+      
+```
+![alt text](/images/radio.gif)
+
+
+
+## radio (dynamic options)
+```javascript
+  class Test1 extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      data:{
+        gender:'1',
+        genderOptions:[
+          {text:'Male',value:'1'},
+          {text:'Female',value:'2'}
+        ]
+      }
+    }
+  }
+  render(){
+    let {data} = this.state;
+    return (
+      <AIOForm
+        data={data}
+        config={{
+          onChange:(changedData)=>{
+            this.setState({data:changedData}) 
+          } 
+        }}
+        items={[
+          {
+            type:'radio',label:'Gender',field:'gender',
+            options:'calc data.genderOptions'
+          },
+          {
+            type:'text',label:'Gender Preview',field:'gender',disabled:true
+          },
+        ]}
+      />
+    );
+  }
+}
+      
+```
+![alt text](/images/radio.gif)
+
