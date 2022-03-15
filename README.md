@@ -372,3 +372,20 @@ else placeholder will be item.placeholder
       
 ```
 ![alt text](/images/placeholder.gif)
+## text options ( array )
+```javascript
+  ...
+  items={[
+    {
+      type:'text',label:'Name',field:'name',
+      options:[
+        {text:'john doe'},
+        {text:'mohammad feiz'},
+        {text:'robert anderson'}
+      ]
+    },
+  ]}
+  ...
+      
+```
+![alt text](/images/textoptions.gif)
