@@ -286,7 +286,7 @@ set onChange on item for manual changing data
 ![alt text](/images/onChangeFunction.gif)
 
 ## item.onChange ( string )
-set onChange on item for manual changing data
+set onChange string on item for manual changing data
 ```javascript
   class Test1 extends Component {
   constructor(props){
@@ -315,21 +315,21 @@ set onChange on item for manual changing data
         items={[
           {
             type:'text',label:'Name',field:'user.name',
-            changeString:`
+            onChange:`
               data.user.name = value; 
               data.user.fullName = (data.gender === 'male'?'Mr':'Mrs') + ' ' + data.user.name + ' ' + data.user.family; 
             `
           },
           {
             type:'text',label:'Family',field:'user.family',
-            changeString:`
+            onChange:`
               data.user.family = value;
               data.user.fullName = (data.gender === 'male'?'Mr':'Mrs') + ' ' + data.user.name + ' ' + data.user.family; 
             `
           },
           {
             type:'radio',label:'Gender',field:'gender',
-            changeString:`
+            onChange:`
               data.gender = value;
               data.user.fullName = (data.gender === 'male'?'Mr':'Mrs') + ' ' + data.user.name + ' ' + data.user.family; 
             `,
