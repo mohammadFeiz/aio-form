@@ -9,7 +9,6 @@ npm i aio-form
 import AIOForm from 'aio-form';
 ```
 # Inputs
-
 - text
 - number
 - textarea
@@ -25,6 +24,28 @@ import AIOForm from 'aio-form';
 - list
 - color
 - file
+
+# Input Properties
+Property | type | default | Use In | Description
+-------- | ---- | ------- | ------ | -----------
+label | string | Optional | All | Input Label
+field | string | Required | All | define how read value from data
+disabled | boolean or string | optional | All | set input disabled
+hide | boolean or string | Optional | All | hide input or not
+onChange | function or string | Optional | All | change data manually
+rowKey | string | Optional | All | place inputs that have same rowKey in one row
+rowSize | number | Optional | All | width of input in row
+groupKey | string | Optional | All | place inputs that have same groupKey in one group
+placeholder | string | Optional | text,number,textarea | Input placeholder 
+text | string | Optional | multiselect,checkbox | Input Text
+options | array or string | Required | select,multiselect,radio | selectable input options
+optionWidth | string (?'px',?'%','fit-content') | 'fit-content' | radio | radio options width
+calendarType | string ('gregorian' or 'jalali') | 'gregorian' | datepicker,rangedatepicker | calendar type
+unit | string ('month','day','hour') | 'day' | datepicker,rangedatepicker | set datepicker monthly , daily or hourly
+start | number or string | 0 | slider,rangeslider | start of slider
+end | number or string | 100 | slider,rangeslider | end of slider
+step | number | 1 | slider,rangeslider | change step of slider
+
 
 
 ## Basic:
