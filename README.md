@@ -1,5 +1,32 @@
 # aio-form
 
+# Instalation
+```javascript
+npm i aio-form
+```
+# Use
+```javascript
+import AIOForm from 'aio-form';
+```
+# Inputs
+
+- text
+- number
+- textarea
+- select
+- multiselect
+- radio
+- checkbox
+- datepicker
+- rangedatepicker
+- slider
+- rangeslider
+- table
+- list
+- color
+- file
+
+
 ## Basic:
 
 ```javascript
