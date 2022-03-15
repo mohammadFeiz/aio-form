@@ -390,7 +390,48 @@ else placeholder will be item.placeholder
 ```
 ![alt text](/images/textoptions.gif)
 
-## select ( array )
+## text options ( string )
+read text options dynamically by execute options string.(contain calc in first of options string)
+```javascript
+  class Test1 extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      data:{
+        nameOptions:[
+          {text:'john doe'},
+          {text:'mohammad feiz'},
+          {text:'robert anderson'}
+        ]
+      }
+    }
+  }
+  render(){
+    let {data} = this.state;
+    return (
+      <AIOForm
+        data={data}
+        config={{
+          onChange:(changedData)=>{
+            this.setState({data:changedData}) 
+          } 
+        }}
+        items={[
+          {
+            type:'text',label:'Name',field:'name',
+            options:'calc data.nameOptions'
+          },
+        ]}
+      />
+    );
+  }
+}
+
+      
+```
+![alt text](/images/textoptions.gif)
+
+## select 
 ```javascript
   class Test1 extends Component {
   constructor(props){
