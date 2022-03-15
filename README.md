@@ -25,7 +25,29 @@ import AIOForm from 'aio-form';
 - color
 - file
 
-# Input Properties
+# props
+Prop | Type | Default | Description
+---- | ---- | ------- | -----------
+data | json | {} | form data
+items | array of objects | Required | form items
+theme | json | Optional | form inline styles
+config | object | Required | form config(title,subtitle,onChange,onSubmit,onClose,reset,print)
+
+# config properties
+Property | Type | Default | Description
+---- | ---- | ------- | -----------
+title | string | Optonal | form header title
+subtitle | string | Optional | form header subtitle
+onChange | function | Required | send changed data to parent component of form component 
+onSubmit | function | Optional | call onSubmit props when user click on submit button
+onClose | function | Optional | call onClose props when user click on close button
+reset | boolean | false | show reset form button in form footer
+print | boolean | false | show print form button in form footer
+
+
+
+
+# items properties
 Property | type | default | Use In | Description
 -------- | ---- | ------- | ------ | -----------
 label | string | Optional | All | Input Label
@@ -46,9 +68,7 @@ start | number or string | 0 | slider,rangeslider | start of slider
 end | number or string | 100 | slider,rangeslider | end of slider
 step | number | 1 | slider,rangeslider | change step of slider
 
-
-
-## Basic:
+## Input (type:'text'):
 
 ```javascript
 class Test1 extends Component {
