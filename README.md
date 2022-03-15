@@ -347,3 +347,28 @@ set onChange string on item for manual changing data
       
 ```
 ![alt text](/images/onChangeFunction.gif)
+
+
+## item.placeholder ( string )
+if use calc in first of item.placeholder it will read data
+else placeholder will be item.placeholder
+```javascript
+  ...
+  items={[
+    {
+      type:'text',label:'Name',field:'name',
+      placeholder:'calc data.defaultName'//read from data
+    },
+    {
+      type:'number',label:'age',field:'age',
+      placeholder:'inter age'//hard code
+    },
+    {
+      type:'textarea',label:'Description',field:'description',
+      placeholder:'inter description'// hard code
+    }
+  ]}
+  ...
+      
+```
+![alt text](/images/placeholder.jpg)
