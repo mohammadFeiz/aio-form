@@ -516,3 +516,89 @@ read text options dynamically by execute options string.(contain calc in first o
 ```
 ![alt text](/images/select.gif)
 
+
+## multiselect (static options)
+```javascript
+  class Test1 extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      data:{
+        skills:[]
+      }
+    }
+  }
+  render(){
+    let {data} = this.state;
+    return (
+      <AIOForm
+        data={data}
+        config={{
+          onChange:(changedData)=>{
+            this.setState({data:changedData}) 
+          } 
+        }}
+        items={[
+          {
+            type:'multiselect',label:'Skills',field:'skills',
+            options:[
+              {text:'js',value:'js'},
+              {text:'css',value:'css'},
+              {text:'html',value:'html'}
+            ]
+          },
+          {
+            type:'text',label:'skills Preview',field:'skills',disabled:true
+          },
+        ]}
+      />
+    );
+  }
+}
+      
+```
+![alt text](/images/multiselect.gif)
+
+## multiselect (dynamic options)
+```javascript
+  class Test1 extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      data:{
+        skills:[],
+        skillsOptions:[
+          {text:'Not Selected',value:false},
+          {text:'Male',value:'male'},
+          {text:'Female',value:'female'}
+        ]
+      }
+    }
+  }
+  render(){
+    let {data} = this.state;
+    return (
+      <AIOForm
+        data={data}
+        config={{
+          onChange:(changedData)=>{
+            this.setState({data:changedData}) 
+          } 
+        }}
+        items={[
+          {
+            type:'multiselect',label:'Skills',field:'skills',
+            options:'calc data.skillsOptions'
+          },
+          {
+            type:'text',label:'skills Preview',field:'skills',disabled:true
+          },
+        ]}
+      />
+    );
+  }
+}
+      
+```
+![alt text](/images/multiselect.gif)
+
