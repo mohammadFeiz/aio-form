@@ -75,7 +75,7 @@ class Test1 extends Component {
   constructor(props){
     super(props);
     this.state = {
-      data:{}
+      data:{name:'',family:'',username:'',usercode:''}
     }
   }
   render(){
@@ -92,8 +92,8 @@ class Test1 extends Component {
         items={[
           {type:'text',label:'Name',field:'name'},
           {type:'text',label:'Family',field:'family'},
-          {type:'text',label:'Username',field:'name'},
-          {type:'text',label:'User Code',field:'code'},
+          {type:'text',label:'User name',field:'username'},
+          {type:'text',label:'User Code',field:'usercode'},
         ]}
       />
     );
@@ -101,15 +101,6 @@ class Test1 extends Component {
 }
 ```
 ![alt text](/images/basic.jpg)
-- ##### log of changedData
-```javascript
-{
-    "name": "joun",
-    "family": "doe",
-    "username": "john123",
-    "usercode": "2288"
-}
-```
 
 ## More complicated field
 
@@ -118,7 +109,14 @@ class Test2 extends Component {
   constructor(props){
     super(props);
     this.state = {
-      data:{}
+      data:{
+        user:{
+          name:'',
+          family:'',
+          username:'',
+          usercode:''
+        }
+      }
     }
   }
   render(){
@@ -143,7 +141,6 @@ class Test2 extends Component {
   }
 }
 ```
-![alt text](/images/basic.jpg)
 - ##### log of chagedData
 ```javascript
 {
@@ -155,8 +152,9 @@ class Test2 extends Component {
     }
 }
 ```
+![alt text](/images/basic.jpg)
 
-## read label dynamically by execute label string.(contain calc in first of string)
+## read label dynamically by execute label string.(contain calc in first of label property)
 
 ```javascript
 class Test3 extends Component {
@@ -164,6 +162,12 @@ class Test3 extends Component {
     super(props);
     this.state = {
       data:{
+        user:{
+          name:'',
+          family:'',
+          username:'',
+          usercode:''
+        },
         labels:{
           name:'Name',
           family:'Family', 
