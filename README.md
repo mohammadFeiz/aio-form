@@ -687,3 +687,37 @@ read text options dynamically by execute options string.(contain calc in first o
 ```
 ![alt text](/images/radio.gif)
 
+## checkbox
+```javascript
+  class Test1 extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      data:{
+        active:false
+      }
+    } 
+  }
+  render(){
+    let {data} = this.state;
+    return (
+      <AIOForm
+        data={data}
+        config={{
+          onChange:(changedData)=>{
+            this.setState({data:changedData}) 
+          } 
+        }}
+        items={[
+          {
+            type:'checkbox',label:'Activity',field:'active',text:'Activity'
+          }
+        ]}
+      />
+    );
+  }
+}
+      
+```
+![alt text](/images/checkbox.gif)
+
