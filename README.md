@@ -1,4 +1,6 @@
 # aio-form
+use in reactjs
+create all forms by json
 
 # Instalation
 ```javascript
@@ -8,32 +10,39 @@ npm i aio-form
 ```javascript
 import AIOForm from 'aio-form';
 ```
-# Inputs
-- text
-- number
-- textarea
-- select
-- multiselect
-- radio
-- checkbox
-- datepicker
-- rangedatepicker
-- slider
-- rangeslider
-- table
-- list
-- color
-- file
 
 # props
 Prop | Type | Default | Description
 ---- | ---- | ------- | -----------
 data | json | {} | form data
-items | array of objects | Required | form items
+inputs | array of objects | Required | form items
 theme | json | Optional | form inline styles
 config | object | Required | form config(title,subtitle,onChange,onSubmit,onClose,reset,print)
 
-# config properties
+# data
+form will receive and change data json
+
+# inputs
+changing data by form inputs
+input types:
+- text (string)
+- number (number)
+- textarea (string)
+- select (string or number or boolean)
+- multiselect (array)
+- radio (string or number or boolean)
+- checkbox (boolean)
+- datepicker (string)
+- rangedatepicker (array of 2 strings)
+- slider (number)
+- rangeslider (array of 2 numbers)
+- table (array of objects)
+- list (array of strings or numbers)
+- color (string)
+- file (array of objects)
+
+
+# config prop properties
 Property | Type | Default | Description
 ---- | ---- | ------- | -----------
 title | string | Optonal | form header title
@@ -45,11 +54,10 @@ reset | boolean | false | show reset form button in form footer
 print | boolean | false | show print form button in form footer
 
 
-
-
-# items properties
+# input properties
 Property | type | default | Use In | Description
 -------- | ---- | ------- | ------ | -----------
+type | string | Required | All | input type
 label | string | Optional | All | Input Label
 field | string | Required | All | define how read value from data
 disabled | boolean or string | optional | All | set input disabled
@@ -154,7 +162,7 @@ class Test2 extends Component {
 ```
 ![alt text](/images/basic.jpg)
 
-## read label dynamically by execute label string.(contain calc in first of label property)
+## read label dynamically by execute label property string.(contain calc in first of label property)
 
 ```javascript
 class Test3 extends Component {
