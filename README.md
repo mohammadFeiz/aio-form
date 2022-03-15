@@ -473,7 +473,7 @@ read text options dynamically by execute options string.(contain calc in first o
 ```
 ![alt text](/images/select.gif)
 
-## select (dynamic options options)
+## select (dynamic options)
 ```javascript
   class Test1 extends Component {
   constructor(props){
