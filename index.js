@@ -1,7 +1,5 @@
 "use strict";
 
-function _instanceof(left, right) { if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) { return !!right[Symbol.hasInstance](left); } else { return left instanceof right; } }
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -9,2012 +7,1818 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _reactVirtualDom = _interopRequireDefault(require("react-virtual-dom"));
-
-var _aioButton = _interopRequireDefault(require("aio-button"));
-
 var _react2 = require("@mdi/react");
 
 var _js = require("@mdi/js");
 
-var _jquery = _interopRequireDefault(require("jquery"));
-
 var _rRangeSlider = _interopRequireDefault(require("r-range-slider"));
 
-var _aioTable = _interopRequireDefault(require("aio-table"));
+var _aioButton = _interopRequireDefault(require("aio-button"));
 
 var _gahDatepicker = _interopRequireDefault(require("gah-datepicker"));
 
 var _aioValidation = _interopRequireDefault(require("aio-validation"));
 
+var _aioTable = _interopRequireDefault(require("aio-table"));
+
+var _reactVirtualDom = _interopRequireDefault(require("react-virtual-dom"));
+
 require("./index.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!_instanceof(instance, Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-var AIOFormContext = /*#__PURE__*/(0, _react.createContext)();
-
-var AIOForm = /*#__PURE__*/function (_Component) {
-  _inherits(AIOForm, _Component);
-
-  var _super = _createSuper(AIOForm);
-
-  function AIOForm(props) {
-    var _this;
-
-    _classCallCheck(this, AIOForm);
-
-    _this = _super.call(this, props);
-    _this.dom = /*#__PURE__*/(0, _react.createRef)();
-    _this.components = {
-      text: FormTextbox,
-      number: FormTextbox,
-      textarea: FormTextbox,
-      select: FormSelect,
-      multiselect: FormSelect,
-      datepicker: FormDatepicker,
-      message: FormMessage,
-      rangedatepicker: FormDatepicker,
-      slider: FormSlider,
-      rangeslider: FormSlider,
-      radio: FormCheck,
-      checklist: FormCheck,
-      checkbox: FormCheck,
-      table: FormTable,
-      list: FormList,
-      color: FormColor,
-      file: FormFile
+class AIOForm extends _react.Component {
+  constructor(props) {
+    super(props);
+    let {
+      model,
+      theme = {}
+    } = this.props;
+    this.state = {
+      initialModel: JSON.stringify(model),
+      model,
+      theme,
+      groupDic: {}
     };
-    var data = _this.props.data;
-    _this.state = {
-      splitterDictionary: {},
-      startData: JSON.stringify(data)
-    };
-    return _this;
   }
 
-  _createClass(AIOForm, [{
-    key: "getHeaderStyle",
-    value: function getHeaderStyle() {
-      var theme = this.props.theme;
-      return {
-        height: theme.headerHeight,
-        padding: theme.headerPadding !== undefined ? "0 ".concat(theme.headerPadding, "px") : undefined,
-        background: theme.headerBG,
-        color: theme.headerColor
-      };
-    }
-  }, {
-    key: "getBodyStyle",
-    value: function getBodyStyle() {
-      var theme = this.props.theme;
-      return {
-        padding: theme.bodyPadding,
-        color: theme.bodyColor,
-        background: theme.bodyBG
-      };
-    }
-  }, {
-    key: "getFooterStyle",
-    value: function getFooterStyle() {
-      var theme = this.props.theme;
-      var style = {
-        background: theme.footerBG,
-        height: theme.footerHeight
-      };
+  getModel() {
+    return this.props.onSubmit ? this.state.model : this.props.model;
+  }
 
-      if (theme.footerBorderColor) {
-        style.borderTop = "1px solid ".concat(theme.footerBorderColor);
-      }
+  getValue({
+    field,
+    def,
+    props = this.props,
+    input
+  }) {
+    let model = this.getModel(),
+        {
+      data = {}
+    } = this.props,
+        a;
 
-      return style;
-    }
-  }, {
-    key: "getFooterButtonStyle",
-    value: function getFooterButtonStyle() {
-      var theme = this.props.theme;
-      var style = {
-        height: theme.footerButtonHeight,
-        color: theme.footerBTNColor,
-        background: theme.footerBTNBG,
-        fontSize: theme.footerButtonFontSize
-      };
-
-      if (theme.footerBTNPadding !== undefined) {
-        style.padding = "0 ".concat(theme.footerBTNPadding, "px");
-      }
-
-      if (theme.footerBTNRound !== undefined) {
-        style.borderRadius = theme.footerBTNRound;
-      }
-
-      if (theme.footerBTNBorderWidth) {
-        style.border = "".concat(theme.footerBTNBorderWidth, "px solid ").concat(theme.footerBTNBorderColor);
-      }
-
-      return style;
-    }
-  }, {
-    key: "getSplitterStyle",
-    value: function getSplitterStyle() {
-      var theme = this.props.theme;
-      var style = {
-        height: theme.splitterHeight,
-        fontSize: theme.splitterFontSize,
-        color: theme.splitterColor,
-        background: theme.splitterBG
-      };
-
-      if (theme.splitterMargin !== undefined) {
-        style.margin = "".concat(theme.splitterMargin, "px 0");
-      }
-
-      return style;
-    }
-  }, {
-    key: "getHeaderLayout",
-    value: function getHeaderLayout() {
-      var _this2 = this;
-
-      var _this$props = this.props,
-          data = _this$props.data,
-          _this$props$header = _this$props.header,
-          header = _this$props$header === void 0 ? {} : _this$props$header,
-          _this$props$onClose = _this$props.onClose,
-          onClose = _this$props$onClose === void 0 ? function () {} : _this$props$onClose;
-
-      if (!header.title && !header.titleField) {
-        return {
-          html: ''
-        };
-      }
-
-      var titleField = header.titleField,
-          subtitleField = header.subtitleField,
-          title = header.title,
-          subtitle = header.subtitle;
-      var headerTitle, headerSubtitle;
-
-      if (titleField) {
-        headerTitle = data[titleField];
-      }
-
-      if (!headerTitle) {
-        headerTitle = title;
-      }
-
-      if (subtitleField) {
-        headerSubtitle = data[subtitleField];
-      }
-
-      if (!headerSubtitle) {
-        headerSubtitle = subtitle;
-      }
-
-      if (!headerTitle) {
-        return {
-          html: ''
-        };
-      }
-
-      return {
-        html: function html() {
-          return /*#__PURE__*/_react.default.createElement("div", {
-            className: "aio-form-header",
-            style: _this2.getHeaderStyle()
-          }, /*#__PURE__*/_react.default.createElement("div", {
-            className: "aio-form-header-title",
-            key: "title"
-          }, /*#__PURE__*/_react.default.createElement("div", {
-            className: "aio-form-header-uptitle"
-          }, headerTitle), headerSubtitle !== undefined && /*#__PURE__*/_react.default.createElement("div", {
-            className: "aio-form-header-subtitle"
-          }, headerSubtitle)), /*#__PURE__*/_react.default.createElement("div", {
-            className: "aio-form-header-icon",
-            onClick: onClose
-          }, /*#__PURE__*/_react.default.createElement(_react2.Icon, {
-            path: _js.mdiClose,
-            size: 0.8
-          })));
-        }
-      };
-    }
-  }, {
-    key: "onSubmit",
-    value: function onSubmit(data) {
-      var onSubmit = this.props.onSubmit;
-
-      if ((0, _jquery.default)(this.dom.current).find('.aio-form-error').length) {
-        alert('there is errors');
-      }
-
-      onSubmit(data);
-    }
-  }, {
-    key: "getOptions",
-    value: function getOptions(item) {
-      var data = this.props.data;
-      var options;
-
-      if (item.optionsField) {
-        options = data[item.optionsField];
-
-        if (!options) {
-          options = item.options;
+    if (typeof field === 'string') {
+      if (field.indexOf('.') !== -1 && (field.indexOf('model.') !== -1 || field.indexOf('props.') !== -1 || field.indexOf('input.') !== -1)) {
+        try {
+          a = eval(field);
+        } catch {
+          a = def;
         }
       } else {
-        options = item.options;
+        a = field;
       }
-
-      if (!Array.isArray(options)) {
-        options = [];
-      }
-
-      return options.map(function (o) {
-        if (_typeof(o) !== 'object') {
-          return {
-            text: o,
-            value: o
-          };
-        }
-
-        if (!item.textField) {
-          console.error('aio-form => missing textField');
-        }
-
-        if (!item.valueField) {
-          console.error('aio-form => missing valueField');
-        }
-
-        return {
-          text: o[item.textField],
-          value: o[item.valueField]
-        };
-      });
+    } else if (typeof field === 'function') {
+      return field();
+    } else {
+      a = field;
     }
-  }, {
-    key: "sortByRows",
-    value: function sortByRows(items) {
-      var res = {};
-      var result = [];
 
-      for (var i = 0; i < items.length; i++) {
-        if (items[i].type === 'splitter') {
-          var a = 'a' + Math.random();
-          res[a] = [items[i]];
-          result.push(res[a]);
-          continue;
-        }
-
-        var _items$i$rowId = items[i].rowId,
-            rowId = _items$i$rowId === void 0 ? 'a' + Math.random() : _items$i$rowId;
-
-        if (!res[rowId]) {
-          res[rowId] = [];
-          result.push(res[rowId]);
-        }
-
-        res[rowId].push(items[i]);
-      }
-
-      return result;
-    }
-  }, {
-    key: "getLabelStyle",
-    value: function getLabelStyle() {
-      var theme = this.props.theme;
-      var style = {
-        fontSize: theme.labelFontSize,
-        color: theme.labelColor,
-        width: theme.inline ? 120 : '100%',
-        height: theme.labelHeight
-      };
-
-      if (theme.labelPadding !== undefined) {
-        style.padding = "0 ".concat(theme.labelPadding, "px");
-      }
-
-      return style;
-    }
-  }, {
-    key: "getResultByConditions",
-    value: function getResultByConditions(conditions) {
-      var data = this.props.data;
-
-      for (var i = 0; i < conditions.length; i++) {
-        var _conditions$i = conditions[i],
-            operator = _conditions$i.operator,
-            value = _conditions$i.value,
-            field = _conditions$i.field,
-            type = _conditions$i.type;
-        var fieldValue = data[field];
-
-        if (fieldValue === undefined || value === undefined) {
-          return false;
-        }
-
-        if (Array.isArray(fieldValue)) {
-          fieldValue = fieldValue.length;
-        }
-
-        if (type === 'number') {
-          value = parseFloat(value);
-        }
-
-        if (type === 'boolean') {
-          value = JSON.parse(value);
-        }
-
-        if (operator === '=') {
-          if (fieldValue !== value) {
-            return false;
-          }
-        }
-
-        if (operator === '!=') {
-          if (fieldValue === value) {
-            return false;
-          }
-        }
-
-        if (operator === '<') {
-          if (fieldValue >= value) {
-            return false;
-          }
-        }
-
-        if (operator === '<=') {
-          if (fieldValue > value) {
-            return false;
-          }
-        }
-
-        if (operator === '>') {
-          if (fieldValue <= value) {
-            return false;
-          }
-        }
-
-        if (operator === '>=') {
-          if (fieldValue < value) {
-            return false;
-          }
-        }
-      }
-
-      return true;
-    }
-  }, {
-    key: "getItem",
-    value: function getItem(o) {
-      var _this3 = this;
-
-      var splitterDictionary = this.state.splitterDictionary;
-      var _this$props2 = this.props,
-          theme = _this$props2.theme,
-          data = _this$props2.data,
-          lang = _this$props2.lang;
-
-      if (o.type === 'splitter') {
-        splitterDictionary[o.id] = splitterDictionary[o.id] === undefined ? true : splitterDictionary[o.id];
-        return {
-          html: /*#__PURE__*/_react.default.createElement("div", {
-            style: this.getSplitterStyle(),
-            className: "aio-form-splitter",
-            onClick: function onClick() {
-              splitterDictionary[o.id] = !splitterDictionary[o.id];
-
-              _this3.setState({
-                splitterDictionary: splitterDictionary
-              });
-            }
-          }, /*#__PURE__*/_react.default.createElement("div", {
-            className: "aio-form-splitter-icon"
-          }, /*#__PURE__*/_react.default.createElement(_react2.Icon, {
-            path: splitterDictionary[o.id] === false ? _js.mdiPlusThick : _js.mdiMinusThick,
-            size: 0.6
-          })), o.text)
-        };
-      }
-
-      if (o.splitterId && splitterDictionary[o.splitterId] === false) {
-        return null;
-      }
-
-      if (o.show === false) {
-        return null;
-      }
-
-      if (o.type === 'table' && (!o.columns || !o.columns.length)) {
-        return null;
-      }
-
-      if (!o.conditions) {
-        o.conditions = [];
-      }
-
-      if (!this.getResultByConditions(o.conditions)) {
-        return null;
-      }
-
-      var label = o.editLabel || o.label || false;
-      var value = data[o.field];
-      var FormComponent = this.components[o.type];
-      var error = o.errors && o.errors.length ? (0, _aioValidation.default)({
-        value: value,
-        errors: o.errors,
-        label: label,
-        lang: lang,
-        translate: function translate(text) {
-          if (o.type === 'select' || item.type === 'radio') {
-            return o.options.filter(function (o) {
-              return o.value === text;
-            })[0].text;
-          }
-
-          return text;
-        }
-      }) : '';
-      return {
-        attrs: {
-          style: {
-            marginBottom: theme.inputMargin
-          },
-          className: 'aio-form-item'
-        },
-        column: [_defineProperty({}, !theme.inline ? 'column' : 'row', [{
-          show: label !== false,
-          html: /*#__PURE__*/_react.default.createElement("div", {
-            className: "aio-form-label",
-            style: this.getLabelStyle()
-          }, label)
-        }, {
-          flex: theme.inline ? 1 : undefined,
-          column: [{
-            html: function html() {
-              return /*#__PURE__*/_react.default.createElement(FormComponent, {
-                item: o
-              });
-            }
-          }, {
-            attrs: {
-              className: 'aio-form-error'
-            },
-            show: error !== '',
-            html: function html() {
-              return error;
-            }
-          }]
-        }])]
-      };
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this4 = this;
-
-      var _this$props3 = this.props,
-          data = _this$props3.data,
-          theme = _this$props3.theme,
-          items = _this$props3.items,
-          onChange = _this$props3.onChange,
-          lang = _this$props3.lang,
-          className = _this$props3.className,
-          footer = _this$props3.footer,
-          onClose = _this$props3.onClose,
-          _this$props3$style = _this$props3.style,
-          style = _this$props3$style === void 0 ? {} : _this$props3$style;
-      var startData = this.state.startData;
-      var headerLayout;
-
-      try {
-        headerLayout = this.getHeaderLayout();
-      } catch {
-        headerLayout = this.getHeaderLayout();
-      }
-
-      if (theme.bodyFontSize !== undefined) {
-        style.fontSize = theme.bodyFontSize;
-      }
-
-      return /*#__PURE__*/_react.default.createElement(AIOFormContext.Provider, {
-        value: {
-          data: data,
-          items: items,
-          theme: theme,
-          lang: lang,
-          onChange: onChange,
-          getOptions: this.getOptions.bind(this)
-        }
-      }, /*#__PURE__*/_react.default.createElement(_reactVirtualDom.default, {
-        layout: {
-          attrs: {
-            ref: this.dom,
-            className: 'aio-form' + (className ? ' ' + className : ''),
-            style: { ...theme,
-              direction: lang === 'fa' ? 'rtl' : 'ltr',
-              ...style
-            }
-          },
-          column: [headerLayout, {
-            flex: 1,
-            attrs: {
-              className: 'aio-form-body',
-              style: this.getBodyStyle()
-            },
-            column: this.sortByRows(items).map(function (item) {
-              return {
-                gap: 12,
-                row: item.map(function (o) {
-                  return { ..._this4.getItem(o),
-                    flex: o.rowSize ? undefined : 1,
-                    size: o.rowSize
-                  };
-                })
-              };
-            })
-          }, {
-            show: _typeof(footer) === 'object',
-            html: function html() {
-              return /*#__PURE__*/_react.default.createElement("div", {
-                className: "aio-form-footer",
-                style: _this4.getFooterStyle()
-              }, footer.onClose && /*#__PURE__*/_react.default.createElement("button", {
-                style: _this4.getFooterButtonStyle(),
-                onClick: function onClick() {
-                  return footer.onClose(data);
-                }
-              }, lang === 'fa' ? 'بستن' : 'close'), footer.reset && /*#__PURE__*/_react.default.createElement("button", {
-                style: _this4.getFooterButtonStyle(),
-                onClick: function onClick() {
-                  return onChange(JSON.parse(startData));
-                }
-              }, lang === 'fa' ? 'تنظیم مجدد' : 'reset'), footer.onSubmit && /*#__PURE__*/_react.default.createElement("button", {
-                style: _this4.getFooterButtonStyle(),
-                onClick: function onClick() {
-                  if ((0, _jquery.default)(_this4.dom.current).find('.aio-form-error').length) {
-                    return;
-                  }
-
-                  footer.onSubmit(data);
-                }
-              }, lang === 'fa' ? 'ارسال' : 'submit'));
-            }
-          }]
-        }
-      }));
-    }
-  }]);
-
-  return AIOForm;
-}(_react.Component);
-
-exports.default = AIOForm;
-AIOForm.defaultProps = {
-  theme: {},
-  data: {},
-  items: [],
-  onChange: function onChange() {},
-  lang: 'en'
-};
-
-var FormMessage = /*#__PURE__*/function (_Component2) {
-  _inherits(FormMessage, _Component2);
-
-  var _super2 = _createSuper(FormMessage);
-
-  function FormMessage() {
-    _classCallCheck(this, FormMessage);
-
-    return _super2.apply(this, arguments);
+    return a === undefined && def !== undefined ? def : a;
   }
 
-  _createClass(FormMessage, [{
-    key: "getStyle",
-    value: function getStyle() {
-      var theme = this.context.theme;
-      var style = {
-        width: '100%',
-        color: theme.messageColor,
-        fontSize: theme.messageFontSize || theme.bodyFontSize
-      };
-      return style;
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var item = this.props.item;
-      var data = this.context.data;
-      var message;
+  setValueByField(obj, field, value) {
+    //debugger;
+    field = field.replaceAll('[', '.');
+    field = field.replaceAll(']', '');
+    var fields = field.split('.');
+    var node = obj;
 
-      try {
-        message = data[item.messageField] || item.message;
-      } catch {
-        message = item.message;
-      }
-
-      return /*#__PURE__*/_react.default.createElement("div", {
-        style: this.getStyle(),
-        className: "aio-form-input aio-form-input-message"
-      }, message);
-    }
-  }]);
-
-  return FormMessage;
-}(_react.Component);
-
-_defineProperty(FormMessage, "contextType", AIOFormContext);
-
-var FormSelect = /*#__PURE__*/function (_Component3) {
-  _inherits(FormSelect, _Component3);
-
-  var _super3 = _createSuper(FormSelect);
-
-  function FormSelect() {
-    _classCallCheck(this, FormSelect);
-
-    return _super3.apply(this, arguments);
-  }
-
-  _createClass(FormSelect, [{
-    key: "getStyle",
-    value: function getStyle() {
-      var theme = this.context.theme;
-      var style = {
-        height: theme.inputHeight,
-        minHeight: theme.inputHeight,
-        width: '100%'
-      };
-
-      if (theme.inputBorderColor) {
-        style.border = "1px ".concat(theme.inputBorderType || 'solid', " ").concat(theme.inputBorderColor);
-      }
-
-      if (theme.inputBorderRadius !== undefined) {
-        style.borderRadius = theme.inputBorderRadius;
-      }
-
-      if (theme.inputBG) {
-        style.background = theme.inputBG;
-      }
-
-      if (theme.inputPadding !== undefined) {
-        style.padding = "0 ".concat(theme.inputPadding, "px");
-      }
-
-      return style;
-    }
-  }, {
-    key: "onChange",
-    value: function onChange(value) {
-      var _this$context = this.context,
-          data = _this$context.data,
-          onChange = _this$context.onChange;
-      var item = this.props.item;
-      data[item.field] = value;
-      onChange(data);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this5 = this;
-
-      var item = this.props.item;
-      var _this$context2 = this.context,
-          data = _this$context2.data,
-          theme = _this$context2.theme,
-          lang = _this$context2.lang,
-          getOptions = _this$context2.getOptions;
-      var value = data[item.field];
-      var props = {};
-
-      if (item.type === 'select') {
-        props.value = value;
-      }
-
-      if (item.type === 'multiselect') {
-        props.tagStyle = {
-          color: theme.tagColor,
-          background: theme.tagBG,
-          fontSize: theme.tagFontSize
-        };
-        props.values = value || [];
-        props.selectAll = true;
-      }
-
-      props.options = JSON.parse(JSON.stringify(getOptions(item)));
-      props.search = props.options.length > 12;
-      return /*#__PURE__*/_react.default.createElement(_aioButton.default, _extends({}, item, props, {
-        rtl: lang === 'fa',
-        style: this.getStyle(),
-        className: "aio-form-input aio-form-input-".concat(item.type),
-        onChange: function onChange(val) {
-          return _this5.onChange(val);
-        },
-        popupStyle: {
-          maxHeight: 400
-        },
-        popupWidth: "fit"
-      }));
-    }
-  }]);
-
-  return FormSelect;
-}(_react.Component);
-
-_defineProperty(FormSelect, "contextType", AIOFormContext);
-
-var FormCheck = /*#__PURE__*/function (_Component4) {
-  _inherits(FormCheck, _Component4);
-
-  var _super4 = _createSuper(FormCheck);
-
-  function FormCheck() {
-    _classCallCheck(this, FormCheck);
-
-    return _super4.apply(this, arguments);
-  }
-
-  _createClass(FormCheck, [{
-    key: "onChange",
-    value: function onChange(value) {
-      var _this$context3 = this.context,
-          data = _this$context3.data,
-          onChange = _this$context3.onChange;
-      var item = this.props.item;
-      data[item.field] = value;
-      onChange(data);
-    }
-  }, {
-    key: "getStyle",
-    value: function getStyle() {
-      var theme = this.context.theme;
-      var style = {
-        minHeight: theme.inputHeight,
-        padding: 0
-      };
-
-      if (theme.inputBorderColor) {
-        style.border = "1px ".concat(theme.inputBorderType || 'solid', " ").concat(theme.inputBorderColor);
-      }
-
-      if (theme.inputBorderRadius !== undefined) {
-        style.borderRadius = theme.inputBorderRadius;
-      }
-
-      if (theme.inputBG) {
-        style.background = theme.inputBG;
-      }
-
-      return style;
-    }
-  }, {
-    key: "getIcon",
-    value: function getIcon() {
-      var theme = this.context.theme;
-      return {
-        size: [theme.checkboxOuterSize || 12, theme.checkboxInnerSize || 10, theme.checkboxBorderWidth === undefined ? 1 : theme.checkboxBorderWidth],
-        color: [theme.checkboxOuterColor || 'dodgerblue', theme.checkboxInnerColor || 'dodgerblue']
-      };
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this6 = this;
-
-      var item = this.props.item;
-      var _this$context4 = this.context,
-          data = _this$context4.data,
-          theme = _this$context4.theme,
-          getOptions = _this$context4.getOptions;
-      var value = data[item.field];
-      var props = { ...item,
-        style: this.getStyle(),
-        className: "aio-form-input aio-form-input-".concat(item.type),
-        optionStyle: {
-          height: theme.inputHeight
-        },
-        icon: this.getIcon()
-      };
-
-      if (theme.inputPadding !== undefined) {
-        props.optionStyle.padding = "0 ".concat(theme.inputPadding, "px");
-      }
-
-      if (item.type === 'radio') {
-        props.optionWidth = item.optionWidth || 'fit-content';
-        props.type = 'radio';
-        props.options = getOptions(item);
-
-        props.onChange = function (val) {
-          return _this6.onChange(val);
-        };
-
-        props.value = value;
-      } else if (item.type === 'checklist') {
-        props.optionWidth = item.optionWidth || 'fit-content';
-        props.type = 'checklist';
-
-        if (!Array.isArray(value)) {
-          props.values = [];
+    for (let i = 0; i < fields.length - 1; i++) {
+      if (node[fields[i]] === undefined) {
+        if (isNaN(parseFloat(fields[i + 1]))) {
+          node[fields[i]] = {};
         } else {
-          props.values = value;
+          node[fields[i]] = [];
         }
 
-        props.value = getOptions({ ...item,
-          options: value
-        });
-
-        props.onChange = function (val, index) {
-          value[index][item.valueField] = val;
-
-          _this6.onChange(value);
-        };
-      } else if (item.type === 'checkbox') {
-        props.optionWidth = '100%';
-        props.type = 'checklist';
-        props.value = [{
-          text: item.text,
-          value: value
-        }];
-
-        props.onChange = function (val) {
-          _this6.onChange(val);
-        };
-      }
-
-      return /*#__PURE__*/_react.default.createElement(_aioButton.default, props);
-    }
-  }]);
-
-  return FormCheck;
-}(_react.Component);
-
-_defineProperty(FormCheck, "contextType", AIOFormContext);
-
-var FormTextbox = /*#__PURE__*/function (_Component5) {
-  _inherits(FormTextbox, _Component5);
-
-  var _super5 = _createSuper(FormTextbox);
-
-  function FormTextbox(props) {
-    var _this7;
-
-    _classCallCheck(this, FormTextbox);
-
-    _this7 = _super5.call(this, props);
-    _this7.state = {
-      textPreview: '',
-      prev: ''
-    };
-    return _this7;
-  }
-
-  _createClass(FormTextbox, [{
-    key: "onChange",
-    value: function onChange(value) {
-      var _this8 = this;
-
-      this.setState({
-        textPreview: value
-      });
-      clearTimeout(this.timeout);
-      this.timeout = setTimeout(function () {
-        var _this8$context = _this8.context,
-            data = _this8$context.data,
-            onChange = _this8$context.onChange;
-        var item = _this8.props.item;
-
-        if (item.type === 'number') {
-          value = parseFloat(value);
-
-          if (isNaN(value)) {
-            value = '';
-          }
-        }
-
-        data[item.field] = value;
-        onChange(data);
-      }, 500);
-    }
-  }, {
-    key: "getStyle",
-    value: function getStyle() {
-      var theme = this.context.theme;
-      var item = this.props.item;
-      var style = {};
-
-      if (item.type !== 'textarea') {
-        style = {
-          height: theme.inputHeight,
-          minHeight: theme.inputHeight,
-          padding: theme.inputPadding !== undefined ? "0 ".concat(theme.inputPadding, "px") : undefined
-        };
+        node = node[fields[i]];
       } else {
-        style = {
-          padding: theme.inputPadding !== undefined ? theme.inputPadding : undefined
-        };
+        node = node[fields[i]];
       }
-
-      if (theme.inputBorderColor) {
-        style.border = "1px ".concat(theme.inputBorderType || 'solid', " ").concat(theme.inputBorderColor);
-      }
-
-      if (theme.inputBorderRadius !== undefined) {
-        style.borderRadius = theme.inputBorderRadius;
-      }
-
-      if (theme.inputBG) {
-        style.background = theme.inputBG;
-      }
-
-      return style;
     }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this9 = this;
 
-      var item = this.props.item;
-      var data = this.context.data;
-      var _this$state = this.state,
-          textPreview = _this$state.textPreview,
-          prev = _this$state.prev;
-      var value = data[item.field];
-
-      if (prev !== value) {
-        setTimeout(function () {
-          return _this9.setState({
-            prev: value,
-            textPreview: value
-          });
-        }, 0);
-      }
-
-      var props = { ...item,
-        style: this.getStyle(),
-        className: "aio-form-input aio-form-input-".concat(item.type),
-        value: textPreview,
-        onChange: function onChange(e) {
-          return _this9.onChange(e.target.value);
-        }
-      };
-
-      if (item.type === 'textarea') {
-        return /*#__PURE__*/_react.default.createElement("textarea", props);
-      }
-
-      return /*#__PURE__*/_react.default.createElement("input", props);
-    }
-  }]);
-
-  return FormTextbox;
-}(_react.Component);
-
-_defineProperty(FormTextbox, "contextType", AIOFormContext);
-
-var FormList = /*#__PURE__*/function (_Component6) {
-  _inherits(FormList, _Component6);
-
-  var _super6 = _createSuper(FormList);
-
-  function FormList(props) {
-    var _this10;
-
-    _classCallCheck(this, FormList);
-
-    _this10 = _super6.call(this, props);
-    _this10.state = {
-      preview: [],
-      prev: '[]'
-    };
-    return _this10;
+    node[fields[fields.length - 1]] = value;
+    return obj;
   }
 
-  _createClass(FormList, [{
-    key: "change",
-    value: function change(preview) {
-      var _this$context5 = this.context,
-          data = _this$context5.data,
-          onChange = _this$context5.onChange;
-      var item = this.props.item;
-      data[item.field] = preview;
-      onChange(data);
-    }
-  }, {
-    key: "onChange",
-    value: function onChange(preview, realTime) {
-      var _this11 = this;
+  setValue(field, value, model) {
+    return this.setValueByField(model, field, value);
+  }
 
+  async onChange(input, value) {
+    let {
+      onChange,
+      onSubmit
+    } = this.props;
+
+    if (onSubmit) {
       this.setState({
-        preview: preview
+        model: this.setValue(input.field, value, {
+          model: this.getModel()
+        }).model
       });
-
-      if (realTime) {
-        this.change(preview);
-      } else {
-        clearTimeout(this.timeout);
-        this.timeout = setTimeout(function () {
-          return _this11.change(preview);
-        }, 500);
+    } else {
+      if (input.onChange) {
+        return await input.onChange(value);
       }
+
+      await onChange(this.setValue(input.field, value, {
+        model: this.getModel()
+      }).model);
     }
-  }, {
-    key: "getStyle",
-    value: function getStyle() {
-      var theme = this.context.theme;
-      var style = {
-        minHeight: theme.inputHeight
-      };
-
-      if (theme.inputBorderColor) {
-        style.border = "1px ".concat(theme.inputBorderType || 'solid', " ").concat(theme.inputBorderColor);
-      }
-
-      if (theme.inputBorderRadius !== undefined) {
-        style.borderRadius = theme.inputBorderRadius;
-      }
-
-      if (theme.inputBG) {
-        style.background = theme.inputBG;
-      }
-
-      return style;
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this12 = this;
-
-      var _this$context6 = this.context,
-          data = _this$context6.data,
-          theme = _this$context6.theme;
-      var item = this.props.item;
-      var _this$state2 = this.state,
-          preview = _this$state2.preview,
-          prev = _this$state2.prev;
-      var value = data[item.field] || [];
-
-      if (JSON.stringify(value) !== prev) {
-        this.setState({
-          preview: value,
-          prev: JSON.stringify(value)
-        });
-      }
-
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: "aio-form-input aio-form-input-list",
-        style: this.getStyle()
-      }, preview.map(function (o, i) {
-        return /*#__PURE__*/_react.default.createElement("div", {
-          key: i,
-          style: {
-            height: theme.inputHeight
-          },
-          className: "aio-form-input-list-item"
-        }, /*#__PURE__*/_react.default.createElement("input", {
-          disabled: item.disabled,
-          type: "text",
-          value: o,
-          onChange: function onChange(e) {
-            preview[i] = e.target.value;
-
-            _this12.onChange(preview);
-          }
-        }), /*#__PURE__*/_react.default.createElement("div", {
-          className: "aio-form-input-list-remove",
-          onClick: function onClick() {
-            preview.pop();
-
-            _this12.onChange(preview, true);
-          }
-        }, /*#__PURE__*/_react.default.createElement(_react2.Icon, {
-          path: _js.mdiClose,
-          size: 0.7
-        })));
-      }), /*#__PURE__*/_react.default.createElement("div", {
-        key: "add",
-        style: {
-          height: theme.tableRowHeight
-        },
-        className: "aio-form-input-list-add",
-        onClick: function onClick() {
-          preview.push('');
-
-          _this12.onChange(preview, true);
-        }
-      }, /*#__PURE__*/_react.default.createElement(_react2.Icon, {
-        path: _js.mdiPlusThick,
-        size: 0.8
-      })));
-    }
-  }]);
-
-  return FormList;
-}(_react.Component);
-
-_defineProperty(FormList, "contextType", AIOFormContext);
-
-var FormDatepicker = /*#__PURE__*/function (_Component7) {
-  _inherits(FormDatepicker, _Component7);
-
-  var _super7 = _createSuper(FormDatepicker);
-
-  function FormDatepicker() {
-    _classCallCheck(this, FormDatepicker);
-
-    return _super7.apply(this, arguments);
   }
 
-  _createClass(FormDatepicker, [{
-    key: "onChange",
-    value: function onChange(value) {
-      var _this$context7 = this.context,
-          data = _this$context7.data,
-          onChange = _this$context7.onChange;
-      var item = this.props.item;
-      data[item.field] = value;
-      onChange(data);
-    }
-  }, {
-    key: "getStyle",
-    value: function getStyle() {
-      var theme = this.context.theme;
-      var style = {
-        height: theme.inputHeight,
-        minHeight: theme.inputHeight,
-        width: '100%'
-      };
-
-      if (theme.inputPadding !== undefined) {
-        style.padding = "0 ".concat(theme.inputPadding, "px");
-      }
-
-      if (theme.inputBorderColor) {
-        style.border = "1px ".concat(theme.inputBorderType || 'solid', " ").concat(theme.inputBorderColor);
-      }
-
-      if (theme.inputBorderRadius !== undefined) {
-        style.borderRadius = theme.inputBorderRadius;
-      }
-
-      if (theme.inputBG) {
-        style.background = theme.inputBG;
-      }
-
-      return style;
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this13 = this;
-
-      var item = this.props.item;
-      var data = this.context.data;
-      var value = data[item.field] || [];
-      var props = { ...item,
-        style: this.getStyle(),
-        className: 'aio-form-input aio-form-input-datepicker',
-        icon: /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_react2.Icon, {
-          path: _js.mdiCalendarBlankOutline,
-          size: 0.7
-        }), /*#__PURE__*/_react.default.createElement("div", {
-          style: {
-            width: 6
-          }
-        }))
-      };
-
-      if (item.type === 'rangedatepicker') {
-        props.type = 'range';
-        props.start = {
-          value: value[0],
-          onChange: function onChange(_ref2) {
-            var dateString = _ref2.dateString;
-            return _this13.onChange([dateString, value[1]]);
-          }
-        };
-        props.end = {
-          value: value[1],
-          onChange: function onChange(_ref3) {
-            var dateString = _ref3.dateString;
-            return _this13.onChange([value[0], dateString]);
-          }
-        };
-      } else if (item.type === 'datepicker') {
-        props.value = value;
-
-        props.onChange = function (_ref4) {
-          var dateString = _ref4.dateString;
-          return _this13.onChange(dateString);
-        };
-      }
-
-      return /*#__PURE__*/_react.default.createElement(_gahDatepicker.default, props);
-    }
-  }]);
-
-  return FormDatepicker;
-}(_react.Component);
-
-_defineProperty(FormDatepicker, "contextType", AIOFormContext);
-
-var FormSlider = /*#__PURE__*/function (_Component8) {
-  _inherits(FormSlider, _Component8);
-
-  var _super8 = _createSuper(FormSlider);
-
-  function FormSlider() {
-    _classCallCheck(this, FormSlider);
-
-    return _super8.apply(this, arguments);
+  getInput_text({
+    className,
+    value,
+    onChange,
+    options,
+    disabled,
+    style,
+    placeholder
+  }, input) {
+    let props = { ...input.attrs,
+      autoHeight: input.autoHeight,
+      type: input.type,
+      value,
+      className,
+      onChange,
+      options,
+      disabled,
+      style,
+      placeholder,
+      options,
+      optionText: input.optionText,
+      optionValue: input.optionValue
+    };
+    return /*#__PURE__*/_react.default.createElement(Input, props);
   }
 
-  _createClass(FormSlider, [{
-    key: "onChange",
-    value: function onChange(value) {
-      var _this$context8 = this.context,
-          data = _this$context8.data,
-          onChange = _this$context8.onChange;
-      var item = this.props.item;
-      data[item.field] = value;
-      onChange(data);
-    }
-  }, {
-    key: "getSliderStyle",
-    value: function getSliderStyle(value) {
-      var theme = this.context.theme;
+  getInput_number(obj, input) {
+    return this.getInput_text(obj, input);
+  }
+
+  getInput_password(obj, input) {
+    return this.getInput_text(obj, input);
+  }
+
+  getInput_textarea(obj, input) {
+    return this.getInput_text(obj, input);
+  }
+
+  getInput_color(obj, input) {
+    return this.getInput_text(obj, input);
+  }
+
+  getInput_checkbox({
+    className,
+    onChange,
+    value,
+    disabled,
+    style,
+    text,
+    subtext,
+    theme
+  }, input) {
+    let props = {
+      disabled,
+      style,
+      value,
+      subtext: input.subText,
+      text,
+      subtext,
+      onChange: value => onChange(!value),
+      className,
+      iconSize: theme.checkIconSize,
+      iconColor: theme.checkIconColor
+    };
+    return /*#__PURE__*/_react.default.createElement(_aioButton.default, _extends({}, props, {
+      type: "checkbox"
+    }));
+  }
+
+  getInput_checklist({
+    className,
+    options: Options,
+    disabled,
+    style,
+    theme
+  }, input) {
+    let options = Options.map(o => {
+      let model = this.getModel(),
+          value = this.getValue({
+        field: o.field
+      }),
+          text = o.text;
       return {
-        lineStyle: function lineStyle() {
-          return {
-            height: theme.sliderThickness,
-            background: theme.sliderEmptyColor
-          };
+        text,
+        value,
+        onChange: (val, obj) => {
+          this.onChange({
+            field: o.field,
+            onChange: o.onChange
+          }, !val);
         },
-        pointStyle: function pointStyle() {
-          return {
-            background: theme.sliderBTNBG,
-            width: theme.sliderButtonSize,
-            height: theme.sliderButtonSize
-          };
-        },
-        fillStyle: function fillStyle(index) {
-          if (value.length === 1 && index === 0) {
-            return {
-              background: theme.sliderFillColor || 'dodgerblue',
-              height: theme.sliderThickness
-            };
-          }
-
-          if (value.length === 2 && index === 1) {
-            return {
-              background: theme.sliderFillColor || 'dodgerblue',
-              height: theme.sliderThickness
-            };
-          }
-        }
+        ...o
       };
-    }
-  }, {
-    key: "getStyle",
-    value: function getStyle() {
-      var theme = this.context.theme;
-      var style = {
-        height: theme.inputHeight,
-        minHeight: theme.inputHeight
-      };
-
-      if (theme.inputBorderColor) {
-        style.border = "1px ".concat(theme.inputBorderType || 'solid', " ").concat(theme.inputBorderColor);
-      }
-
-      if (theme.inputBorderRadius !== undefined) {
-        style.borderRadius = theme.inputBorderRadius;
-      }
-
-      if (theme.inputBG) {
-        style.background = theme.inputBG;
-      }
-
-      if (theme.sliderPadding !== undefined) {
-        style.padding = "0 ".concat(theme.sliderPadding, "px");
-      }
-
-      return style;
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this14 = this;
-
-      var item = this.props.item;
-      var _this$context9 = this.context,
-          data = _this$context9.data,
-          lang = _this$context9.lang;
-      var _item$start = item.start,
-          start = _item$start === void 0 ? 0 : _item$start,
-          _item$end = item.end,
-          end = _item$end === void 0 ? 100 : _item$end,
-          _item$step = item.step,
-          step = _item$step === void 0 ? 1 : _item$step,
-          disabled = item.disabled,
-          _item$suffix = item.suffix,
-          suffix = _item$suffix === void 0 ? '' : _item$suffix;
-      var value = data[item.field] || [];
-
-      if (!Array.isArray(value)) {
-        value = [value];
-      }
-
-      if (item.type === 'rangeslider') {
-        if (value.length !== 2) {
-          value = [0, 0];
-        }
-      }
-
-      if (item.type === 'slider') {
-        if (value.length === 0) {
-          value = [0];
-        }
-      }
-
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: "aio-form-input aio-form-input-slider",
-        style: this.getStyle()
-      }, value.length > 1 && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
-        className: "aio-form-slider-value"
-      }, value[0] + ' ' + suffix), /*#__PURE__*/_react.default.createElement("div", {
-        style: {
-          width: 6
-        }
-      })), /*#__PURE__*/_react.default.createElement(_rRangeSlider.default, _extends({}, this.getSliderStyle(value), {
-        disabled: disabled,
-        start: start,
-        end: end,
-        step: step,
-        points: value,
-        showValue: false,
-        direction: lang === 'fa' ? 'left' : 'right',
-        onChange: function onChange(points) {
-          if (points.length === 1) {
-            _this14.onChange(points[0]);
-          } else {
-            _this14.onChange(points);
-          }
-        }
-      })), /*#__PURE__*/_react.default.createElement("div", {
-        style: {
-          width: 6
-        }
-      }), /*#__PURE__*/_react.default.createElement("div", {
-        className: "aio-form-slider-value"
-      }, value[1] === undefined ? value[0] + ' ' + suffix : value[1] + ' ' + suffix));
-    }
-  }]);
-
-  return FormSlider;
-}(_react.Component);
-
-_defineProperty(FormSlider, "contextType", AIOFormContext);
-
-var FormTable = /*#__PURE__*/function (_Component9) {
-  _inherits(FormTable, _Component9);
-
-  var _super9 = _createSuper(FormTable);
-
-  function FormTable() {
-    _classCallCheck(this, FormTable);
-
-    return _super9.apply(this, arguments);
+    });
+    let {
+      input: inputTheme = {}
+    } = theme;
+    let props = {
+      options,
+      disabled,
+      style,
+      optionSubtext: input.optionSubtext,
+      className,
+      options,
+      optionClassName: '"aio-form-input"',
+      optionStyle: () => {
+        return {
+          width: input.optionWidth || 'fit-content',
+          height: inputTheme.height,
+          padding: inputTheme.padding,
+          background: 'none'
+        };
+      },
+      optionIconSize: theme.checkIconSize,
+      optionIconColor: theme.checkIconColor
+    };
+    return /*#__PURE__*/_react.default.createElement(_aioButton.default, _extends({}, props, {
+      type: "checklist"
+    }));
   }
 
-  _createClass(FormTable, [{
-    key: "onChange",
-    value: function onChange(model) {
-      var _this$context10 = this.context,
-          data = _this$context10.data,
-          onChange = _this$context10.onChange;
-      var item = this.props.item;
-      data[item.field] = model;
-      onChange(data);
-    }
-  }, {
-    key: "getAddButton",
-    value: function getAddButton() {
-      var _this15 = this;
+  getInput_radio({
+    value,
+    onChange,
+    options,
+    disabled,
+    style,
+    className,
+    theme
+  }, input) {
+    let {
+      input: inputTheme = {}
+    } = theme;
+    let props = {
+      options,
+      value,
+      onChange,
+      disabled,
+      style,
+      optionSubtext: input.optionSubtext,
+      optionText: input.optionText,
+      optionValue: input.optionValue,
+      className,
+      optionClassName: '"aio-form-input"',
+      optionStyle: () => {
+        return {
+          width: input.optionWidth || 'fit-content',
+          height: inputTheme.height,
+          padding: inputTheme.padding,
+          background: 'none'
+        };
+      },
+      optionIconSize: theme.checkIconSize,
+      optionIconColor: theme.checkIconColor
+    };
+    return /*#__PURE__*/_react.default.createElement(_aioButton.default, _extends({}, props, {
+      type: "radio"
+    }));
+  }
 
-      var item = this.props.item;
-      return {
-        text: /*#__PURE__*/_react.default.createElement(_react2.Icon, {
-          path: _js.mdiPlusThick,
-          size: 0.6
-        }),
-        onClick: function onClick() {
-          return _this15.add();
-        },
-        style: {
-          background: 'none',
-          color: 'inherit',
-          padding: 0
-        },
-        disabled: item.disabled
-      };
-    }
-  }, {
-    key: "add",
-    value: function add() {
-      var item = this.props.item;
-      var data = this.context.data;
-      var model = data[item.field] || [];
-      var obj = {};
+  getInput_datepicker({
+    value,
+    onChange,
+    disabled,
+    style,
+    className,
+    placeholder,
+    theme
+  }, input) {
+    let {
+      datepicker = {}
+    } = theme;
+    let props = {
+      value,
+      onChange: ({
+        dateString
+      }) => onChange(dateString),
+      disabled,
+      style,
+      placeHolder: placeholder,
+      theme: [datepicker.color1, datepicker.color2],
+      className,
+      calendarType: input.calendarType,
+      unit: input.unit,
+      onClear: input.onClear ? () => onChange(false) : undefined
+    };
+    return /*#__PURE__*/_react.default.createElement(_gahDatepicker.default, props);
+  }
 
-      for (var i = 0; i < item.columns.length; i++) {
-        var _item$columns$i = item.columns[i],
-            field = _item$columns$i.field,
-            type = _item$columns$i.type,
-            options = _item$columns$i.options;
+  getInput_slider({
+    className,
+    value = 0,
+    onChange,
+    disabled,
+    style,
+    start,
+    end,
+    step,
+    theme
+  }, input) {
+    let editValue;
 
-        if (field) {
-          if (field.indexOf('*') !== -1) {
-            continue;
-          }
+    if (typeof input.editValue === 'string') {
+      let str = input.editValue;
 
-          if (field.indexOf('/') !== -1) {
-            continue;
-          }
-
-          if (field.indexOf('+') !== -1) {
-            continue;
-          }
-
-          if (field.indexOf('-') !== -1) {
-            continue;
-          }
-        }
-
-        var value = void 0;
-
-        if (type === 'text') {
-          value = '';
-        } else if (type === 'number') {
-          value = 0;
-        } else if (type === 'select') {
-          value = options[0].value;
-        }
-
-        obj[field] = value;
+      if (str.indexOf('calc ') === 0) {
+        str = str.slice(5, str.length);
       }
 
-      model.push(obj);
-      this.onChange(model);
-    }
-  }, {
-    key: "getToolbarItems",
-    value: function getToolbarItems() {
-      var item = this.props.item;
-      var toolbarItems = [];
+      editValue = value => {
+        let res;
 
-      if (item.addable !== false) {
-        toolbarItems.push(this.getAddButton());
-      }
-
-      return toolbarItems;
-    }
-  }, {
-    key: "getColumnValue",
-    value: function getColumnValue(row, _ref5) {
-      var field = _ref5.field;
-
-      if (field.indexOf('*') !== -1) {
-        field = field.replaceAll(' ', '');
-        var fields = field.split('*');
-        var res = 1;
-
-        for (var i = 0; i < fields.length; i++) {
-          var a = row[fields[i]];
-
-          if (isNaN(a)) {
-            a = 1;
-          }
-
-          res *= a;
+        try {
+          eval(`res = ${str}`);
+        } catch {
+          res = value;
         }
 
         return res;
-      }
-
-      return row[field];
-    }
-  }, {
-    key: "getColumns",
-    value: function getColumns(model) {
-      var _this16 = this;
-
-      var item = this.props.item;
-      var lang = this.context.lang;
-      this.sum = {
-        isSum: true
       };
-      this.isThereSum = false;
-      var result = item.columns.map(function (column) {
-        if (column.sum) {
-          _this16.isThereSum = true;
+    } else {
+      editValue = input.editValue;
+    }
+
+    let props = {
+      className,
+      value,
+      onChange,
+      start,
+      end,
+      step,
+      disabled,
+      style,
+      editValue,
+      padding: input.padding,
+      theme
+    };
+    return /*#__PURE__*/_react.default.createElement(Slider, props);
+  }
+
+  getInput_select({
+    className,
+    value,
+    onChange,
+    options,
+    disabled,
+    style,
+    text
+  }, input) {
+    let props = {
+      options,
+      value,
+      onChange,
+      className,
+      search: input.search,
+      disabled,
+      style,
+      optionText: input.optionText,
+      optionValue: input.optionValue,
+      optionBefore: input.optionBefore,
+      optionAfter: input.optionAfter,
+      optionStyle: input.optionStyle,
+      text,
+      before: input.before,
+      optionSubtext: input.optionSubtext
+    };
+    return /*#__PURE__*/_react.default.createElement(_aioButton.default, _extends({}, props, {
+      type: "select",
+      popupWidth: "fit",
+      popupAttrs: {
+        style: {
+          maxHeight: 400
         }
+      }
+    }));
+  }
 
-        var a = { ...column,
-          getValue: function getValue(row) {
-            if (row.isSum) {
-              return _this16.sum[column.field];
-            }
-
-            var a = _this16.getColumnValue(row, column);
-
-            if (column.sum) {
-              if (row._index === 0) {
-                _this16.sum[column.field] = 0;
-              }
-
-              _this16.sum[column.field] += isNaN(a) ? 0 : a;
-            }
-
-            return a;
-          }
-        };
-
-        a.before = function (row) {
-          return row.isSum && column.sum ? (lang === 'fa' ? 'مجموع' : 'Total') + ' : ' : undefined;
-        };
-
-        if (['text', 'number', 'select'].indexOf(column.type) !== -1) {
-          a.inlineEdit = {
-            type: column.type,
-            options: column.options,
-            disabled: column.disabled,
-            onChange: function onChange(row, val) {
-              if (!model[row._index]) {
-                model[row._index] = {};
-              }
-
-              model[row._index][column.field] = val;
-
-              _this16.onChange(model);
-            }
-          };
-
-          a.inlineEdit.disabled = function (row) {
-            if (column.disabled) {
-              return true;
-            }
-
-            if (row.isSum) {
-              return true;
-            }
-
-            if (column.field.indexOf('*') !== -1) {
-              return true;
-            }
-
-            if (column.field.indexOf('/') !== -1) {
-              return true;
-            }
-
-            if (column.field.indexOf('+') !== -1) {
-              return true;
-            }
-
-            if (column.field.indexOf('-') !== -1) {
-              return true;
-            }
-
-            return false;
-          };
+  getInput_multiselect({
+    className,
+    value,
+    onChange,
+    options,
+    disabled,
+    style,
+    text,
+    subtext,
+    theme
+  }, input) {
+    let props = {
+      className,
+      value,
+      onChange,
+      options,
+      text,
+      subtext,
+      disabled,
+      search: input.search,
+      style,
+      popupWidth: 'fit',
+      optionText: input.optionText,
+      optionValue: input.optionValue,
+      optionBefore: input.optionBefore,
+      optionAfter: input.optionAfter,
+      text,
+      before: input.before,
+      optionSubtext: input.optionSubtext,
+      optionStyle: input.optionStyle,
+      optionIconSize: theme.checkIconSize,
+      optionIconColor: theme.checkIconColor,
+      optionTagAttrs: {
+        style: { ...theme.tag
         }
+      }
+    };
+    return /*#__PURE__*/_react.default.createElement(_aioButton.default, _extends({}, props, {
+      type: "multiselect",
+      popupAttrs: {
+        style: {
+          maxHeight: 400
+        }
+      }
+    }));
+  }
 
-        return a;
-      });
-      result.push({
-        title: '',
-        width: 36,
-        template: function template(row) {
-          if (row.isSum) {
-            return '';
-          }
+  getInput_table({
+    className,
+    value,
+    onChange,
+    disabled,
+    style,
+    columns,
+    theme
+  }, input) {
+    let props = {
+      attrs: input.attrs,
+      className,
+      value,
+      onChange,
+      columns,
+      addable: input.addable,
+      rowNumber: input.rowNumber,
+      disabled,
+      style,
+      theme
+    };
+    return /*#__PURE__*/_react.default.createElement(Table, _extends({}, props, {
+      getValue: this.getValue.bind(this)
+    }));
+  }
 
-          return /*#__PURE__*/_react.default.createElement(_react2.Icon, {
-            path: _js.mdiClose,
-            size: 0.6,
-            onClick: function onClick() {
-              model.splice(row._index, 1);
+  getInput_file({
+    className,
+    value,
+    onChange,
+    disabled,
+    style,
+    text
+  }, input) {
+    let props = {
+      className,
+      value,
+      onChange,
+      disabled,
+      style,
+      text
+    };
+    return /*#__PURE__*/_react.default.createElement(File, _extends({}, props, {
+      getValue: this.getValue.bind(this)
+    }));
+  }
 
-              _this16.onChange(model);
+  getInput_group(obj, input) {
+    let {
+      attrs = {}
+    } = input;
+    let {
+      groupDic
+    } = this.state;
+    let {
+      theme = {}
+    } = obj;
+    let {
+      group = {}
+    } = theme;
+    groupDic[input.id] = groupDic[input.id] === undefined ? true : groupDic[input.id];
+    let open = groupDic[input.id];
+    return /*#__PURE__*/_react.default.createElement("div", _extends({}, attrs, {
+      style: { ...group,
+        ...attrs.style
+      },
+      className: 'aio-form-group' + (attrs.className ? ' ' + attrs.className : ''),
+      onClick: () => {
+        groupDic[input.id] = !groupDic[input.id];
+        this.setState({
+          groupDic
+        });
+      }
+    }), /*#__PURE__*/_react.default.createElement("div", null, input.text), /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        flex: 1
+      }
+    }), /*#__PURE__*/_react.default.createElement("div", {
+      className: "aio-form-group-icon"
+    }, /*#__PURE__*/_react.default.createElement("svg", {
+      viewBox: "0 0 24 24",
+      role: "presentation",
+      style: {
+        transform: `rotate(${open ? '180' : '0'}deg)`
+      }
+    }, /*#__PURE__*/_react.default.createElement("path", {
+      d: "M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z",
+      style: {
+        fill: 'currentcolor'
+      }
+    }))));
+  }
+
+  getInput_message(obj, input) {
+    let {
+      attrs = {}
+    } = input;
+    let message = this.getValue({
+      field: input.message
+    });
+    return /*#__PURE__*/_react.default.createElement("div", _extends({}, attrs, {
+      className: 'aio-form-input-message' + (attrs.className ? ' ' + attrs.className : '')
+    }), message || obj.value);
+  }
+
+  getInput_html(obj, input) {
+    return input.html(this.getModel, this.props.onSubmit ? model => this.setState({
+      model
+    }) : undefined);
+  }
+
+  getFix(input, rtl, type) {
+    let fix_props = this.props[type + 'Attrs'] || {};
+    let fix_input = input[type + 'Attrs'] || {};
+    let attrs = { ...fix_props,
+      ...fix_input
+    };
+    let {
+      onClick = () => {}
+    } = attrs;
+    let value = this.getValue({
+      field: input[type]
+    });
+
+    if (value === undefined) {
+      return null;
+    }
+
+    return /*#__PURE__*/_react.default.createElement("div", _extends({}, attrs, {
+      onClick: () => onClick(input),
+      className: `aio-form-${type}` + (rtl ? ' rtl' : '') + (attrs.className ? ' ' + attrs.className : '')
+    }), value);
+  }
+
+  getInputTheme(input) {
+    let {
+      theme: stateTheme = {}
+    } = this.state;
+    let {
+      theme: inputTheme = {}
+    } = input;
+    return { ...stateTheme,
+      ...inputTheme,
+      label: { ...stateTheme.label,
+        ...inputTheme.label
+      },
+      input: { ...stateTheme.input,
+        ...inputTheme.input
+      }
+    };
+  }
+
+  getLabelLayout(label, theme, input) {
+    let {
+      inputs
+    } = this.props;
+    let {
+      label: themeLabel = {}
+    } = theme;
+    let props = {
+      align: 'v',
+      show: label !== undefined,
+      style: { ...themeLabel,
+        width: 'fit-content',
+        height: 'fit-content'
+      },
+      className: 'aio-form-label'
+    };
+    props.size = themeLabel.inline ? themeLabel.width : themeLabel.height || 24;
+    let {
+      onChangeInputs
+    } = this.props;
+
+    if (onChangeInputs) {
+      props.html = /*#__PURE__*/_react.default.createElement(_aioButton.default, {
+        style: {
+          padding: 0,
+          fontSize: 'inherit'
+        },
+        text: label,
+        type: "button",
+        popOver: () => {
+          return /*#__PURE__*/_react.default.createElement(FormGenerator, {
+            input: input,
+            onChange: () => {
+              onChangeInputs(inputs);
             }
           });
         }
       });
-      return result;
+    } else {
+      props.html = label;
     }
-  }, {
-    key: "getStyle",
-    value: function getStyle() {
-      var theme = this.context.theme;
-      var style = {};
 
-      if (theme.inputBorderColor) {
-        style.border = "1px ".concat(theme.inputBorderType || 'solid', " ").concat(theme.inputBorderColor);
-        style.background = theme.inputBorderColor;
-      }
-
-      if (theme.bodyColor) {
-        style.color = theme.bodyColor;
-      }
-
-      if (theme.inputPadding !== undefined) {
-        style.padding = "0 ".concat(theme.inputPadding, "px");
-      }
-
-      if (theme.tableMaxHeight !== undefined) {
-        style.maxHeight = theme.tableMaxHeight;
-      }
-
-      style.height = 'unset';
-      return style;
-    }
-  }, {
-    key: "getTitleStyle",
-    value: function getTitleStyle() {
-      var item = this.props.item;
-      var theme = this.context.theme;
-      var _item$titleStyle = item.titleStyle,
-          titleStyle = _item$titleStyle === void 0 ? {} : _item$titleStyle;
-      var style = {
-        boxShadow: 'none'
-      };
-      style.borderColor = theme.inputBorderColor;
-      style.background = theme.tableTitleBackground || theme.inputBG;
-      style.color = theme.tableTitleColor;
-      return { ...style,
-        ...titleStyle
-      };
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this17 = this;
-
-      var item = this.props.item;
-      var _this$context11 = this.context,
-          theme = _this$context11.theme,
-          data = _this$context11.data,
-          lang = _this$context11.lang;
-      var model;
-
-      try {
-        model = JSON.parse(JSON.stringify(data[item.field]));
-      } catch {
-        model = [];
-      }
-
-      if (!model.length) {
-        return /*#__PURE__*/_react.default.createElement("div", {
-          className: "aio-form-table-add",
-          onClick: function onClick() {
-            return _this17.add();
-          },
-          style: {
-            height: theme.inputHeight,
-            border: theme.inputBorderColor ? "1px ".concat(theme.inputBorderType || 'solid', " ").concat(theme.inputBorderColor) : undefined
-          }
-        }, /*#__PURE__*/_react.default.createElement(_react2.Icon, {
-          path: _js.mdiPlusThick,
-          size: 0.6
-        }));
-      }
-
-      var striped;
-
-      var getCellStyle = function getCellStyle() {
-        var style = {
-          background: theme.inputBG,
-          color: theme.bodyColor
-        };
-        return style;
-      };
-
-      var toolbarStyle = {
-        height: theme.inputHeight,
-        background: theme.inputBG
-      };
-
-      if (theme.inputBorderColor) {
-        toolbarStyle.borderBottom = "1px ".concat(theme.inputBorderType || 'solid', " ").concat(theme.inputBorderColor);
-      }
-
-      var columns = this.getColumns(model);
-      return /*#__PURE__*/_react.default.createElement(_aioTable.default, {
-        rowGap: 1,
-        padding: 0,
-        striped: striped,
-        style: this.getStyle(),
-        rtl: lang === 'fa',
-        getCellStyle: getCellStyle,
-        rowHeight: theme.inputHeight || 36,
-        headerHeight: theme.inputHeight || 36,
-        titleStyle: this.getTitleStyle(),
-        className: "aio-form-input aio-form-input-table",
-        toolbarStyle: toolbarStyle,
-        toolbarItems: this.getToolbarItems(),
-        columns: columns,
-        model: JSON.parse(JSON.stringify(this.isThereSum ? model.concat(this.sum) : model))
-      });
-    }
-  }]);
-
-  return FormTable;
-}(_react.Component);
-
-_defineProperty(FormTable, "contextType", AIOFormContext);
-
-var FormFile = /*#__PURE__*/function (_Component10) {
-  _inherits(FormFile, _Component10);
-
-  var _super10 = _createSuper(FormFile);
-
-  function FormFile() {
-    _classCallCheck(this, FormFile);
-
-    return _super10.apply(this, arguments);
+    return props;
   }
 
-  _createClass(FormFile, [{
-    key: "onChange",
-    value: function onChange(files) {
-      var _this$context12 = this.context,
-          data = _this$context12.data,
-          onChange = _this$context12.onChange;
-      var item = this.props.item;
-      data[item.field] = files;
-      onChange(data);
-    }
-  }, {
-    key: "getStyle",
-    value: function getStyle() {
-      var theme = this.context.theme;
-      var style = {
-        minHeight: theme.inputHeight
-      };
+  getInput(input) {
+    let {
+      rtl
+    } = this.props;
+    let {
+      label,
+      affix,
+      prefix
+    } = input;
+    let theme = this.getInputTheme(input);
+    let value = this.getValue({
+      field: input.field
+    });
+    let options = this.getValue({
+      field: input.options,
+      def: []
+    });
+    let disabled = this.getValue({
+      field: input.disabled,
+      def: false
+    });
+    let text = this.getValue({
+      field: input.text
+    });
+    let start = this.getValue({
+      field: input.start,
+      def: 0
+    });
+    let end = this.getValue({
+      field: input.end,
+      def: 100
+    });
+    let subtext = this.getValue({
+      field: input.subtext
+    });
+    let columns = this.getValue({
+      field: input.columns,
+      def: []
+    });
+    let placeholder = this.getValue({
+      field: input.placeholder,
+      def: false
+    });
 
-      if (theme.inputBorderColor) {
-        style.border = "1px ".concat(theme.inputBorderType || 'solid', " ").concat(theme.inputBorderColor);
-      }
+    let onChange = value => this.onChange(input, value);
 
-      if (theme.inputBorderRadius !== undefined) {
-        style.borderRadius = theme.inputBorderRadius;
-      }
+    let style = { ...theme.input
+    };
+    let className = `aio-form-input aio-form-input-${input.type}` + (disabled === true ? ' disabled' : '') + (input.className ? ' ' + input.className : '') + (affix ? ' has-affix' : '') + (prefix ? ' has-prefix' : '') + (rtl ? ' rtl' : ' ltr');
+    let error = this.getError(input, value, options);
+    let props = {
+      value,
+      options,
+      disabled: disabled === true,
+      onChange,
+      className,
+      style,
+      placeholder,
+      text,
+      subtext,
+      start,
+      end,
+      theme,
+      columns
+    };
+    let {
+      label: themeLabel = {},
+      error: themeError = {}
+    } = theme;
 
-      if (theme.inputBG) {
-        style.background = theme.inputBG;
-      }
-
-      return style;
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this18 = this;
-
-      var item = this.props.item;
-      var data = this.context.data;
-      var files = data[item.field];
-      return /*#__PURE__*/_react.default.createElement(FileManager, {
-        files: files,
-        style: this.getStyle(),
-        className: "aio-form-input aio-form-input-file",
-        text: item.text,
-        onAdd: function onAdd(list) {
-          files = [].concat(_toConsumableArray(files), _toConsumableArray(list));
-
-          _this18.onChange(files);
+    if (themeLabel.inline) {
+      return {
+        className: 'aio-form-item',
+        style: {
+          overflow: 'visible',
+          marginBottom: theme.rowGap
         },
-        onRemove: function onRemove(index) {
-          files.splice(index, 1);
+        row: [this.getLabelLayout(label, theme, input), {
+          size: 6,
+          show: label !== undefined
+        }, {
+          flex: 1,
+          column: [{
+            row: [{
+              show: !!input.prefix,
+              html: () => this.getFix(input, rtl, 'prefix')
+            }, {
+              flex: 1,
+              style: {
+                overflow: 'visible'
+              },
+              html: () => this['getInput_' + input.type](props, input)
+            }, {
+              show: !!input.affix,
+              html: () => this.getFix(input, rtl, 'affix')
+            }]
+          }, {
+            align: 'v',
+            show: error !== '',
+            html: error,
+            className: 'aio-form-error',
+            style: themeError
+          }]
+        }]
+      };
+    } else {
+      return {
+        className: 'aio-form-item',
+        style: {
+          overflow: 'visible',
+          marginBottom: theme.rowGap
+        },
+        column: [this.getLabelLayout(label, theme, input), {
+          row: [{
+            show: !!input.prefix,
+            html: () => this.getFix(input, rtl, 'prefix')
+          }, {
+            flex: 1,
+            html: () => this['getInput_' + input.type](props, input)
+          }, {
+            show: !!input.affix,
+            html: () => this.getFix(input, rtl, 'affix')
+          }]
+        }, {
+          size: themeError.height,
+          show: error !== '',
+          html: error,
+          className: 'aio-form-error',
+          style: themeError
+        }]
+      };
+    }
+  }
 
-          _this18.onChange(files);
+  sortByRows(inputs) {
+    let res = {};
+    let result = [];
+
+    for (let i = 0; i < inputs.length; i++) {
+      let {
+        type,
+        show
+      } = inputs[i];
+
+      if (!type) {
+        continue;
+      }
+
+      if (this.getValue({
+        field: show,
+        def: true,
+        input: inputs[i]
+      }) === false) {
+        continue;
+      }
+
+      inputs[i]._index = i;
+
+      if (type === 'group') {
+        let a = 'a' + Math.random();
+        res[a] = [inputs[i]];
+        result.push(res[a]);
+        continue;
+      }
+
+      let {
+        rowKey
+      } = inputs[i];
+
+      if (!rowKey) {
+        rowKey = 'a' + Math.random();
+      }
+
+      if (!res[rowKey]) {
+        res[rowKey] = [];
+        result.push(res[rowKey]);
+      }
+
+      res[rowKey].push(inputs[i]);
+    }
+
+    return result;
+  }
+
+  handleGroups(inputs) {
+    this.res = [];
+    this.handleGroupsReq(inputs, []);
+    return this.res;
+  }
+
+  handleGroupsReq(inputs = []) {
+    let {
+      groupDic
+    } = this.state;
+
+    for (let i = 0; i < inputs.length; i++) {
+      let input = inputs[i];
+
+      if (input.type === 'group') {
+        if (input.text !== undefined) {
+          this.res.push({ ...input,
+            type: 'group'
+          });
+        }
+
+        if (input.id === undefined || groupDic[input.id] !== false) {
+          this.handleGroupsReq(input.inputs, input.id);
+        }
+      } else {
+        this.res.push(input);
+      }
+    }
+  }
+
+  getColumnGap(input) {
+    let {
+      theme = {}
+    } = this.state;
+    let {
+      columnGap: themeColumnGap = 12
+    } = theme;
+    let {
+      columnGap = themeColumnGap
+    } = input;
+    return columnGap;
+  }
+
+  getInputs(inputs) {
+    if (!inputs.length) {
+      return [];
+    }
+
+    let {
+      onSwap
+    } = this.props;
+    let {
+      theme
+    } = this.state;
+    return this.sortByRows(this.handleGroups(inputs)).map((input, i) => {
+      return {
+        swapId: onSwap ? input._index.toString() : undefined,
+        swapHandleClassName: 'aio-form-label',
+        gap: this.getColumnGap(input),
+        row: input.map(o => {
+          return { ...this.getInput(o),
+            flex: o.rowWidth ? undefined : 1,
+            size: o.rowWidth,
+            align: 'v'
+          };
+        })
+      };
+    });
+  }
+
+  getError(o, value, options) {
+    let {
+      validations = []
+    } = o;
+    let lang = 'en';
+
+    if (!validations.length) {
+      return '';
+    }
+
+    let a = {
+      value,
+      title: o.label,
+      lang,
+      validations: validations.map(a => {
+        return [a[0], typeof a[1] === 'function' ? a[1] : this.getValue({
+          field: a[1],
+          def: ''
+        }), a[2]];
+      })
+    };
+    let error = (0, _aioValidation.default)(a);
+
+    if (!this.isThereError && error) {
+      this.isThereError = true;
+    }
+
+    return error;
+  }
+
+  async reset() {
+    let {
+      onSubmit,
+      onChange
+    } = this.props;
+    let {
+      initialModel
+    } = this.state;
+
+    if (onSubmit) {
+      this.setState({
+        model: JSON.parse(initialModel)
+      });
+    } else if (onChange) {
+      await onChange(JSON.parse(initialModel));
+    }
+  }
+
+  render() {
+    let {
+      inputs = [],
+      header,
+      rtl,
+      onSubmit,
+      submitText = 'Submit',
+      closeText = 'Close',
+      resetText = 'Reset',
+      onClose,
+      footerAttrs,
+      reset,
+      tabs = [],
+      tabSize = 36
+    } = this.props;
+    let {
+      theme
+    } = this.state;
+    this.isThereError = false;
+    return /*#__PURE__*/_react.default.createElement(_reactVirtualDom.default, {
+      layout: {
+        className: 'aio-form',
+        column: [{
+          show: header !== undefined,
+          html: /*#__PURE__*/_react.default.createElement(AIOFormHeader, _extends({}, header, {
+            rtl: rtl,
+            theme: theme,
+            getValue: this.getValue.bind(this)
+          }))
+        }, {
+          className: 'aio-form-body',
+          style: theme.body,
+          scroll: 'v',
+          flex: 1,
+          column: () => this.getInputs(inputs),
+          show: tabs.length === 0
+        }, {
+          style: theme.body,
+          flex: 1,
+          show: tabs.length !== 0,
+          row: [{
+            className: 'aio-form-tabs',
+            size: tabSize,
+            column: tabs.map(o => {
+              return {
+                className: 'aio-form-tab active',
+                size: tabSize,
+                html: o.html,
+                align: 'vh',
+                style: {}
+              };
+            })
+          }, {
+            className: 'aio-form-body',
+            flex: 1,
+            scroll: 'v',
+            column: () => this.getInputs(inputs)
+          }]
+        }, {
+          show: onSubmit !== undefined || reset === true || onClose !== undefined,
+          html: () => /*#__PURE__*/_react.default.createElement(AIOFormFooter, {
+            isThereError: this.isThereError,
+            theme: theme,
+            onClose: onClose,
+            onSubmit: onSubmit ? () => onSubmit({ ...this.state.model
+            }) : undefined,
+            closeText: closeText,
+            submitText: submitText,
+            resetText: resetText,
+            footerAttrs: footerAttrs,
+            onReset: reset ? () => this.reset() : undefined
+          })
+        }]
+      }
+    });
+  }
+
+}
+
+exports.default = AIOForm;
+
+class AIOFormHeader extends _react.Component {
+  render() {
+    let {
+      title,
+      onClose,
+      attrs = {},
+      print,
+      onBack,
+      justify,
+      onForward,
+      rtl,
+      theme,
+      getValue
+    } = this.props;
+    let subtitle = getValue({
+      field: this.props.subtitle
+    });
+    return /*#__PURE__*/_react.default.createElement(_reactVirtualDom.default, {
+      layout: {
+        className: 'aio-form-header' + (attrs.className ? ' ' + attrs.className : ''),
+        style: { ...theme.header,
+          ...attrs.style
+        },
+        align: 'v',
+        row: [{
+          show: onBack !== undefined,
+          html: /*#__PURE__*/_react.default.createElement(_react2.Icon, {
+            path: rtl ? _js.mdiChevronRight : _js.mdiChevronLeft,
+            size: 0.9
+          }),
+          align: 'vh',
+          size: 36,
+          attrs: {
+            onClick: onBack
+          }
+        }, {
+          show: justify === true,
+          flex: 1
+        }, {
+          column: [{
+            html: title,
+            className: 'aio-form-title',
+            align: 'v'
+          }, {
+            show: subtitle !== undefined,
+            html: subtitle,
+            className: 'aio-form-subtitle',
+            align: 'v'
+          }]
+        }, {
+          flex: 1
+        }, {
+          show: onForward !== undefined,
+          html: /*#__PURE__*/_react.default.createElement(_react2.Icon, {
+            path: rtl ? _js.mdiChevronLeft : _js.mdiChevronRight,
+            size: 0.9
+          }),
+          align: 'vh',
+          size: 36,
+          attrs: {
+            onClick: onForward
+          }
+        }, {
+          show: print !== undefined,
+          html: /*#__PURE__*/_react.default.createElement(_react2.Icon, {
+            path: _js.mdiPrinter,
+            size: 0.9
+          }),
+          align: 'vh',
+          size: 36
+        }, {
+          show: onClose !== undefined,
+          html: /*#__PURE__*/_react.default.createElement(_react2.Icon, {
+            path: _js.mdiClose,
+            size: 0.8
+          }),
+          align: 'vh',
+          size: 36,
+          attrs: {
+            onClick: onClose
+          }
+        }]
+      }
+    });
+  }
+
+}
+
+class AIOFormFooter extends _react.Component {
+  render() {
+    let {
+      onClose,
+      onSubmit,
+      closeText,
+      submitText,
+      footerAttrs = {},
+      onReset,
+      resetText,
+      isThereError,
+      theme = {}
+    } = this.props;
+    return /*#__PURE__*/_react.default.createElement(_reactVirtualDom.default, {
+      layout: {
+        align: 'v',
+        className: 'aio-form-footer',
+        style: theme.footer,
+        row: [{
+          show: onClose !== undefined,
+          html: () => /*#__PURE__*/_react.default.createElement("button", {
+            className: "aio-form-footer-button aio-form-close-button",
+            onClick: () => onClose()
+          }, closeText)
+        }, {
+          size: 12,
+          show: onSubmit !== undefined
+        }, {
+          show: onSubmit !== undefined,
+          html: () => /*#__PURE__*/_react.default.createElement("button", {
+            className: "aio-form-footer-button aio-form-submit-button",
+            disabled: isThereError,
+            onClick: () => onSubmit()
+          }, submitText)
+        }, {
+          size: 12,
+          show: onSubmit !== undefined
+        }, {
+          show: onReset !== undefined,
+          html: () => /*#__PURE__*/_react.default.createElement("button", {
+            className: "aio-form-footer-button aio-form-reset-button",
+            onClick: () => onReset()
+          }, resetText)
+        }]
+      }
+    });
+  }
+
+}
+
+function Input(obj) {
+  let [value, setValue] = (0, _react.useState)(obj.value),
+      [prevValue, setPrevValue] = (0, _react.useState)(obj.value),
+      [timer, setTimer] = (0, _react.useState)();
+  let [error, setError] = (0, _react.useState)(false);
+  let dom = (0, _react.useRef)(null);
+
+  if (obj.value !== prevValue) {
+    setTimeout(() => {
+      setValue(obj.value);
+      setPrevValue(obj.value);
+    }, 0);
+  }
+
+  function onChange(e) {
+    let value = e.target.value;
+
+    if (obj.type === 'number') {
+      if (value) {
+        value = +value;
+      }
+    }
+
+    setValue(value);
+    clearTimeout(timer);
+    setTimer(setTimeout(() => {
+      obj.onChange(value);
+    }, 800));
+  }
+
+  function getOptions(options) {
+    let Options = options.map((option, index) => {
+      let text;
+
+      if (typeof option === 'object' && option.text !== undefined) {
+        text = option.text;
+      } else if (typeof obj.optionText === 'function') {
+        text = optionText(option, index);
+      } else if (typeof obj.optionText === 'string') {
+        try {
+          eval(`text = ${obj.optionText}`);
+        } catch {
+          text = '';
+        }
+      } else {
+        text = '';
+      }
+
+      return /*#__PURE__*/_react.default.createElement("option", {
+        key: index,
+        value: text
+      });
+    });
+    return /*#__PURE__*/_react.default.createElement("datalist", {
+      id: uid
+    }, Options);
+  }
+
+  (0, _react.useEffect)(() => {
+    if (obj.type === 'textarea' && obj.autoHeight) {
+      let scrollHeight = dom.current.scrollHeight + 'px';
+      dom.current.style.height = scrollHeight;
+      dom.current.style.overflow = 'hidden';
+      dom.current.style.resize = 'none';
+    }
+  });
+  let props = { ...obj,
+    value,
+    onChange: e => onChange(e),
+    ref: dom
+  };
+  let uid = 'a' + Math.random();
+
+  if (error !== false) {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "aio-form-inline-error aio-form-input",
+      onClick: () => setError(false)
+    }, error);
+  }
+
+  return obj.type === 'textarea' ? /*#__PURE__*/_react.default.createElement("textarea", props) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("input", _extends({}, props, {
+    list: uid
+  })), Array.isArray(obj.options) && obj.options.length !== 0 && getOptions(obj.options));
+}
+
+class Slider extends _react.Component {
+  render() {
+    let {
+      className,
+      start,
+      end,
+      step,
+      value,
+      onChange,
+      disabled,
+      style = {},
+      editValue,
+      padding = style.padding,
+      theme = {}
+    } = this.props;
+
+    if (!Array.isArray(value)) {
+      value = [value];
+    }
+
+    let {
+      slider: sliderTheme = {}
+    } = theme;
+    let {
+      color1 = 'dodgerblue',
+      color2 = '#fff',
+      color3 = '#bbb'
+    } = sliderTheme;
+    let props = {
+      attrs: {
+        className,
+        style: { ...style,
+          padding
+        }
+      },
+      start,
+      end,
+      step,
+      points: value,
+      onChange: disabled ? undefined : points => points.length === 1 ? onChange(points[0]) : onChange([points[0], points[1]]),
+      showValue: true,
+      editValue,
+      fillStyle: index => {
+        if (value.length === 1) {
+          if (index === 1) {
+            return {
+              background: 'none'
+            };
+          }
+        } else {
+          if (index === 0 || index === value.length) {
+            return {
+              background: 'none'
+            };
+          }
+        }
+
+        return {
+          background: color1
+        };
+      },
+      valueStyle: () => {
+        return {
+          height: 20,
+          display: 'flex',
+          minWidth: 12,
+          padding: '0 3px',
+          justifyContent: 'center',
+          alignItems: 'center',
+          top: 'calc(50% - 10px)',
+          background: color1,
+          color: color2
+        };
+      },
+      lineStyle: () => {
+        return {
+          background: color3,
+          height: 1
+        };
+      },
+      pointStyle: () => {
+        return {
+          display: 'none'
+        };
+      }
+    };
+    return /*#__PURE__*/_react.default.createElement(_rRangeSlider.default, props);
+  }
+
+}
+
+class Table extends _react.Component {
+  setValueByField(obj, field, value) {
+    field = field.replaceAll('[', '.');
+    field = field.replaceAll(']', '');
+    var fields = field.split('.');
+    var node = obj;
+
+    for (let i = 0; i < fields.length - 1; i++) {
+      if (node[fields[i]] === undefined) {
+        if (isNaN(parseFloat(fields[i + 1]))) {
+          node[fields[i]] = {};
+        } else {
+          node[fields[i]] = [];
+        }
+
+        node = node[fields[i]];
+      } else {
+        node = node[fields[i]];
+      }
+    }
+
+    node[fields[fields.length - 1]] = value;
+    return obj;
+  }
+
+  add() {
+    let {
+      columns = [],
+      onChange,
+      value = []
+    } = this.props;
+
+    if (!columns.length) {
+      return;
+    }
+
+    let obj = {};
+
+    for (let i = 0; i < columns.length; i++) {
+      let {
+        field,
+        type
+      } = columns[i];
+
+      if (!field) {
+        continue;
+      }
+
+      if (typeof field === 'string' && field.indexOf('calc ') === 0) {
+        continue;
+      }
+
+      let val;
+
+      if (type === 'text') {
+        val = '';
+      } else if (type === 'number') {
+        val = 0;
+      } else if (type === 'select') {
+        let options = this.getColumnOptions(columns[i]);
+
+        try {
+          val = options[0].value;
+        } catch {
+          val = '';
+        }
+      } else if (type === 'checkbox') {
+        val = false;
+      }
+
+      this.setValueByField(obj, field, val);
+    }
+
+    value.push(obj);
+    onChange(value);
+  }
+
+  getToolbarItems() {
+    let {
+      item,
+      addable = true,
+      disabled
+    } = this.props;
+
+    if (disabled) {
+      return;
+    }
+
+    let toolbarItems = [];
+
+    if (addable) {
+      toolbarItems.push({
+        text: '+',
+        type: 'button',
+        onClick: () => this.add(),
+        className: 'aio-form-input aio-form-input-table-add',
+        style: {
+          background: 'none',
+          color: 'inherit',
+          padding: 0,
+          width: '100%'
         }
       });
     }
-  }]);
 
-  return FormFile;
-}(_react.Component);
-
-_defineProperty(FormFile, "contextType", AIOFormContext);
-
-var FormColor = /*#__PURE__*/function (_Component11) {
-  _inherits(FormColor, _Component11);
-
-  var _super11 = _createSuper(FormColor);
-
-  function FormColor() {
-    _classCallCheck(this, FormColor);
-
-    return _super11.apply(this, arguments);
+    return toolbarItems;
   }
 
-  _createClass(FormColor, [{
-    key: "onChange",
-    value: function onChange(files) {
-      var _this$context13 = this.context,
-          data = _this$context13.data,
-          onChange = _this$context13.onChange;
-      var item = this.props.item;
-      data[item.field] = files;
-      onChange(data);
-    }
-  }, {
-    key: "getStyle",
-    value: function getStyle(value) {
-      var theme = this.context.theme;
-      var style = {
-        height: theme.inputHeight,
-        minHeight: theme.inputHeight
+  getColumnOptions(column) {
+    let {
+      getValue
+    } = this.props;
+    let options = getValue({
+      field: column.options,
+      def: []
+    });
+    let {
+      optionText,
+      optionValue
+    } = column;
+    options = options.map(option => {
+      let text, value;
+
+      if (optionText) {
+        try {
+          eval(`text = ${optionText}`);
+        } catch {
+          text = '';
+        }
+      } else {
+        text = option.text;
+      }
+
+      if (optionValue) {
+        try {
+          eval(`value = ${optionText}`);
+        } catch {
+          value = undefined;
+        }
+      } else {
+        value = option.value;
+      }
+
+      return {
+        text,
+        value
+      };
+    });
+    return options.filter(o => {
+      return getValue({
+        field: o.show,
+        def: true
+      });
+    });
+  }
+
+  getColumns() {
+    let {
+      onChange,
+      addable = true,
+      disabled,
+      columns,
+      value,
+      rowNumber,
+      theme = {}
+    } = this.props;
+    let {
+      input = {}
+    } = theme;
+    let cellAttrs = {
+      className: 'aio-form-input',
+      style: {
+        height: input.height,
+        borderColor: input.borderColor,
+        background: 'none',
+        boxShadow: 'none'
+      }
+    };
+    let titleAttrs = {
+      className: 'aio-form-input',
+      style: {
+        height: input.height,
+        borderColor: input.borderColor,
+        background: 'none',
+        boxShadow: 'none'
+      }
+    };
+    let result = columns.map(column => {
+      let a = { ...column,
+        cellAttrs,
+        titleAttrs,
+        getValue: column.field
       };
 
-      if (theme.inputPadding !== undefined) {
-        style.padding = "0 ".concat(theme.inputPadding, "px");
+      if (column.type === 'select') {
+        let options = this.getColumnOptions(column);
+
+        a.template = (row, column, value) => {
+          let option = options.filter(o => o.value === value)[0];
+          return option ? option.text : '';
+        };
       }
 
-      if (theme.inputBorderColor) {
-        style.border = "1px ".concat(theme.inputBorderType || 'solid', " ").concat(theme.inputBorderColor);
+      if (column.type === 'checkbox') {
+        let options = this.getColumnOptions(column) || [{
+          text: 'True',
+          value: true
+        }, {
+          text: 'False',
+          value: false
+        }];
+
+        a.template = (row, column, value) => {
+          let option = options.filter(o => o.value === value)[0];
+          return option ? option.text : '';
+        };
       }
 
-      style.background = value;
-      style.color = '#fff';
-      style.borderRadius = theme.inputBorderRadius;
-      return style;
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this19 = this;
+      if (typeof column.type === 'function') {
+        a.inlineEdit = row => {
+          let type = column.type(row);
+          return {
+            type,
+            onChange: (row, val) => {
+              if (!value[row._index]) {
+                value[row._index] = {};
+              }
 
-      var data = this.context.data;
-      var item = this.props.item;
-      var value = data[item.field];
-      return /*#__PURE__*/_react.default.createElement("label", {
-        className: "aio-form-input aio-form-input-color",
-        style: this.getStyle(value)
-      }, /*#__PURE__*/_react.default.createElement("input", {
-        type: "color",
-        value: value,
-        onChange: function onChange(e) {
-          return _this19.onChange(e.target.value);
+              this.setValueByField(value[row._index], column.field, val);
+              onChange(value);
+            },
+            disabled: () => {
+              if (column.disabled) {
+                return true;
+              }
+
+              return false;
+            },
+            options: type === 'select' ? this.getColumnOptions(column) : undefined
+          };
+        };
+      } else if (['text', 'number', 'select', 'checkbox'].indexOf(column.type) !== -1 && !disabled) {
+        a.inlineEdit = {
+          type: column.type,
+          disabled: column.disabled,
+          onChange: (row, val) => {
+            if (!value[row._index]) {
+              value[row._index] = {};
+            }
+
+            this.setValueByField(value[row._index], column.field, val);
+            onChange(value);
+          },
+          disabled: () => disabled
+        };
+
+        if (column.type === 'select') {
+          a.inlineEdit.options = this.getColumnOptions(column);
         }
-      }), value);
+
+        a.inlineEdit.disabled = row => {
+          if (column.disabled) {
+            return true;
+          }
+
+          return false;
+        };
+      }
+
+      return a;
+    });
+
+    if (rowNumber) {
+      result.splice(0, 0, {
+        title: '#',
+        width: 48,
+        getValue: ({
+          _index
+        }) => _index + 1,
+        cellAttrs,
+        titleAttrs
+      });
     }
-  }]);
 
-  return FormColor;
-}(_react.Component);
+    if (addable && !disabled) {
+      result.push({
+        title: '',
+        width: 36,
+        cellAttrs,
+        titleAttrs,
+        template: row => {
+          return /*#__PURE__*/_react.default.createElement("div", {
+            onClick: () => {
+              let {
+                value
+              } = this.props;
+              value.splice(row._index, 1);
+              onChange(value);
+            }
+          }, "X");
+        }
+      });
+    }
 
-_defineProperty(FormColor, "contextType", AIOFormContext);
-
-var FileManager = /*#__PURE__*/function (_Component12) {
-  _inherits(FileManager, _Component12);
-
-  var _super12 = _createSuper(FileManager);
-
-  function FileManager() {
-    _classCallCheck(this, FileManager);
-
-    return _super12.apply(this, arguments);
+    return result;
   }
 
-  _createClass(FileManager, [{
-    key: "render",
-    value: function render() {
-      var _this$props4 = this.props,
-          _this$props4$files = _this$props4.files,
-          files = _this$props4$files === void 0 ? [] : _this$props4$files,
-          _onAdd = _this$props4.onAdd,
-          onRemove = _this$props4.onRemove,
-          className = _this$props4.className,
-          text = _this$props4.text,
-          color = _this$props4.color,
-          style = _this$props4.style;
-      var Previews = [];
+  render() {
+    let {
+      value = [],
+      disabled,
+      className,
+      style,
+      attrs,
+      theme = {}
+    } = this.props;
+    let model;
+    let {
+      input = {}
+    } = theme;
 
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        Previews.push( /*#__PURE__*/_react.default.createElement(FilePreview, {
-          key: i,
-          index: i,
-          file: file,
-          onRemove: onRemove,
-          color: color
-        }));
+    try {
+      model = JSON.parse(JSON.stringify(value));
+    } catch {
+      model = [];
+    }
+
+    if (!model.length) {
+      if (disabled) {
+        return null;
       }
 
       return /*#__PURE__*/_react.default.createElement("div", {
-        className: 'file-manager' + (className ? ' ' + className : ''),
-        style: style
-      }, _onAdd && /*#__PURE__*/_react.default.createElement(AddFile, {
-        onAdd: function onAdd(list) {
-          return _onAdd(list);
-        },
-        text: text,
-        color: color
-      }), Previews);
+        className: "aio-form-table-add aio-form-input",
+        onClick: () => this.add(),
+        style: {
+          fontSize: input.fontSize,
+          background: input.background,
+          borderWidth: input.borderWidth,
+          borderColor: input.borderColor,
+          height: input.height
+        }
+      }, "+");
     }
-  }]);
 
-  return FileManager;
-}(_react.Component);
-
-var FilePreview = /*#__PURE__*/function (_Component13) {
-  _inherits(FilePreview, _Component13);
-
-  var _super13 = _createSuper(FilePreview);
-
-  function FilePreview(props) {
-    var _this20;
-
-    _classCallCheck(this, FilePreview);
-
-    _this20 = _super13.call(this, props);
-    _this20.state = {
-      preview: false
+    let columns = this.getColumns();
+    let props = {
+      getCellStyle: () => {
+        return style;
+      },
+      titleStyle: style,
+      disabled,
+      className,
+      columns,
+      toolbarItems: this.getToolbarItems(),
+      columns,
+      model: value,
+      style: attrs ? attrs.style : undefined
     };
-    return _this20;
+    return /*#__PURE__*/_react.default.createElement(_aioTable.default, {
+      columns: props.columns,
+      model: props.model,
+      rowGap: 0,
+      toolbarItems: props.toolbarItems,
+      toolbarAttrs: {
+        className: 'aio-form-input',
+        style: { ...theme.input,
+          border: 'none',
+          display: disabled ? 'none' : undefined,
+          borderRadius: 0
+        }
+      },
+      style: {
+        borderColor: input.borderColor,
+        borderWidth: input.borderWidth,
+        borderRadius: input.borderRadius,
+        fontSize: input.fontSize,
+        color: input.color,
+        background: input.background
+      }
+    });
   }
 
-  _createClass(FilePreview, [{
-    key: "getFile",
-    value: function getFile(file) {
-      var minName, sizeString;
-      var lastDotIndex = file.name.lastIndexOf('.');
-      var name = file.name.slice(0, lastDotIndex);
-      var format = file.name.slice(lastDotIndex + 1, file.name.length);
+}
+
+class File extends _react.Component {
+  render() {
+    let {
+      text,
+      value,
+      onChange,
+      disabled,
+      className,
+      style
+    } = this.props;
+    let files = value;
+    let props = {
+      files,
+      disabled,
+      className,
+      style,
+      text,
+      onAdd: list => {
+        files = [...files, ...list];
+        onChange(files);
+      },
+      onRemove: index => {
+        files.splice(index, 1);
+        onChange(files);
+      }
+    };
+    return /*#__PURE__*/_react.default.createElement(FileManager, props);
+  }
+
+}
+
+class FileManager extends _react.Component {
+  render() {
+    let {
+      files = [],
+      onAdd,
+      onRemove,
+      className,
+      text,
+      color,
+      style
+    } = this.props;
+    let Previews = [];
+
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i];
+      Previews.push( /*#__PURE__*/_react.default.createElement(FilePreview, {
+        key: i,
+        index: i,
+        file: file,
+        onRemove: onRemove,
+        color: color
+      }));
+    }
+
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: 'file-manager' + (className ? ' ' + className : ''),
+      style: style
+    }, onAdd && /*#__PURE__*/_react.default.createElement(AddFile, {
+      onAdd: list => onAdd(list),
+      text: text,
+      color: color
+    }), Previews);
+  }
+
+}
+
+class FilePreview extends _react.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      preview: false
+    };
+  }
+
+  getFile(file) {
+    try {
+      let minName, sizeString;
+      let lastDotIndex = file.name.lastIndexOf('.');
+      let name = file.name.slice(0, lastDotIndex);
+      let format = file.name.slice(lastDotIndex + 1, file.name.length);
 
       if (name.length > 10 + 5) {
         minName = name.slice(0, 10) + '...' + name.slice(10, 10 + 5) + '.' + format;
@@ -2022,8 +1826,8 @@ var FilePreview = /*#__PURE__*/function (_Component13) {
         minName = file.name;
       }
 
-      var size = file.size;
-      var gb = size / (1024 * 1024 * 1024),
+      let size = file.size;
+      let gb = size / (1024 * 1024 * 1024),
           mb = size / (1024 * 1024),
           kb = size / 1024;
 
@@ -2038,186 +1842,324 @@ var FilePreview = /*#__PURE__*/function (_Component13) {
       }
 
       return {
-        minName: minName,
-        sizeString: sizeString
+        minName,
+        sizeString
+      };
+    } catch {
+      return {
+        minName: 'untitle',
+        sizeString: '0'
       };
     }
-  }, {
-    key: "getIcon",
-    value: function getIcon(file, size) {
-      var _this21 = this;
-
-      return /*#__PURE__*/_react.default.createElement(_react2.Icon, {
-        style: {
-          width: size,
-          height: size
-        },
-        path: _js.mdiAttachment,
-        size: 1,
-        onClick: function onClick() {
-          return _this21.setState({
-            preview: file
-          });
-        }
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this22 = this;
-
-      var _this$props5 = this.props,
-          file = _this$props5.file,
-          onRemove = _this$props5.onRemove,
-          index = _this$props5.index,
-          color = _this$props5.color,
-          _this$props5$size = _this$props5.size,
-          size = _this$props5$size === void 0 ? 36 : _this$props5$size;
-      var preview = this.state.preview;
-
-      var _this$getFile = this.getFile(file),
-          sizeString = _this$getFile.sizeString,
-          minName = _this$getFile.minName;
-
-      return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactVirtualDom.default, {
-        layout: {
-          attrs: {
-            className: 'file-preview',
-            style: {
-              background: color,
-              height: size
-            }
-          },
-          flex: 'none',
-          row: [{
-            size: size,
-            html: this.getIcon(file, size),
-            align: 'vh',
-            attrs: {
-              style: {
-                overflow: 'hidden'
-              }
-            }
-          }, {
-            column: [{
-              align: 'v',
-              flex: 1,
-              html: minName,
-              attrs: {
-                className: 'file-preview-name'
-              }
-            }, {
-              aling: 'v',
-              flex: 0.8,
-              html: sizeString,
-              attrs: {
-                className: 'file-preview-size'
-              }
-            }]
-          }, {
-            show: onRemove !== undefined,
-            size: size,
-            html: /*#__PURE__*/_react.default.createElement(_react2.Icon, {
-              path: _js.mdiClose,
-              size: 0.7
-            }),
-            align: 'vh',
-            attrs: {
-              onClick: function onClick() {
-                return onRemove(index);
-              }
-            }
-          }, {
-            show: onRemove === undefined,
-            size: 12
-          }]
-        }
-      }), preview && /*#__PURE__*/_react.default.createElement("div", {
-        className: "file-preview-preview",
-        onClick: function onClick() {
-          return _this22.setState({
-            preview: false
-          });
-        }
-      }, /*#__PURE__*/_react.default.createElement("embed", {
-        type: preview.type,
-        src: URL.createObjectURL(preview),
-        width: "90%",
-        height: '90%',
-        style: {
-          pointerEvent: 'none'
-        }
-      })));
-    }
-  }]);
-
-  return FilePreview;
-}(_react.Component);
-
-var AddFile = /*#__PURE__*/function (_Component14) {
-  _inherits(AddFile, _Component14);
-
-  var _super14 = _createSuper(AddFile);
-
-  function AddFile() {
-    _classCallCheck(this, AddFile);
-
-    return _super14.apply(this, arguments);
   }
 
-  _createClass(AddFile, [{
-    key: "toBase64",
-    value: async function toBase64(file) {
-      var a = await new Promise(function (resolve, reject) {
-        var reader = new FileReader();
-        reader.readAsDataURL(file);
+  getIcon(file, size) {
+    return /*#__PURE__*/_react.default.createElement(_react2.Icon, {
+      style: {
+        width: size,
+        height: size
+      },
+      path: _js.mdiAttachment,
+      size: 1,
+      onClick: () => this.setState({
+        preview: file
+      })
+    });
+  }
 
-        reader.onload = function () {
-          return resolve(reader.result);
-        };
-
-        reader.onerror = function (error) {
-          return reject(error);
-        };
-      });
-      return a;
-    }
-  }, {
-    key: "change",
-    value: function change(e) {
-      var onAdd = this.props.onAdd;
-      onAdd(e.target.files);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this23 = this;
-
-      var _this$props6 = this.props,
-          _this$props6$text = _this$props6.text,
-          text = _this$props6$text === void 0 ? 'Add File' : _this$props6$text,
-          color = _this$props6.color;
-      return /*#__PURE__*/_react.default.createElement("label", {
-        className: "add-file",
-        style: {
-          color: color
-        }
-      }, /*#__PURE__*/_react.default.createElement("input", {
-        type: "file",
-        onChange: function onChange(e) {
-          return _this23.change(e);
+  render() {
+    let {
+      file,
+      onRemove,
+      index,
+      color,
+      size = 36
+    } = this.props;
+    let {
+      preview
+    } = this.state;
+    let {
+      sizeString,
+      minName
+    } = this.getFile(file);
+    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactVirtualDom.default, {
+      layout: {
+        attrs: {
+          className: 'file-preview',
+          style: {
+            background: color,
+            height: size
+          }
         },
-        multiple: true
-      }), /*#__PURE__*/_react.default.createElement("div", {
-        className: "add-file-icon"
-      }, /*#__PURE__*/_react.default.createElement(_react2.Icon, {
-        path: _js.mdiPlusThick,
-        size: 0.8
-      })), /*#__PURE__*/_react.default.createElement("div", {
-        className: "add-file-text"
-      }, text));
-    }
-  }]);
+        flex: 'none',
+        row: [{
+          size,
+          html: this.getIcon(file, size),
+          align: 'vh',
+          attrs: {
+            style: {
+              overflow: 'hidden'
+            }
+          }
+        }, {
+          column: [{
+            align: 'v',
+            flex: 1,
+            html: minName,
+            attrs: {
+              className: 'file-preview-name'
+            }
+          }, {
+            aling: 'v',
+            flex: 0.8,
+            html: sizeString,
+            attrs: {
+              className: 'file-preview-size'
+            }
+          }]
+        }, {
+          show: onRemove !== undefined,
+          size,
+          html: /*#__PURE__*/_react.default.createElement(_react2.Icon, {
+            path: _js.mdiClose,
+            size: 0.7
+          }),
+          align: 'vh',
+          attrs: {
+            onClick: () => onRemove(index)
+          }
+        }, {
+          show: onRemove === undefined,
+          size: 12
+        }]
+      }
+    }), preview && /*#__PURE__*/_react.default.createElement("div", {
+      className: "file-preview-preview",
+      onClick: () => this.setState({
+        preview: false
+      })
+    }, /*#__PURE__*/_react.default.createElement("embed", {
+      type: preview.type,
+      src: URL.createObjectURL(preview),
+      width: "90%",
+      height: '90%',
+      style: {
+        pointerEvent: 'none'
+      }
+    })));
+  }
 
-  return AddFile;
-}(_react.Component);
+}
+
+class AddFile extends _react.Component {
+  async toBase64(file) {
+    let a = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => resolve(reader.result);
+
+      reader.onerror = error => reject(error);
+    });
+    return a;
+  }
+
+  change(e) {
+    let {
+      onAdd
+    } = this.props;
+    onAdd(e.target.files);
+  }
+
+  render() {
+    let {
+      text = 'Add File',
+      color
+    } = this.props;
+    return /*#__PURE__*/_react.default.createElement("label", {
+      className: "add-file",
+      style: {
+        color
+      }
+    }, /*#__PURE__*/_react.default.createElement("input", {
+      type: "file",
+      onChange: e => this.change(e),
+      multiple: true
+    }), /*#__PURE__*/_react.default.createElement("div", {
+      className: "add-file-icon"
+    }, /*#__PURE__*/_react.default.createElement(_react2.Icon, {
+      path: _js.mdiPlusThick,
+      size: 0.8
+    })), /*#__PURE__*/_react.default.createElement("div", {
+      className: "add-file-text"
+    }, text));
+  }
+
+}
+
+class FormGenerator extends _react.Component {
+  render() {
+    let {
+      input,
+      onChange
+    } = this.props;
+    let validations = input.validations || [];
+    console.log(validations);
+    let validations_obj = validations.map(([operator, target]) => {
+      return {
+        operator,
+        target: JSON.stringify(target)
+      };
+    });
+    input.validations_obj = validations_obj;
+    return /*#__PURE__*/_react.default.createElement(AIOForm, {
+      model: input,
+      data: {
+        validationOperators: ['required', '=', '!=', '<', '<=', '>', '>=', 'length=', 'length!=', 'length<', 'length>', 'date<', 'date<=', 'date>', 'date>=', 'contain', '!contain']
+      },
+      onChange: () => onChange(),
+      theme: {
+        rowGap: 0,
+        label: {
+          inline: true,
+          width: 80
+        },
+        input: {
+          height: 24
+        }
+      },
+      inputs: [{
+        type: 'text',
+        field: 'model.rowKey',
+        label: 'rowKey'
+      }, {
+        type: 'number',
+        field: 'model.rowWidth',
+        label: 'rowWidth'
+      }, {
+        type: 'text',
+        field: 'model.field',
+        label: 'field'
+      }, {
+        type: 'text',
+        field: 'model.label',
+        label: 'label'
+      }, {
+        type: 'text',
+        field: 'model.show',
+        label: 'show'
+      }, {
+        type: 'text',
+        field: 'model.disabled',
+        label: 'disabled'
+      }, {
+        type: 'text',
+        field: 'model.prefix',
+        label: 'prefix'
+      }, {
+        type: 'text',
+        field: 'model.affix',
+        label: 'affix'
+      }, {
+        type: 'text',
+        field: 'model.placeholder',
+        label: 'placeholder',
+        show: '["text","number","textarea","datepicker"].indexOf(model.type) !== -1'
+      }, {
+        type: 'text',
+        field: 'model.options',
+        label: 'options',
+        show: '["text","number","select","multiselect","radio"].indexOf(model.type) !== -1'
+      }, {
+        type: 'text',
+        field: 'model.text',
+        label: 'text',
+        show: '["select","multiselect","checkbox"].indexOf(model.type) !== -1'
+      }, {
+        type: 'text',
+        field: 'model.optionWidth',
+        label: 'optionWidth',
+        show: '["radio","checklist"].indexOf(model.type) !== -1'
+      }, {
+        type: 'text',
+        field: 'model.optionValue',
+        label: 'optionValue',
+        show: '["select","multiselect","radio"].indexOf(model.type) !== -1'
+      }, {
+        type: 'text',
+        field: 'model.optionText',
+        label: 'optionValue',
+        show: '["text","number","select","multiselect","radio"].indexOf(model.type) !== -1'
+      }, {
+        type: 'text',
+        field: 'model.optionSubtext',
+        label: 'optionSubtext',
+        show: '["select","multiselect","radio"].indexOf(model.type) !== -1'
+      }, {
+        type: 'text',
+        field: 'model.optionStyle',
+        label: 'optionStyle',
+        show: '["select","multiselect","radio"].indexOf(model.type) !== -1'
+      }, {
+        type: 'text',
+        field: 'model.autoHeight',
+        label: 'autoHeight',
+        show: 'model.type === "textarea"'
+      }, {
+        type: 'number',
+        field: 'model.start',
+        label: 'start',
+        show: 'model.type === "slider"'
+      }, {
+        type: 'number',
+        field: 'model.end',
+        label: 'end',
+        show: 'model.type === "slider"'
+      }, {
+        type: 'number',
+        field: 'model.step',
+        label: 'step',
+        show: 'model.type === "slider"'
+      }, {
+        type: 'table',
+        field: 'model.validations_obj',
+        label: 'Validations',
+        theme: {
+          label: {
+            inline: false
+          }
+        },
+        onChange: value => {
+          input.validations = value.map(({
+            operator,
+            target = ''
+          }) => {
+            let Target;
+
+            try {
+              Target = JSON.parse(target);
+            } catch {
+              Target = undefined;
+            }
+
+            return [operator, Target];
+          });
+          onChange();
+        },
+        columns: [{
+          title: 'Operator',
+          type: 'select',
+          options: 'props.data.validationOperators',
+          optionText: 'option',
+          optionValue: 'option',
+          field: 'operator'
+        }, {
+          title: 'Target',
+          type: 'text',
+          field: 'target'
+        }]
+      }]
+    });
+  }
+
+}
