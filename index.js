@@ -684,6 +684,10 @@ class AIOForm extends _react.Component {
       field: input.start,
       def: 0
     });
+    let step = this.getValue({
+      field: input.step,
+      def: 1
+    });
     let end = this.getValue({
       field: input.end,
       def: 100
@@ -709,6 +713,7 @@ class AIOForm extends _react.Component {
     let props = {
       value,
       options,
+      step,
       disabled: disabled === true,
       onChange,
       className,

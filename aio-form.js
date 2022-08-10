@@ -6,6 +6,7 @@ import AIOButton from 'aio-button';
 import GAH from 'gah-datepicker';
 import AIOValidation from 'aio-validation';
 import AIOTable from 'aio-table';
+import {mdiChevronDown} from '@mdi/js';
 import ReactVirtualDom from 'react-virtual-dom';
 import './index.css';
 export default class AIOForm extends Component {
@@ -213,6 +214,7 @@ export default class AIOForm extends Component {
     let disabled = this.getValue({field:input.disabled,def:false});
     let text = this.getValue({field:input.text});
     let start = this.getValue({field:input.start,def:0});
+    let step = this.getValue({field:input.step,def:1});
     let end = this.getValue({field:input.end,def:100});
     let subtext = this.getValue({field:input.subtext});
     let columns = this.getValue({field:input.columns,def:[]});
@@ -221,7 +223,7 @@ export default class AIOForm extends Component {
     let style = {...theme.input}; 
     let className = `aio-form-input aio-form-input-${input.type}` + (disabled === true?' disabled':'') + (input.className ? ' ' + input.className : '') + (affix?' has-affix':'') + (prefix?' has-prefix':'') + (rtl?' rtl':' ltr')
     let error = this.getError(input,value,options)
-    let props = {value,options,disabled:disabled === true,onChange,className,style,placeholder,text,subtext,start,end,theme,columns}
+    let props = {value,options,step,disabled:disabled === true,onChange,className,style,placeholder,text,subtext,start,end,theme,columns}
     let {label:themeLabel = {},error:themeError = {}} = theme;
     if (themeLabel.inline) {
       return {
