@@ -778,6 +778,9 @@ class AIOForm extends _react.Component {
             show: !!input.prefix,
             html: () => this.getFix(input, rtl, 'prefix')
           }, {
+            style: {
+              overflow: 'visible'
+            },
             flex: 1,
             html: () => this['getInput_' + input.type](props, input)
           }, {
@@ -903,7 +906,6 @@ class AIOForm extends _react.Component {
       return {
         swapId: onSwap ? input._index.toString() : undefined,
         swapHandleClassName: 'aio-form-label',
-        gap: this.getColumnGap(input),
         row: input.map(o => {
           return { ...this.getInput(o),
             flex: o.rowWidth ? undefined : 1,

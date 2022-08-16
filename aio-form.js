@@ -1,12 +1,11 @@
 import React,{Component,useState,useEffect,useRef} from 'react';
 import {Icon} from '@mdi/react';
-import {mdiPrinter,mdiClose,mdiChevronLeft,mdiChevronRight,mdiPlusThick,mdiAttachment,mdiAccount} from '@mdi/js';
+import {mdiPrinter,mdiClose,mdiChevronLeft,mdiChevronRight,mdiPlusThick,mdiAttachment} from '@mdi/js';
 import RRangeSlider from 'r-range-slider';
 import AIOButton from 'aio-button';
 import GAH from 'gah-datepicker';
 import AIOValidation from 'aio-validation';
 import AIOTable from 'aio-table';
-import {mdiChevronDown} from '@mdi/js';
 import ReactVirtualDom from 'react-virtual-dom';
 import './index.css';
 export default class AIOForm extends Component {
@@ -256,7 +255,7 @@ export default class AIOForm extends Component {
           {
             row:[
               {show:!!input.prefix,html:()=>this.getFix(input,rtl,'prefix')},
-              { flex:1,html: ()=>this['getInput_' + input.type](props,input) },
+              { style:{overflow:'visible'},flex:1,html: ()=>this['getInput_' + input.type](props,input) },
               {show:!!input.affix,html:()=>this.getFix(input,rtl,'affix')}
             ]
           },
@@ -318,7 +317,6 @@ export default class AIOForm extends Component {
       return {
         swapId:onSwap?input._index.toString():undefined,
         swapHandleClassName:'aio-form-label',
-        gap:this.getColumnGap(input),
         row:input.map((o)=>{
           return {...this.getInput(o),flex:o.rowWidth?undefined:1,size:o.rowWidth,align:'v'}
         })
