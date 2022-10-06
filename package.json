@@ -1,6 +1,6 @@
 {
   "name": "aio-form-react",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
@@ -13,6 +13,7 @@
     "jquery": "^3.6.0",
     "prismjs": "^1.28.0",
     "r-range-slider": "^4.1.3",
+    "aio-swip": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-virtual-dom": "^3.0.1"

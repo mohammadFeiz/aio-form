@@ -23,6 +23,10 @@ var _aioTable = _interopRequireDefault(require("aio-table"));
 
 var _reactVirtualDom = _interopRequireDefault(require("react-virtual-dom"));
 
+var _aioSwip = _interopRequireDefault(require("aio-swip"));
+
+var _jquery = _interopRequireDefault(require("jquery"));
+
 require("./index.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -84,7 +88,6 @@ class AIOForm extends _react.Component {
   }
 
   setValueByField(obj, field, value) {
-    //debugger;
     field = field.replaceAll('[', '.');
     field = field.replaceAll(']', '');
     var fields = field.split('.');
@@ -142,9 +145,14 @@ class AIOForm extends _react.Component {
     options,
     disabled,
     style,
-    placeholder
+    placeholder,
+    min,
+    max
   }, input) {
-    let props = { ...input.attrs,
+    let props = {
+      min,
+      max,
+      ...input.attrs,
       autoHeight: input.autoHeight,
       type: input.type,
       value,
@@ -158,6 +166,12 @@ class AIOForm extends _react.Component {
       optionText: input.optionText,
       optionValue: input.optionValue
     };
+    let {
+      defaults = {}
+    } = this.props;
+    let def = defaults[input.type];
+    def = def === undefined ? {} : def;
+    this.setByDefaults(defaults, props);
     return /*#__PURE__*/_react.default.createElement(Input, props);
   }
 
@@ -199,6 +213,11 @@ class AIOForm extends _react.Component {
       iconSize: theme.checkIconSize,
       iconColor: theme.checkIconColor
     };
+    let {
+      defaults = {}
+    } = this.props;
+    let checkbox = defaults.checkbox || {};
+    this.setByDefaults(checkbox, props);
     return /*#__PURE__*/_react.default.createElement(_aioButton.default, _extends({}, props, {
       type: "checkbox"
     }));
@@ -211,6 +230,9 @@ class AIOForm extends _react.Component {
     style,
     theme
   }, input) {
+    let inputStyle = { ...this.props.inputStyle,
+      ...input.inputStyle
+    };
     let options = Options.map(o => {
       let model = this.getModel(),
           value = this.getValue({
@@ -229,28 +251,31 @@ class AIOForm extends _react.Component {
         ...o
       };
     });
-    let {
-      input: inputTheme = {}
-    } = theme;
     let props = {
       options,
       disabled,
-      style,
+      style: { ...style,
+        width: '100%',
+        height: undefined
+      },
       optionSubtext: input.optionSubtext,
       className,
       options,
       optionClassName: '"aio-form-input"',
       optionStyle: () => {
-        return {
-          width: input.optionWidth || 'fit-content',
-          height: inputTheme.height,
-          padding: inputTheme.padding,
-          background: 'none'
+        return { ...inputStyle,
+          background: 'none',
+          border: 'none'
         };
       },
       optionIconSize: theme.checkIconSize,
       optionIconColor: theme.checkIconColor
     };
+    let {
+      defaults = {}
+    } = this.props;
+    let checklist = defaults.checklist || {};
+    this.setByDefaults(checklist, props);
     return /*#__PURE__*/_react.default.createElement(_aioButton.default, _extends({}, props, {
       type: "checklist"
     }));
@@ -265,9 +290,9 @@ class AIOForm extends _react.Component {
     className,
     theme
   }, input) {
-    let {
-      input: inputTheme = {}
-    } = theme;
+    let inputStyle = { ...this.props.inputStyle,
+      ...input.inputStyle
+    };
     let props = {
       options,
       value,
@@ -281,15 +306,20 @@ class AIOForm extends _react.Component {
       optionClassName: '"aio-form-input"',
       optionStyle: () => {
         return {
-          width: input.optionWidth || 'fit-content',
-          height: inputTheme.height,
-          padding: inputTheme.padding,
-          background: 'none'
+          height: inputStyle.height,
+          padding: inputStyle.padding,
+          background: 'none',
+          ...input.optionStyle
         };
       },
       optionIconSize: theme.checkIconSize,
       optionIconColor: theme.checkIconColor
     };
+    let {
+      defaults = {}
+    } = this.props;
+    let radio = defaults.radio || {};
+    this.setByDefaults(radio, props);
     return /*#__PURE__*/_react.default.createElement(_aioButton.default, _extends({}, props, {
       type: "radio"
     }));
@@ -301,12 +331,8 @@ class AIOForm extends _react.Component {
     disabled,
     style,
     className,
-    placeholder,
-    theme
+    placeholder
   }, input) {
-    let {
-      datepicker = {}
-    } = theme;
     let props = {
       value,
       onChange: ({
@@ -315,13 +341,26 @@ class AIOForm extends _react.Component {
       disabled,
       style,
       placeHolder: placeholder,
-      theme: [datepicker.color1, datepicker.color2],
+      theme: input.colors,
       className,
       calendarType: input.calendarType,
       unit: input.unit,
       onClear: input.onClear ? () => onChange(false) : undefined
     };
+    let {
+      defaults = {}
+    } = this.props;
+    let datepicker = defaults.datepicker || {};
+    this.setByDefaults(datepicker, props);
     return /*#__PURE__*/_react.default.createElement(_gahDatepicker.default, props);
+  }
+
+  setByDefaults(defaults = {}, obj = {}) {
+    for (let prop in obj) {
+      if (obj[prop] === undefined) {
+        obj[prop] = defaults[prop];
+      }
+    }
   }
 
   getInput_slider({
@@ -333,7 +372,8 @@ class AIOForm extends _react.Component {
     start,
     end,
     step,
-    theme
+    min,
+    max
   }, input) {
     let editValue;
 
@@ -359,19 +399,35 @@ class AIOForm extends _react.Component {
       editValue = input.editValue;
     }
 
+    let {
+      fillColor,
+      emptyColor,
+      thickness,
+      buttonStyle
+    } = input;
     let props = {
+      fillColor,
+      emptyColor,
+      thickness,
+      buttonStyle,
       className,
       value,
       onChange,
       start,
       end,
       step,
+      min,
+      max,
       disabled,
       style,
       editValue,
-      padding: input.padding,
-      theme
+      padding: input.padding
     };
+    let {
+      defaults = {}
+    } = this.props;
+    let slider = defaults.slider || {};
+    this.setByDefaults(slider, props);
     return /*#__PURE__*/_react.default.createElement(Slider, props);
   }
 
@@ -401,6 +457,11 @@ class AIOForm extends _react.Component {
       before: input.before,
       optionSubtext: input.optionSubtext
     };
+    let {
+      defaults = {}
+    } = this.props;
+    let select = defaults.select || {};
+    this.setByDefaults(select, props);
     return /*#__PURE__*/_react.default.createElement(_aioButton.default, _extends({}, props, {
       type: "select",
       popupWidth: "fit",
@@ -449,6 +510,11 @@ class AIOForm extends _react.Component {
         }
       }
     };
+    let {
+      defaults = {}
+    } = this.props;
+    let multiselect = defaults.multiselect || {};
+    this.setByDefaults(multiselect, props);
     return /*#__PURE__*/_react.default.createElement(_aioButton.default, _extends({}, props, {
       type: "multiselect",
       popupAttrs: {
@@ -480,6 +546,11 @@ class AIOForm extends _react.Component {
       style,
       theme
     };
+    let {
+      defaults = {}
+    } = this.props;
+    let table = defaults.table || {};
+    this.setByDefaults(table, props);
     return /*#__PURE__*/_react.default.createElement(Table, _extends({}, props, {
       getValue: this.getValue.bind(this)
     }));
@@ -501,6 +572,11 @@ class AIOForm extends _react.Component {
       style,
       text
     };
+    let {
+      defaults = {}
+    } = this.props;
+    let file = defaults.file || {};
+    this.setByDefaults(file, props);
     return /*#__PURE__*/_react.default.createElement(File, _extends({}, props, {
       getValue: this.getValue.bind(this)
     }));
@@ -532,10 +608,6 @@ class AIOForm extends _react.Component {
           groupDic
         });
       }
-    }), /*#__PURE__*/_react.default.createElement("div", null, input.text), /*#__PURE__*/_react.default.createElement("div", {
-      style: {
-        flex: 1
-      }
     }), /*#__PURE__*/_react.default.createElement("div", {
       className: "aio-form-group-icon"
     }, /*#__PURE__*/_react.default.createElement("svg", {
@@ -549,7 +621,15 @@ class AIOForm extends _react.Component {
       style: {
         fill: 'currentcolor'
       }
-    }))));
+    }))), /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        width: 6
+      }
+    }), /*#__PURE__*/_react.default.createElement("div", null, input.text), /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        flex: 1
+      }
+    }), input.html && input.html());
   }
 
   getInput_message(obj, input) {
@@ -565,7 +645,7 @@ class AIOForm extends _react.Component {
   }
 
   getInput_html(obj, input) {
-    return input.html(this.getModel, this.props.onSubmit ? model => this.setState({
+    return input.html(this.getModel(), this.props.onSubmit ? model => this.setState({
       model
     }) : undefined);
   }
@@ -616,18 +696,19 @@ class AIOForm extends _react.Component {
       inputs
     } = this.props;
     let {
-      label: themeLabel = {}
-    } = theme;
+      inlineLabel = this.props.inlineLabel,
+      labelStyle = this.props.labelStyle || {}
+    } = input;
     let props = {
       align: 'v',
       show: label !== undefined,
-      style: { ...themeLabel,
+      style: { ...labelStyle,
         width: 'fit-content',
         height: 'fit-content'
       },
       className: 'aio-form-label'
     };
-    props.size = themeLabel.inline ? themeLabel.width : themeLabel.height || 24;
+    props.size = inlineLabel ? labelStyle.width : labelStyle.height || 24;
     let {
       onChangeInputs
     } = this.props;
@@ -658,12 +739,14 @@ class AIOForm extends _react.Component {
 
   getInput(input) {
     let {
-      rtl
+      rtl,
+      rowStyle
     } = this.props;
     let {
       label,
       affix,
-      prefix
+      prefix,
+      inlineLabel = this.props.inlineLabel
     } = input;
     let theme = this.getInputTheme(input);
     let value = this.getValue({
@@ -692,6 +775,12 @@ class AIOForm extends _react.Component {
       field: input.end,
       def: 100
     });
+    let min = this.getValue({
+      field: input.min
+    });
+    let max = this.getValue({
+      field: input.max
+    });
     let subtext = this.getValue({
       field: input.subtext
     });
@@ -706,7 +795,8 @@ class AIOForm extends _react.Component {
 
     let onChange = value => this.onChange(input, value);
 
-    let style = { ...theme.input
+    let style = { ...this.props.inputStyle,
+      ...input.inputStyle
     };
     let className = `aio-form-input aio-form-input-${input.type}` + (disabled === true ? ' disabled' : '') + (input.className ? ' ' + input.className : '') + (affix ? ' has-affix' : '') + (prefix ? ' has-prefix' : '') + (rtl ? ' rtl' : ' ltr');
     let error = this.getError(input, value, options);
@@ -724,25 +814,29 @@ class AIOForm extends _react.Component {
       start,
       end,
       theme,
-      columns
+      columns,
+      min,
+      max
     };
     let {
       label: themeLabel = {},
       error: themeError = {}
     } = theme;
 
-    if (themeLabel.inline) {
+    if (inlineLabel) {
       return {
         className: 'aio-form-item',
         style: {
-          overflow: 'visible',
-          marginBottom: theme.rowGap
+          overflow: 'visible'
         },
         row: [this.getLabelLayout(label, theme, input), {
           size: 6,
           show: label !== undefined
         }, {
           flex: 1,
+          style: {
+            overflow: 'visible'
+          },
           column: [{
             row: [{
               show: !!input.prefix,
@@ -770,8 +864,7 @@ class AIOForm extends _react.Component {
       return {
         className: 'aio-form-item',
         style: {
-          overflow: 'visible',
-          marginBottom: theme.rowGap
+          overflow: 'visible'
         },
         column: [this.getLabelLayout(label, theme, input), {
           row: [{
@@ -897,14 +990,16 @@ class AIOForm extends _react.Component {
     }
 
     let {
-      onSwap
+      onSwap,
+      rowStyle
     } = this.props;
-    let {
-      theme
-    } = this.state;
     return this.sortByRows(this.handleGroups(inputs)).map((input, i) => {
       return {
         swapId: onSwap ? input._index.toString() : undefined,
+        style: { ...rowStyle,
+          overflow: 'visible'
+        },
+        className: 'aio-form-row',
         swapHandleClassName: 'aio-form-label',
         row: input.map(o => {
           return { ...this.getInput(o),
@@ -919,9 +1014,11 @@ class AIOForm extends _react.Component {
 
   getError(o, value, options) {
     let {
+      lang = 'en'
+    } = this.props;
+    let {
       validations = []
     } = o;
-    let lang = 'en';
 
     if (!validations.length) {
       return '';
@@ -965,79 +1062,116 @@ class AIOForm extends _react.Component {
     }
   }
 
-  render() {
+  header_layout() {
+    let {
+      header,
+      rtl
+    } = this.props;
+
+    if (!header) {
+      return false;
+    }
+
+    return {
+      html: /*#__PURE__*/_react.default.createElement(AIOFormHeader, _extends({}, header, {
+        rtl: rtl,
+        theme: theme,
+        getValue: this.getValue.bind(this)
+      }))
+    };
+  }
+
+  body_layout(show = true) {
+    if (!show) {
+      return false;
+    }
+
     let {
       inputs = [],
-      header,
-      rtl,
+      bodyStyle,
+      layout
+    } = this.props;
+    return {
+      className: 'aio-form-body',
+      style: bodyStyle,
+      scroll: 'v',
+      flex: 1,
+      column: () => this.getInputs(inputs)
+    };
+  }
+
+  body_and_tabs_layout() {
+    let {
+      tabs = [],
+      tabSize = 36
+    } = this.props;
+
+    if (!tabs.length) {
+      return false;
+    }
+
+    return {
+      style: theme.body,
+      flex: 1,
+      show: tabs.length !== 0,
+      row: [{
+        className: 'aio-form-tabs',
+        size: tabSize,
+        column: tabs.map(o => {
+          return {
+            className: 'aio-form-tab active',
+            size: tabSize,
+            html: o.html,
+            align: 'vh',
+            style: {}
+          };
+        })
+      }, this.body_layout(true)]
+    };
+  }
+
+  footer_layout() {
+    let {
       onSubmit,
       submitText = 'Submit',
       closeText = 'Close',
       resetText = 'Reset',
       onClose,
       footerAttrs,
-      reset,
-      tabs = [],
-      tabSize = 36
+      reset
     } = this.props;
+
+    if (!onSubmit && !reset && !onClose) {
+      return false;
+    }
+
+    return {
+      html: () => /*#__PURE__*/_react.default.createElement(AIOFormFooter, {
+        isThereError: this.isThereError,
+        onClose: onClose,
+        onSubmit: onSubmit ? () => onSubmit({ ...this.state.model
+        }) : undefined,
+        closeText: closeText,
+        submitText: submitText,
+        resetText: resetText,
+        footerAttrs: footerAttrs,
+        onReset: reset ? () => this.reset() : undefined
+      })
+    };
+  }
+
+  render() {
     let {
-      theme
-    } = this.state;
+      tabs = [],
+      style,
+      className
+    } = this.props;
     this.isThereError = false;
     return /*#__PURE__*/_react.default.createElement(_reactVirtualDom.default, {
       layout: {
-        className: 'aio-form',
-        column: [{
-          show: header !== undefined,
-          html: /*#__PURE__*/_react.default.createElement(AIOFormHeader, _extends({}, header, {
-            rtl: rtl,
-            theme: theme,
-            getValue: this.getValue.bind(this)
-          }))
-        }, {
-          className: 'aio-form-body',
-          style: theme.body,
-          scroll: 'v',
-          flex: 1,
-          column: () => this.getInputs(inputs),
-          show: tabs.length === 0
-        }, {
-          style: theme.body,
-          flex: 1,
-          show: tabs.length !== 0,
-          row: [{
-            className: 'aio-form-tabs',
-            size: tabSize,
-            column: tabs.map(o => {
-              return {
-                className: 'aio-form-tab active',
-                size: tabSize,
-                html: o.html,
-                align: 'vh',
-                style: {}
-              };
-            })
-          }, {
-            className: 'aio-form-body',
-            flex: 1,
-            scroll: 'v',
-            column: () => this.getInputs(inputs)
-          }]
-        }, {
-          show: onSubmit !== undefined || reset === true || onClose !== undefined,
-          html: () => /*#__PURE__*/_react.default.createElement(AIOFormFooter, {
-            isThereError: this.isThereError,
-            theme: theme,
-            onClose: onClose,
-            onSubmit: onSubmit ? () => onSubmit({ ...this.state.model
-            }) : undefined,
-            closeText: closeText,
-            submitText: submitText,
-            resetText: resetText,
-            footerAttrs: footerAttrs,
-            onReset: reset ? () => this.reset() : undefined
-          })
-        }]
+        className: 'aio-form' + (className ? ' ' + className : ''),
+        style,
+        column: [this.header_layout(), this.body_layout(tabs.length === 0), this.body_and_tabs_layout(), this.footer_layout()]
       }
     });
   }
@@ -1144,14 +1278,13 @@ class AIOFormFooter extends _react.Component {
       footerAttrs = {},
       onReset,
       resetText,
-      isThereError,
-      theme = {}
+      isThereError
     } = this.props;
     return /*#__PURE__*/_react.default.createElement(_reactVirtualDom.default, {
       layout: {
         align: 'v',
-        className: 'aio-form-footer',
-        style: theme.footer,
+        className: 'aio-form-footer' + (footerAttrs.className ? ' ' + footerAttrs.className : ''),
+        style: footerAttrs.style,
         row: [{
           show: onClose !== undefined,
           html: () => /*#__PURE__*/_react.default.createElement("button", {
@@ -1184,47 +1317,53 @@ class AIOFormFooter extends _react.Component {
 
 }
 
-function Input(obj) {
-  let [value, setValue] = (0, _react.useState)(obj.value),
-      [prevValue, setPrevValue] = (0, _react.useState)(obj.value),
-      [timer, setTimer] = (0, _react.useState)();
-  let [error, setError] = (0, _react.useState)(false);
-  let dom = (0, _react.useRef)(null);
-
-  if (obj.value !== prevValue) {
-    setTimeout(() => {
-      setValue(obj.value);
-      setPrevValue(obj.value);
-    }, 0);
+class Input extends _react.Component {
+  constructor(props) {
+    super(props);
+    this.dom = /*#__PURE__*/(0, _react.createRef)();
+    this.state = {
+      value: props.value,
+      prevValue: props.value,
+      error: false
+    };
   }
 
-  function onChange(e) {
-    let value = e.target.value;
+  onChange(value) {
+    let {
+      type,
+      onChange
+    } = this.props;
 
-    if (obj.type === 'number') {
+    if (type === 'number') {
       if (value) {
         value = +value;
       }
     }
 
-    setValue(value);
-    clearTimeout(timer);
-    setTimer(setTimeout(() => {
-      obj.onChange(value);
-    }, 800));
+    this.setState({
+      value
+    });
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      onChange(value);
+    }, 800);
   }
 
-  function getOptions(options) {
+  getOptions(uid) {
+    let {
+      optionText,
+      options
+    } = this.props;
     let Options = options.map((option, index) => {
       let text;
 
       if (typeof option === 'object' && option.text !== undefined) {
         text = option.text;
-      } else if (typeof obj.optionText === 'function') {
+      } else if (typeof optionText === 'function') {
         text = optionText(option, index);
-      } else if (typeof obj.optionText === 'string') {
+      } else if (typeof optionText === 'string') {
         try {
-          eval(`text = ${obj.optionText}`);
+          eval(`text = ${optionText}`);
         } catch {
           text = '';
         }
@@ -1242,31 +1381,90 @@ function Input(obj) {
     }, Options);
   }
 
-  (0, _react.useEffect)(() => {
-    if (obj.type === 'textarea' && obj.autoHeight) {
-      let scrollHeight = dom.current.scrollHeight + 'px';
-      dom.current.style.height = scrollHeight;
-      dom.current.style.overflow = 'hidden';
-      dom.current.style.resize = 'none';
-    }
-  });
-  let props = { ...obj,
-    value,
-    onChange: e => onChange(e),
-    ref: dom
-  };
-  let uid = 'a' + Math.random();
+  componentDidMount() {
+    let {
+      type,
+      min,
+      max
+    } = this.props;
 
-  if (error !== false) {
-    return /*#__PURE__*/_react.default.createElement("div", {
-      className: "aio-form-inline-error aio-form-input",
-      onClick: () => setError(false)
-    }, error);
+    if (type === 'number') {
+      (0, _aioSwip.default)({
+        speedY: 0.2,
+        dom: (0, _jquery.default)(this.dom.current),
+        start: (x, y) => {
+          this.so = this.state.value;
+        },
+        move: (dx, dy, dist) => {
+          let newValue = -dy + this.so;
+
+          if (min !== undefined && newValue < min) {
+            return;
+          }
+
+          if (max !== undefined && newValue > max) {
+            return;
+          }
+
+          this.onChange(newValue);
+        }
+      });
+    }
   }
 
-  return obj.type === 'textarea' ? /*#__PURE__*/_react.default.createElement("textarea", props) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("input", _extends({}, props, {
-    list: uid
-  })), Array.isArray(obj.options) && obj.options.length !== 0 && getOptions(obj.options));
+  componentDidUpdate() {
+    let {
+      type,
+      autoHeight
+    } = this.props;
+
+    if (type === 'textarea' && autoHeight) {
+      let dom = this.dom.current;
+      let scrollHeight = dom.scrollHeight + 'px';
+      dom.style.height = scrollHeight;
+      dom.style.overflow = 'hidden';
+      dom.style.resize = 'none';
+    }
+  }
+
+  render() {
+    let {
+      options,
+      type
+    } = this.props;
+    let {
+      error,
+      prevValue,
+      value
+    } = this.state;
+
+    if (this.props.value !== prevValue) {
+      setTimeout(() => this.setState({
+        value: this.props.value,
+        prevValue: this.props.value
+      }), 0);
+    }
+
+    if (error !== false) {
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "aio-form-inline-error aio-form-input",
+        onClick: () => this.setState({
+          error: false
+        })
+      }, error);
+    }
+
+    let props = { ...this.props,
+      value,
+      onChange: e => this.onChange(e.target.value),
+      ref: this.dom
+    };
+    let uid = 'a' + Math.random();
+    return type === 'textarea' ? /*#__PURE__*/_react.default.createElement("textarea", props) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("input", _extends({}, props, {
+      list: uid
+    })), Array.isArray(options) && options.length !== 0 && this.getOptions(uid));
+  }
+
 }
 
 class Slider extends _react.Component {
@@ -1276,27 +1474,27 @@ class Slider extends _react.Component {
       start,
       end,
       step,
+      min,
+      max,
       value,
       onChange,
       disabled,
       style = {},
       editValue,
       padding = style.padding,
-      theme = {}
+      thickness = 2,
+      fillColor = 'dodgerblue',
+      emptyColor = '#ddd',
+      buttonStyle = {
+        background: 'dodgerblue',
+        color: '#fff'
+      }
     } = this.props;
 
     if (!Array.isArray(value)) {
       value = [value];
     }
 
-    let {
-      slider: sliderTheme = {}
-    } = theme;
-    let {
-      color1 = 'dodgerblue',
-      color2 = '#fff',
-      color3 = '#bbb'
-    } = sliderTheme;
     let props = {
       attrs: {
         className,
@@ -1307,46 +1505,47 @@ class Slider extends _react.Component {
       start,
       end,
       step,
+      min,
+      max,
       points: value,
       onChange: disabled ? undefined : points => points.length === 1 ? onChange(points[0]) : onChange([points[0], points[1]]),
       showValue: true,
       editValue,
       fillStyle: index => {
+        let style = {
+          height: thickness,
+          background: fillColor
+        };
+
         if (value.length === 1) {
           if (index === 1) {
-            return {
-              background: 'none'
-            };
+            style.background = 'none';
           }
         } else {
           if (index === 0 || index === value.length) {
-            return {
-              background: 'none'
-            };
+            style.background = 'none';
           }
         }
 
-        return {
-          background: color1
-        };
+        return style;
       },
       valueStyle: () => {
         return {
-          height: 20,
+          height: 24,
           display: 'flex',
           minWidth: 12,
-          padding: '0 3px',
+          padding: '0 6px',
           justifyContent: 'center',
+          borderRadius: 3,
           alignItems: 'center',
-          top: 'calc(50% - 10px)',
-          background: color1,
-          color: color2
+          top: 'unset',
+          ...buttonStyle
         };
       },
       lineStyle: () => {
         return {
-          background: color3,
-          height: 1
+          background: emptyColor,
+          height: thickness
         };
       },
       pointStyle: () => {
@@ -2026,15 +2225,14 @@ class FormGenerator extends _react.Component {
       },
       onChange: () => onChange(),
       theme: {
-        rowGap: 0,
         label: {
-          inline: true,
           width: 80
         },
         input: {
           height: 24
         }
       },
+      inlineLabel: true,
       inputs: [{
         type: 'text',
         field: 'model.rowKey',
@@ -2131,11 +2329,7 @@ class FormGenerator extends _react.Component {
         type: 'table',
         field: 'model.validations_obj',
         label: 'Validations',
-        theme: {
-          label: {
-            inline: false
-          }
-        },
+        inlineLabel: false,
         onChange: value => {
           input.validations = value.map(({
             operator,
