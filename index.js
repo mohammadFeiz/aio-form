@@ -4,58 +4,37 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
 var _react = _interopRequireWildcard(require("react"));
-
 var _react2 = require("@mdi/react");
-
 var _js = require("@mdi/js");
-
 var _rRangeSlider = _interopRequireDefault(require("r-range-slider"));
-
 var _aioButton = _interopRequireDefault(require("aio-button"));
-
 var _gahDatepicker = _interopRequireDefault(require("gah-datepicker"));
-
 var _aioValidation = _interopRequireDefault(require("aio-validation"));
-
 var _aioTable = _interopRequireDefault(require("aio-table"));
-
 var _reactVirtualDom = _interopRequireDefault(require("react-virtual-dom"));
-
 var _aioSwip = _interopRequireDefault(require("aio-swip"));
-
 var _jquery = _interopRequireDefault(require("jquery"));
-
 require("./index.css");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
 function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
 class AIOForm extends _react.Component {
   constructor(props) {
     super(props);
     let {
-      model,
       theme = {}
     } = this.props;
     this.state = {
-      initialModel: JSON.stringify(model),
-      model,
+      initialModel: JSON.stringify(props.model),
       theme,
       groupDic: {}
     };
   }
-
   getModel() {
-    return this.props.onSubmit ? this.state.model : this.props.model;
+    return this.props.model;
   }
-
   getValue({
     field,
     def,
@@ -63,11 +42,10 @@ class AIOForm extends _react.Component {
     input
   }) {
     let model = this.getModel(),
-        {
-      data = {}
-    } = this.props,
-        a;
-
+      {
+        data = {}
+      } = this.props,
+      a;
     if (typeof field === 'string') {
       if (field.indexOf('.') !== -1 && (field.indexOf('model.') !== -1 || field.indexOf('props.') !== -1 || field.indexOf('input.') !== -1)) {
         try {
@@ -83,16 +61,13 @@ class AIOForm extends _react.Component {
     } else {
       a = field;
     }
-
     return a === undefined && def !== undefined ? def : a;
   }
-
   setValueByField(obj, field, value) {
     field = field.replaceAll('[', '.');
     field = field.replaceAll(']', '');
     var fields = field.split('.');
     var node = obj;
-
     for (let i = 0; i < fields.length - 1; i++) {
       if (node[fields[i]] === undefined) {
         if (isNaN(parseFloat(fields[i + 1]))) {
@@ -100,44 +75,29 @@ class AIOForm extends _react.Component {
         } else {
           node[fields[i]] = [];
         }
-
         node = node[fields[i]];
       } else {
         node = node[fields[i]];
       }
     }
-
     node[fields[fields.length - 1]] = value;
     return obj;
   }
-
   setValue(field, value, model) {
     return this.setValueByField(model, field, value);
   }
-
   async onChange(input, value) {
     let {
-      onChange,
-      onSubmit
+      onChange
     } = this.props;
-
-    if (onSubmit) {
-      this.setState({
-        model: this.setValue(input.field, value, {
-          model: this.getModel()
-        }).model
-      });
-    } else {
-      if (input.onChange) {
-        return await input.onChange(value);
-      }
-
-      await onChange(this.setValue(input.field, value, {
+    if (input.onChange) {
+      return await input.onChange(value);
+    } else if (onChange) {
+      onChange(this.setValue(input.field, value, {
         model: this.getModel()
       }).model);
     }
   }
-
   getInput_text({
     className,
     value,
@@ -174,23 +134,18 @@ class AIOForm extends _react.Component {
     this.setByDefaults(defaults, props);
     return /*#__PURE__*/_react.default.createElement(Input, props);
   }
-
   getInput_number(obj, input) {
     return this.getInput_text(obj, input);
   }
-
   getInput_password(obj, input) {
     return this.getInput_text(obj, input);
   }
-
   getInput_textarea(obj, input) {
     return this.getInput_text(obj, input);
   }
-
   getInput_color(obj, input) {
     return this.getInput_text(obj, input);
   }
-
   getInput_checkbox({
     className,
     onChange,
@@ -222,7 +177,6 @@ class AIOForm extends _react.Component {
       type: "checkbox"
     }));
   }
-
   getInput_checklist({
     className,
     options: Options,
@@ -230,19 +184,19 @@ class AIOForm extends _react.Component {
     style,
     theme
   }, input) {
-    let inputStyle = { ...this.props.inputStyle,
+    let inputStyle = {
+      ...this.props.inputStyle,
       ...input.inputStyle
     };
     let options = Options.map(o => {
-      let model = this.getModel(),
-          value = this.getValue({
-        field: o.field
-      }),
-          text = o.text;
+      let value = this.getValue({
+          field: o.field
+        }),
+        text = o.text;
       return {
         text,
         value,
-        onChange: (val, obj) => {
+        onChange: val => {
           this.onChange({
             field: o.field,
             onChange: o.onChange
@@ -254,7 +208,8 @@ class AIOForm extends _react.Component {
     let props = {
       options,
       disabled,
-      style: { ...style,
+      style: {
+        ...style,
         width: '100%',
         height: undefined
       },
@@ -263,7 +218,8 @@ class AIOForm extends _react.Component {
       options,
       optionClassName: '"aio-form-input"',
       optionStyle: () => {
-        return { ...inputStyle,
+        return {
+          ...inputStyle,
           background: 'none',
           border: 'none'
         };
@@ -280,7 +236,6 @@ class AIOForm extends _react.Component {
       type: "checklist"
     }));
   }
-
   getInput_radio({
     value,
     onChange,
@@ -290,7 +245,8 @@ class AIOForm extends _react.Component {
     className,
     theme
   }, input) {
-    let inputStyle = { ...this.props.inputStyle,
+    let inputStyle = {
+      ...this.props.inputStyle,
       ...input.inputStyle
     };
     let props = {
@@ -324,7 +280,6 @@ class AIOForm extends _react.Component {
       type: "radio"
     }));
   }
-
   getInput_datepicker({
     value,
     onChange,
@@ -354,7 +309,6 @@ class AIOForm extends _react.Component {
     this.setByDefaults(datepicker, props);
     return /*#__PURE__*/_react.default.createElement(_gahDatepicker.default, props);
   }
-
   setByDefaults(defaults = {}, obj = {}) {
     for (let prop in obj) {
       if (obj[prop] === undefined) {
@@ -362,7 +316,6 @@ class AIOForm extends _react.Component {
       }
     }
   }
-
   getInput_slider({
     className,
     value = 0,
@@ -376,29 +329,23 @@ class AIOForm extends _react.Component {
     max
   }, input) {
     let editValue;
-
     if (typeof input.editValue === 'string') {
       let str = input.editValue;
-
       if (str.indexOf('calc ') === 0) {
         str = str.slice(5, str.length);
       }
-
       editValue = value => {
         let res;
-
         try {
           eval(`res = ${str}`);
         } catch {
           res = value;
         }
-
         return res;
       };
     } else {
       editValue = input.editValue;
     }
-
     let {
       fillColor,
       emptyColor,
@@ -430,7 +377,6 @@ class AIOForm extends _react.Component {
     this.setByDefaults(slider, props);
     return /*#__PURE__*/_react.default.createElement(Slider, props);
   }
-
   getInput_select({
     className,
     value,
@@ -472,7 +418,6 @@ class AIOForm extends _react.Component {
       }
     }));
   }
-
   getInput_multiselect({
     className,
     value,
@@ -506,7 +451,8 @@ class AIOForm extends _react.Component {
       optionIconSize: theme.checkIconSize,
       optionIconColor: theme.checkIconColor,
       optionTagAttrs: {
-        style: { ...theme.tag
+        style: {
+          ...theme.tag
         }
       }
     };
@@ -524,7 +470,6 @@ class AIOForm extends _react.Component {
       }
     }));
   }
-
   getInput_table({
     className,
     value,
@@ -555,7 +500,6 @@ class AIOForm extends _react.Component {
       getValue: this.getValue.bind(this)
     }));
   }
-
   getInput_file({
     className,
     value,
@@ -581,7 +525,6 @@ class AIOForm extends _react.Component {
       getValue: this.getValue.bind(this)
     }));
   }
-
   getInput_group(obj, input) {
     let {
       attrs = {}
@@ -598,7 +541,8 @@ class AIOForm extends _react.Component {
     groupDic[input.id] = groupDic[input.id] === undefined ? true : groupDic[input.id];
     let open = groupDic[input.id];
     return /*#__PURE__*/_react.default.createElement("div", _extends({}, attrs, {
-      style: { ...group,
+      style: {
+        ...group,
         ...attrs.style
       },
       className: 'aio-form-group' + (attrs.className ? ' ' + attrs.className : ''),
@@ -631,7 +575,6 @@ class AIOForm extends _react.Component {
       }
     }), input.html && input.html());
   }
-
   getInput_message(obj, input) {
     let {
       attrs = {}
@@ -643,17 +586,14 @@ class AIOForm extends _react.Component {
       className: 'aio-form-input-message' + (attrs.className ? ' ' + attrs.className : '')
     }), message || obj.value);
   }
-
   getInput_html(obj, input) {
-    return input.html(this.getModel(), this.props.onSubmit ? model => this.setState({
-      model
-    }) : undefined);
+    return input.html(this.getModel());
   }
-
   getFix(input, rtl, type) {
     let fix_props = this.props[type + 'Attrs'] || {};
     let fix_input = input[type + 'Attrs'] || {};
-    let attrs = { ...fix_props,
+    let attrs = {
+      ...fix_props,
       ...fix_input
     };
     let {
@@ -662,17 +602,14 @@ class AIOForm extends _react.Component {
     let value = this.getValue({
       field: input[type]
     });
-
     if (value === undefined) {
       return null;
     }
-
     return /*#__PURE__*/_react.default.createElement("div", _extends({}, attrs, {
       onClick: () => onClick(input),
       className: `aio-form-${type}` + (rtl ? ' rtl' : '') + (attrs.className ? ' ' + attrs.className : '')
     }), value);
   }
-
   getInputTheme(input) {
     let {
       theme: stateTheme = {}
@@ -680,17 +617,19 @@ class AIOForm extends _react.Component {
     let {
       theme: inputTheme = {}
     } = input;
-    return { ...stateTheme,
+    return {
+      ...stateTheme,
       ...inputTheme,
-      label: { ...stateTheme.label,
+      label: {
+        ...stateTheme.label,
         ...inputTheme.label
       },
-      input: { ...stateTheme.input,
+      input: {
+        ...stateTheme.input,
         ...inputTheme.input
       }
     };
   }
-
   getLabelLayout(label, theme, input) {
     let {
       inputs
@@ -702,7 +641,8 @@ class AIOForm extends _react.Component {
     let props = {
       align: 'v',
       show: label !== undefined,
-      style: { ...labelStyle,
+      style: {
+        ...labelStyle,
         width: 'fit-content',
         height: 'fit-content'
       },
@@ -712,7 +652,6 @@ class AIOForm extends _react.Component {
     let {
       onChangeInputs
     } = this.props;
-
     if (onChangeInputs) {
       props.html = /*#__PURE__*/_react.default.createElement(_aioButton.default, {
         style: {
@@ -733,10 +672,8 @@ class AIOForm extends _react.Component {
     } else {
       props.html = label;
     }
-
     return props;
   }
-
   getInput(input) {
     let {
       rtl,
@@ -792,10 +729,9 @@ class AIOForm extends _react.Component {
       field: input.placeholder,
       def: false
     });
-
     let onChange = value => this.onChange(input, value);
-
-    let style = { ...this.props.inputStyle,
+    let style = {
+      ...this.props.inputStyle,
       ...input.inputStyle
     };
     let className = `aio-form-input aio-form-input-${input.type}` + (disabled === true ? ' disabled' : '') + (input.className ? ' ' + input.className : '') + (affix ? ' has-affix' : '') + (prefix ? ' has-prefix' : '') + (rtl ? ' rtl' : ' ltr');
@@ -822,7 +758,6 @@ class AIOForm extends _react.Component {
       label: themeLabel = {},
       error: themeError = {}
     } = theme;
-
     if (inlineLabel) {
       return {
         className: 'aio-form-item',
@@ -890,21 +825,17 @@ class AIOForm extends _react.Component {
       };
     }
   }
-
   sortByRows(inputs) {
     let res = {};
     let result = [];
-
     for (let i = 0; i < inputs.length; i++) {
       let {
         type,
         show
       } = inputs[i];
-
       if (!type) {
         continue;
       }
-
       if (this.getValue({
         field: show,
         def: true,
@@ -912,56 +843,45 @@ class AIOForm extends _react.Component {
       }) === false) {
         continue;
       }
-
       inputs[i]._index = i;
-
       if (type === 'group') {
         let a = 'a' + Math.random();
         res[a] = [inputs[i]];
         result.push(res[a]);
         continue;
       }
-
       let {
         rowKey
       } = inputs[i];
-
       if (!rowKey) {
         rowKey = 'a' + Math.random();
       }
-
       if (!res[rowKey]) {
         res[rowKey] = [];
         result.push(res[rowKey]);
       }
-
       res[rowKey].push(inputs[i]);
     }
-
     return result;
   }
-
   handleGroups(inputs) {
     this.res = [];
     this.handleGroupsReq(inputs, []);
     return this.res;
   }
-
   handleGroupsReq(inputs = []) {
     let {
       groupDic
     } = this.state;
-
     for (let i = 0; i < inputs.length; i++) {
       let input = inputs[i];
-
       if (input.type === 'group') {
         if (input.text !== undefined) {
-          this.res.push({ ...input,
+          this.res.push({
+            ...input,
             type: 'group'
           });
         }
-
         if (input.id === undefined || groupDic[input.id] !== false) {
           this.handleGroupsReq(input.inputs, input.id);
         }
@@ -970,7 +890,6 @@ class AIOForm extends _react.Component {
       }
     }
   }
-
   getColumnGap(input) {
     let {
       theme = {}
@@ -983,12 +902,10 @@ class AIOForm extends _react.Component {
     } = input;
     return columnGap;
   }
-
   getInputs(inputs) {
     if (!inputs.length) {
       return [];
     }
-
     let {
       onSwap,
       rowStyle
@@ -996,13 +913,15 @@ class AIOForm extends _react.Component {
     return this.sortByRows(this.handleGroups(inputs)).map((input, i) => {
       return {
         swapId: onSwap ? input._index.toString() : undefined,
-        style: { ...rowStyle,
+        style: {
+          ...rowStyle,
           overflow: 'visible'
         },
         className: 'aio-form-row',
         swapHandleClassName: 'aio-form-label',
         row: input.map(o => {
-          return { ...this.getInput(o),
+          return {
+            ...this.getInput(o),
             flex: o.rowWidth ? undefined : 1,
             size: o.rowWidth,
             align: 'v'
@@ -1011,7 +930,6 @@ class AIOForm extends _react.Component {
       };
     });
   }
-
   getError(o, value, options) {
     let {
       lang = 'en'
@@ -1019,11 +937,9 @@ class AIOForm extends _react.Component {
     let {
       validations = []
     } = o;
-
     if (!validations.length) {
       return '';
     }
-
     let a = {
       value,
       title: o.label,
@@ -1036,56 +952,41 @@ class AIOForm extends _react.Component {
       })
     };
     let error = (0, _aioValidation.default)(a);
-
     if (!this.isThereError && error) {
       this.isThereError = true;
     }
-
     return error;
   }
-
   async reset() {
     let {
-      onSubmit,
       onChange
     } = this.props;
     let {
       initialModel
     } = this.state;
-
-    if (onSubmit) {
-      this.setState({
-        model: JSON.parse(initialModel)
-      });
-    } else if (onChange) {
-      await onChange(JSON.parse(initialModel));
+    if (onChange) {
+      onChange(JSON.parse(initialModel));
     }
   }
-
   header_layout() {
     let {
       header,
       rtl
     } = this.props;
-
     if (!header) {
       return false;
     }
-
     return {
       html: /*#__PURE__*/_react.default.createElement(AIOFormHeader, _extends({}, header, {
         rtl: rtl,
-        theme: theme,
         getValue: this.getValue.bind(this)
       }))
     };
   }
-
   body_layout(show = true) {
     if (!show) {
       return false;
     }
-
     let {
       inputs = [],
       bodyStyle,
@@ -1099,19 +1000,17 @@ class AIOForm extends _react.Component {
       column: () => this.getInputs(inputs)
     };
   }
-
   body_and_tabs_layout() {
     let {
       tabs = [],
-      tabSize = 36
+      tabSize = 36,
+      bodyStyle
     } = this.props;
-
     if (!tabs.length) {
       return false;
     }
-
     return {
-      style: theme.body,
+      style: bodyStyle,
       flex: 1,
       show: tabs.length !== 0,
       row: [{
@@ -1129,7 +1028,6 @@ class AIOForm extends _react.Component {
       }, this.body_layout(true)]
     };
   }
-
   footer_layout() {
     let {
       onSubmit,
@@ -1140,17 +1038,14 @@ class AIOForm extends _react.Component {
       footerAttrs,
       reset
     } = this.props;
-
     if (!onSubmit && !reset && !onClose) {
       return false;
     }
-
     return {
       html: () => /*#__PURE__*/_react.default.createElement(AIOFormFooter, {
         isThereError: this.isThereError,
         onClose: onClose,
-        onSubmit: onSubmit ? () => onSubmit({ ...this.state.model
-        }) : undefined,
+        onSubmit: onSubmit ? () => onSubmit(this.getModel()) : undefined,
         closeText: closeText,
         submitText: submitText,
         resetText: resetText,
@@ -1159,7 +1054,6 @@ class AIOForm extends _react.Component {
       })
     };
   }
-
   render() {
     let {
       tabs = [],
@@ -1175,11 +1069,8 @@ class AIOForm extends _react.Component {
       }
     });
   }
-
 }
-
 exports.default = AIOForm;
-
 class AIOFormHeader extends _react.Component {
   render() {
     let {
@@ -1200,7 +1091,8 @@ class AIOFormHeader extends _react.Component {
     return /*#__PURE__*/_react.default.createElement(_reactVirtualDom.default, {
       layout: {
         className: 'aio-form-header' + (attrs.className ? ' ' + attrs.className : ''),
-        style: { ...theme.header,
+        style: {
+          ...theme.header,
           ...attrs.style
         },
         align: 'v',
@@ -1265,9 +1157,7 @@ class AIOFormHeader extends _react.Component {
       }
     });
   }
-
 }
-
 class AIOFormFooter extends _react.Component {
   render() {
     let {
@@ -1314,9 +1204,7 @@ class AIOFormFooter extends _react.Component {
       }
     });
   }
-
 }
-
 class Input extends _react.Component {
   constructor(props) {
     super(props);
@@ -1327,19 +1215,16 @@ class Input extends _react.Component {
       error: false
     };
   }
-
   onChange(value) {
     let {
       type,
       onChange
     } = this.props;
-
     if (type === 'number') {
       if (value) {
         value = +value;
       }
     }
-
     this.setState({
       value
     });
@@ -1348,7 +1233,6 @@ class Input extends _react.Component {
       onChange(value);
     }, 800);
   }
-
   getOptions(uid) {
     let {
       optionText,
@@ -1356,7 +1240,6 @@ class Input extends _react.Component {
     } = this.props;
     let Options = options.map((option, index) => {
       let text;
-
       if (typeof option === 'object' && option.text !== undefined) {
         text = option.text;
       } else if (typeof optionText === 'function') {
@@ -1370,7 +1253,6 @@ class Input extends _react.Component {
       } else {
         text = '';
       }
-
       return /*#__PURE__*/_react.default.createElement("option", {
         key: index,
         value: text
@@ -1380,14 +1262,12 @@ class Input extends _react.Component {
       id: uid
     }, Options);
   }
-
   componentDidMount() {
     let {
       type,
       min,
       max
     } = this.props;
-
     if (type === 'number') {
       (0, _aioSwip.default)({
         speedY: 0.2,
@@ -1397,27 +1277,22 @@ class Input extends _react.Component {
         },
         move: (dx, dy, dist) => {
           let newValue = -dy + this.so;
-
           if (min !== undefined && newValue < min) {
             return;
           }
-
           if (max !== undefined && newValue > max) {
             return;
           }
-
           this.onChange(newValue);
         }
       });
     }
   }
-
   componentDidUpdate() {
     let {
       type,
       autoHeight
     } = this.props;
-
     if (type === 'textarea' && autoHeight) {
       let dom = this.dom.current;
       let scrollHeight = dom.scrollHeight + 'px';
@@ -1426,7 +1301,6 @@ class Input extends _react.Component {
       dom.style.resize = 'none';
     }
   }
-
   render() {
     let {
       options,
@@ -1437,14 +1311,23 @@ class Input extends _react.Component {
       prevValue,
       value
     } = this.state;
-
     if (this.props.value !== prevValue) {
-      setTimeout(() => this.setState({
-        value: this.props.value,
-        prevValue: this.props.value
-      }), 0);
+      setTimeout(() => {
+        if (value === undefined) {
+          this.state.value = undefined;
+          this.state.prevValue = undefined;
+          this.setState({
+            value: undefined,
+            prevValue: undefined
+          });
+        } else {
+          this.setState({
+            value: this.props.value,
+            prevValue: this.props.value
+          });
+        }
+      }, 0);
     }
-
     if (error !== false) {
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "aio-form-inline-error aio-form-input",
@@ -1453,8 +1336,8 @@ class Input extends _react.Component {
         })
       }, error);
     }
-
-    let props = { ...this.props,
+    let props = {
+      ...this.props,
       value,
       onChange: e => this.onChange(e.target.value),
       ref: this.dom
@@ -1464,9 +1347,7 @@ class Input extends _react.Component {
       list: uid
     })), Array.isArray(options) && options.length !== 0 && this.getOptions(uid));
   }
-
 }
-
 class Slider extends _react.Component {
   render() {
     let {
@@ -1490,15 +1371,14 @@ class Slider extends _react.Component {
         color: '#fff'
       }
     } = this.props;
-
     if (!Array.isArray(value)) {
       value = [value];
     }
-
     let props = {
       attrs: {
         className,
-        style: { ...style,
+        style: {
+          ...style,
           padding
         }
       },
@@ -1516,7 +1396,6 @@ class Slider extends _react.Component {
           height: thickness,
           background: fillColor
         };
-
         if (value.length === 1) {
           if (index === 1) {
             style.background = 'none';
@@ -1526,7 +1405,6 @@ class Slider extends _react.Component {
             style.background = 'none';
           }
         }
-
         return style;
       },
       valueStyle: () => {
@@ -1556,16 +1434,13 @@ class Slider extends _react.Component {
     };
     return /*#__PURE__*/_react.default.createElement(_rRangeSlider.default, props);
   }
-
 }
-
 class Table extends _react.Component {
   setValueByField(obj, field, value) {
     field = field.replaceAll('[', '.');
     field = field.replaceAll(']', '');
     var fields = field.split('.');
     var node = obj;
-
     for (let i = 0; i < fields.length - 1; i++) {
       if (node[fields[i]] === undefined) {
         if (isNaN(parseFloat(fields[i + 1]))) {
@@ -1573,53 +1448,42 @@ class Table extends _react.Component {
         } else {
           node[fields[i]] = [];
         }
-
         node = node[fields[i]];
       } else {
         node = node[fields[i]];
       }
     }
-
     node[fields[fields.length - 1]] = value;
     return obj;
   }
-
   add() {
     let {
       columns = [],
       onChange,
       value = []
     } = this.props;
-
     if (!columns.length) {
       return;
     }
-
     let obj = {};
-
     for (let i = 0; i < columns.length; i++) {
       let {
         field,
         type
       } = columns[i];
-
       if (!field) {
         continue;
       }
-
       if (typeof field === 'string' && field.indexOf('calc ') === 0) {
         continue;
       }
-
       let val;
-
       if (type === 'text') {
         val = '';
       } else if (type === 'number') {
         val = 0;
       } else if (type === 'select') {
         let options = this.getColumnOptions(columns[i]);
-
         try {
           val = options[0].value;
         } catch {
@@ -1628,27 +1492,21 @@ class Table extends _react.Component {
       } else if (type === 'checkbox') {
         val = false;
       }
-
       this.setValueByField(obj, field, val);
     }
-
     value.push(obj);
     onChange(value);
   }
-
   getToolbarItems() {
     let {
       item,
       addable = true,
       disabled
     } = this.props;
-
     if (disabled) {
       return;
     }
-
     let toolbarItems = [];
-
     if (addable) {
       toolbarItems.push({
         text: '+',
@@ -1663,10 +1521,8 @@ class Table extends _react.Component {
         }
       });
     }
-
     return toolbarItems;
   }
-
   getColumnOptions(column) {
     let {
       getValue
@@ -1681,7 +1537,6 @@ class Table extends _react.Component {
     } = column;
     options = options.map(option => {
       let text, value;
-
       if (optionText) {
         try {
           eval(`text = ${optionText}`);
@@ -1691,7 +1546,6 @@ class Table extends _react.Component {
       } else {
         text = option.text;
       }
-
       if (optionValue) {
         try {
           eval(`value = ${optionText}`);
@@ -1701,7 +1555,6 @@ class Table extends _react.Component {
       } else {
         value = option.value;
       }
-
       return {
         text,
         value
@@ -1714,7 +1567,6 @@ class Table extends _react.Component {
       });
     });
   }
-
   getColumns() {
     let {
       onChange,
@@ -1747,21 +1599,19 @@ class Table extends _react.Component {
       }
     };
     let result = columns.map(column => {
-      let a = { ...column,
+      let a = {
+        ...column,
         cellAttrs,
         titleAttrs,
         getValue: column.field
       };
-
       if (column.type === 'select') {
         let options = this.getColumnOptions(column);
-
         a.template = (row, column, value) => {
           let option = options.filter(o => o.value === value)[0];
           return option ? option.text : '';
         };
       }
-
       if (column.type === 'checkbox') {
         let options = this.getColumnOptions(column) || [{
           text: 'True',
@@ -1770,13 +1620,11 @@ class Table extends _react.Component {
           text: 'False',
           value: false
         }];
-
         a.template = (row, column, value) => {
           let option = options.filter(o => o.value === value)[0];
           return option ? option.text : '';
         };
       }
-
       if (typeof column.type === 'function') {
         a.inlineEdit = row => {
           let type = column.type(row);
@@ -1786,7 +1634,6 @@ class Table extends _react.Component {
               if (!value[row._index]) {
                 value[row._index] = {};
               }
-
               this.setValueByField(value[row._index], column.field, val);
               onChange(value);
             },
@@ -1794,7 +1641,6 @@ class Table extends _react.Component {
               if (column.disabled) {
                 return true;
               }
-
               return false;
             },
             options: type === 'select' ? this.getColumnOptions(column) : undefined
@@ -1808,29 +1654,23 @@ class Table extends _react.Component {
             if (!value[row._index]) {
               value[row._index] = {};
             }
-
             this.setValueByField(value[row._index], column.field, val);
             onChange(value);
           },
           disabled: () => disabled
         };
-
         if (column.type === 'select') {
           a.inlineEdit.options = this.getColumnOptions(column);
         }
-
         a.inlineEdit.disabled = row => {
           if (column.disabled) {
             return true;
           }
-
           return false;
         };
       }
-
       return a;
     });
-
     if (rowNumber) {
       result.splice(0, 0, {
         title: '#',
@@ -1842,7 +1682,6 @@ class Table extends _react.Component {
         titleAttrs
       });
     }
-
     if (addable && !disabled) {
       result.push({
         title: '',
@@ -1862,10 +1701,8 @@ class Table extends _react.Component {
         }
       });
     }
-
     return result;
   }
-
   render() {
     let {
       value = [],
@@ -1879,18 +1716,15 @@ class Table extends _react.Component {
     let {
       input = {}
     } = theme;
-
     try {
       model = JSON.parse(JSON.stringify(value));
     } catch {
       model = [];
     }
-
     if (!model.length) {
       if (disabled) {
         return null;
       }
-
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "aio-form-table-add aio-form-input",
         onClick: () => this.add(),
@@ -1903,7 +1737,6 @@ class Table extends _react.Component {
         }
       }, "+");
     }
-
     let columns = this.getColumns();
     let props = {
       getCellStyle: () => {
@@ -1925,7 +1758,8 @@ class Table extends _react.Component {
       toolbarItems: props.toolbarItems,
       toolbarAttrs: {
         className: 'aio-form-input',
-        style: { ...theme.input,
+        style: {
+          ...theme.input,
           border: 'none',
           display: disabled ? 'none' : undefined,
           borderRadius: 0
@@ -1941,9 +1775,7 @@ class Table extends _react.Component {
       }
     });
   }
-
 }
-
 class File extends _react.Component {
   render() {
     let {
@@ -1972,9 +1804,7 @@ class File extends _react.Component {
     };
     return /*#__PURE__*/_react.default.createElement(FileManager, props);
   }
-
 }
-
 class FileManager extends _react.Component {
   render() {
     let {
@@ -1987,7 +1817,6 @@ class FileManager extends _react.Component {
       style
     } = this.props;
     let Previews = [];
-
     for (let i = 0; i < files.length; i++) {
       let file = files[i];
       Previews.push( /*#__PURE__*/_react.default.createElement(FilePreview, {
@@ -1998,7 +1827,6 @@ class FileManager extends _react.Component {
         color: color
       }));
     }
-
     return /*#__PURE__*/_react.default.createElement("div", {
       className: 'file-manager' + (className ? ' ' + className : ''),
       style: style
@@ -2008,9 +1836,7 @@ class FileManager extends _react.Component {
       color: color
     }), Previews);
   }
-
 }
-
 class FilePreview extends _react.Component {
   constructor(props) {
     super(props);
@@ -2018,25 +1844,21 @@ class FilePreview extends _react.Component {
       preview: false
     };
   }
-
   getFile(file) {
     try {
       let minName, sizeString;
       let lastDotIndex = file.name.lastIndexOf('.');
       let name = file.name.slice(0, lastDotIndex);
       let format = file.name.slice(lastDotIndex + 1, file.name.length);
-
       if (name.length > 10 + 5) {
         minName = name.slice(0, 10) + '...' + name.slice(10, 10 + 5) + '.' + format;
       } else {
         minName = file.name;
       }
-
       let size = file.size;
       let gb = size / (1024 * 1024 * 1024),
-          mb = size / (1024 * 1024),
-          kb = size / 1024;
-
+        mb = size / (1024 * 1024),
+        kb = size / 1024;
       if (gb >= 1) {
         sizeString = gb.toFixed(2) + ' GB';
       } else if (mb >= 1) {
@@ -2046,7 +1868,6 @@ class FilePreview extends _react.Component {
       } else {
         sizeString = size + ' byte';
       }
-
       return {
         minName,
         sizeString
@@ -2058,7 +1879,6 @@ class FilePreview extends _react.Component {
       };
     }
   }
-
   getIcon(file, size) {
     return /*#__PURE__*/_react.default.createElement(_react2.Icon, {
       style: {
@@ -2072,7 +1892,6 @@ class FilePreview extends _react.Component {
       })
     });
   }
-
   render() {
     let {
       file,
@@ -2154,29 +1973,23 @@ class FilePreview extends _react.Component {
       }
     })));
   }
-
 }
-
 class AddFile extends _react.Component {
   async toBase64(file) {
     let a = await new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
-
       reader.onload = () => resolve(reader.result);
-
       reader.onerror = error => reject(error);
     });
     return a;
   }
-
   change(e) {
     let {
       onAdd
     } = this.props;
     onAdd(e.target.files);
   }
-
   render() {
     let {
       text = 'Add File',
@@ -2200,9 +2013,7 @@ class AddFile extends _react.Component {
       className: "add-file-text"
     }, text));
   }
-
 }
-
 class FormGenerator extends _react.Component {
   render() {
     let {
@@ -2210,7 +2021,6 @@ class FormGenerator extends _react.Component {
       onChange
     } = this.props;
     let validations = input.validations || [];
-    console.log(validations);
     let validations_obj = validations.map(([operator, target]) => {
       return {
         operator,
@@ -2336,13 +2146,11 @@ class FormGenerator extends _react.Component {
             target = ''
           }) => {
             let Target;
-
             try {
               Target = JSON.parse(target);
             } catch {
               Target = undefined;
             }
-
             return [operator, Target];
           });
           onChange();
@@ -2362,5 +2170,4 @@ class FormGenerator extends _react.Component {
       }]
     });
   }
-
 }

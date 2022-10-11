@@ -13,10 +13,10 @@ import './index.css';
 export default class AIOForm extends Component {
   constructor(props){
     super(props);
-    let {model,theme = {}} = this.props;
-    this.state = {initialModel:JSON.stringify(model),model,theme,groupDic:{}}
+    let {theme = {}} = this.props;
+    this.state = {initialModel:JSON.stringify(props.model),theme,groupDic:{}}
   }
-  getModel(){return this.props.onSubmit?this.state.model:this.props.model}
+  getModel(){return this.props.model}
   getValue({field,def,props = this.props,input}){
     let model = this.getModel(),{data = {}} = this.props,a;
     if(typeof field === 'string'){
@@ -51,12 +51,9 @@ export default class AIOForm extends Component {
     return this.setValueByField(model,field,value)
   }
   async onChange(input, value) {
-    let {onChange,onSubmit} = this.props;
-    if(onSubmit){this.setState({model:this.setValue(input.field,value,{model:this.getModel()}).model});}
-    else{
-      if (input.onChange) {return await input.onChange(value);} 
-      await onChange(this.setValue(input.field,value,{model:this.getModel()}).model);  
-    }
+    let {onChange} = this.props;
+    if (input.onChange) {return await input.onChange(value);} 
+    else if(onChange){onChange(this.setValue(input.field,value,{model:this.getModel()}).model)}
   }
   getInput_text({className,value,onChange,options,disabled,style,placeholder,min,max}, input){
     let props = {min,max,...input.attrs,autoHeight:input.autoHeight,type:input.type,value,className,onChange,options,disabled,style,placeholder,options,optionText:input.optionText,optionValue:input.optionValue};
@@ -83,8 +80,8 @@ export default class AIOForm extends Component {
   getInput_checklist({className,options:Options,disabled,style,theme}, input) {
     let inputStyle = {...this.props.inputStyle,...input.inputStyle}
     let options = Options.map((o)=>{
-      let model = this.getModel(),value = this.getValue({field:o.field}),text = o.text;
-      return {text,value,onChange:(val,obj)=>{this.onChange({field:o.field,onChange:o.onChange},!val)},...o}
+      let value = this.getValue({field:o.field}),text = o.text;
+      return {text,value,onChange:(val)=>{this.onChange({field:o.field,onChange:o.onChange},!val)},...o}
     });
     let props = {
       options,disabled,style:{...style,width:'100%',height:undefined},optionSubtext:input.optionSubtext,className,options,optionClassName:'"aio-form-input"',
@@ -210,7 +207,7 @@ export default class AIOForm extends Component {
     )
   }
   getInput_html(obj,input){
-    return input.html(this.getModel(),this.props.onSubmit?(model)=>this.setState({model}):undefined);
+    return input.html(this.getModel());
   }
   getFix(input,rtl,type){
     let fix_props = this.props[type + 'Attrs'] || {};
@@ -381,17 +378,14 @@ export default class AIOForm extends Component {
     return error;
   } 
   async reset(){
-    let {onSubmit,onChange} = this.props;
+    let {onChange} = this.props;
     let {initialModel} = this.state;
-    if(onSubmit){this.setState({model:JSON.parse(initialModel)})}
-    else if(onChange){
-      await onChange(JSON.parse(initialModel))
-    }
+    if(onChange){onChange(JSON.parse(initialModel))}
   }
   header_layout(){
     let {header,rtl} = this.props;
     if(!header){return false}
-    return {html:<AIOFormHeader {...header} rtl={rtl} theme={theme} getValue={this.getValue.bind(this)}/>}
+    return {html:<AIOFormHeader {...header} rtl={rtl} getValue={this.getValue.bind(this)}/>}
   }
   body_layout(show = true){
     if(!show){return false}
@@ -399,10 +393,10 @@ export default class AIOForm extends Component {
     return {className: 'aio-form-body',style:bodyStyle,scroll: 'v',flex: 1,column:()=>this.getInputs(inputs)}
   }
   body_and_tabs_layout(){
-    let {tabs = [],tabSize = 36} = this.props;
+    let {tabs = [],tabSize = 36,bodyStyle} = this.props;
     if(!tabs.length){return false}
     return {
-      style:theme.body,flex: 1,show:tabs.length !== 0,
+      style:bodyStyle,flex: 1,show:tabs.length !== 0,
       row:[
         {
           className:'aio-form-tabs',size:tabSize,
@@ -421,7 +415,7 @@ export default class AIOForm extends Component {
         <AIOFormFooter 
           isThereError={this.isThereError}
           onClose={onClose} 
-          onSubmit={onSubmit?()=>onSubmit({...this.state.model}):undefined} 
+          onSubmit={onSubmit?()=>onSubmit(this.getModel()):undefined} 
           closeText={closeText} submitText={submitText} resetText={resetText}
           footerAttrs={footerAttrs} 
           onReset={reset?()=>this.reset():undefined}
@@ -578,7 +572,17 @@ class Input extends Component{
   render(){
     let {options,type} = this.props;
     let {error,prevValue,value} = this.state;   
-    if (this.props.value !== prevValue) {setTimeout(() => this.setState({value:this.props.value,prevValue:this.props.value}), 0);}
+    if (this.props.value !== prevValue) {setTimeout(() => {
+        if(value === undefined){
+            this.state.value = undefined;
+            this.state.prevValue = undefined;
+            this.setState({value:undefined,prevValue:undefined})
+        }
+        else{
+            this.setState({value:this.props.value,prevValue:this.props.value})
+        }
+        
+    }, 0);}
     if(error !== false){
       return <div className='aio-form-inline-error aio-form-input' onClick={()=>this.setState({error:false})}>{error}</div>
     }
@@ -953,7 +957,6 @@ class FormGenerator extends Component{
   render(){
     let {input,onChange} = this.props;
     let validations = input.validations || []
-    console.log(validations)
     let validations_obj = validations.map(([operator,target])=>{
       return {operator,target:JSON.stringify(target)}
     })
