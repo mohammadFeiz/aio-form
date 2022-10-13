@@ -845,22 +845,22 @@ class AIOForm extends _react.Component {
       }
       inputs[i]._index = i;
       if (type === 'group') {
-        let a = 'a' + Math.random();
-        res[a] = [inputs[i]];
-        result.push(res[a]);
-        continue;
-      }
-      let {
-        rowKey
-      } = inputs[i];
-      if (!rowKey) {
-        rowKey = 'a' + Math.random();
-      }
-      if (!res[rowKey]) {
-        res[rowKey] = [];
+        let rowKey = 'a' + Math.random();
+        res[rowKey] = [inputs[i]];
         result.push(res[rowKey]);
+      } else {
+        let {
+          rowKey
+        } = inputs[i];
+        if (!rowKey) {
+          rowKey = 'a' + Math.random();
+        }
+        if (!res[rowKey]) {
+          res[rowKey] = [];
+          result.push(res[rowKey]);
+        }
+        res[rowKey].push(inputs[i]);
       }
-      res[rowKey].push(inputs[i]);
     }
     return result;
   }
@@ -910,16 +910,21 @@ class AIOForm extends _react.Component {
       onSwap,
       rowStyle
     } = this.props;
-    return this.sortByRows(this.handleGroups(inputs)).map((input, i) => {
+    let rows = this.sortByRows(this.handleGroups(inputs));
+    return rows.map((row, i) => {
+      let style = {
+        ...rowStyle,
+        overflow: 'visible'
+      };
+      if (i === rows.length - 1) {
+        style.marginBottom = 0;
+      }
       return {
-        swapId: onSwap ? input._index.toString() : undefined,
-        style: {
-          ...rowStyle,
-          overflow: 'visible'
-        },
+        swapId: onSwap ? row._index.toString() : undefined,
+        style,
         className: 'aio-form-row',
         swapHandleClassName: 'aio-form-label',
-        row: input.map(o => {
+        row: row.map(o => {
           return {
             ...this.getInput(o),
             flex: o.rowWidth ? undefined : 1,
