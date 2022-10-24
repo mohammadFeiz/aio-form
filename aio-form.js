@@ -312,16 +312,15 @@ export default class AIOForm extends Component {
       if(this.getValue({field:show,def:true,input:inputs[i]}) === false){continue}
       inputs[i]._index = i;
       if(type === 'group'){
-        let rowKey = 'a' + Math.random()
-        res[rowKey] = [inputs[i]];
-        result.push(res[rowKey]);  
+        let a = 'a' + Math.random()
+        res[a] = [inputs[i]];
+        result.push(res[a]);
+        continue;  
       }
-      else{
-        let {rowKey} = inputs[i];
-        if(!rowKey){rowKey = 'a' + Math.random()}
-        if(!res[rowKey]){res[rowKey] = []; result.push(res[rowKey])}
-        res[rowKey].push(inputs[i])  
-      }
+      let {rowKey} = inputs[i];
+      if(!rowKey){rowKey = 'a' + Math.random()}
+      if(!res[rowKey]){res[rowKey] = []; result.push(res[rowKey])}
+      res[rowKey].push(inputs[i])  
     }
     return result;
   }
@@ -418,6 +417,7 @@ export default class AIOForm extends Component {
       html:()=>(
         <AIOFormFooter 
           isThereError={this.isThereError}
+          isModelChanged={this.state.initialModel === JSON.stringify(this.props.model)}
           onClose={onClose} 
           onSubmit={onSubmit?()=>onSubmit(this.getModel()):undefined} 
           closeText={closeText} submitText={submitText} resetText={resetText}
@@ -448,19 +448,19 @@ export default class AIOForm extends Component {
 }
 class AIOFormHeader extends Component {
   render() {
-    let {title,onClose,attrs = {},print,onBack,justify,onForward,rtl,theme,getValue} = this.props;
+    let {title,onClose,print,onBack,justify,onForward,rtl,style,className,getValue} = this.props;
     let subtitle = getValue({field:this.props.subtitle})
     return (
       <ReactVirtualDom
         layout={{
-          className: 'aio-form-header' + (attrs.className?' ' + attrs.className:''),
-          style:{...theme.header,...attrs.style},
+          className: 'aio-form-header' + (className?' ' + className:''),
+          style:{...style},
           align: 'v',
           row: [
             {show:onBack !== undefined,html:<Icon path={rtl?mdiChevronRight:mdiChevronLeft} size={0.9}/>,align:'vh',size:36,attrs:{onClick:onBack}},
             {show:justify === true,flex:1},
             {
-              column: [
+              align:'v',column: [
                 { html: title, className: 'aio-form-title', align: 'v' },
                 {show: subtitle !== undefined,html: subtitle,className: 'aio-form-subtitle',align: 'v'},
               ],
@@ -477,7 +477,7 @@ class AIOFormHeader extends Component {
 }
 class AIOFormFooter extends Component{
   render(){
-    let {onClose,onSubmit,closeText,submitText,footerAttrs = {},onReset,resetText,isThereError} = this.props;
+    let {onClose,onSubmit,closeText,submitText,footerAttrs = {},onReset,resetText,isThereError,isModelChanged} = this.props;
     return (
       <ReactVirtualDom
         layout={{
@@ -490,7 +490,7 @@ class AIOFormFooter extends Component{
             { size: 12, show:onSubmit !== undefined },
             {
               show: onSubmit !== undefined,
-              html: () => (<button className="aio-form-footer-button aio-form-submit-button" disabled={isThereError} onClick={() => onSubmit()}>{submitText}</button>)
+              html: () => (<button className="aio-form-footer-button aio-form-submit-button" disabled={isThereError || isModelChanged} onClick={() => onSubmit()}>{submitText}</button>)
             },
             { size: 12, show:onSubmit !== undefined },
             {

@@ -845,22 +845,22 @@ class AIOForm extends _react.Component {
       }
       inputs[i]._index = i;
       if (type === 'group') {
-        let rowKey = 'a' + Math.random();
-        res[rowKey] = [inputs[i]];
-        result.push(res[rowKey]);
-      } else {
-        let {
-          rowKey
-        } = inputs[i];
-        if (!rowKey) {
-          rowKey = 'a' + Math.random();
-        }
-        if (!res[rowKey]) {
-          res[rowKey] = [];
-          result.push(res[rowKey]);
-        }
-        res[rowKey].push(inputs[i]);
+        let a = 'a' + Math.random();
+        res[a] = [inputs[i]];
+        result.push(res[a]);
+        continue;
       }
+      let {
+        rowKey
+      } = inputs[i];
+      if (!rowKey) {
+        rowKey = 'a' + Math.random();
+      }
+      if (!res[rowKey]) {
+        res[rowKey] = [];
+        result.push(res[rowKey]);
+      }
+      res[rowKey].push(inputs[i]);
     }
     return result;
   }
@@ -1049,6 +1049,7 @@ class AIOForm extends _react.Component {
     return {
       html: () => /*#__PURE__*/_react.default.createElement(AIOFormFooter, {
         isThereError: this.isThereError,
+        isModelChanged: this.state.initialModel === JSON.stringify(this.props.model),
         onClose: onClose,
         onSubmit: onSubmit ? () => onSubmit(this.getModel()) : undefined,
         closeText: closeText,
@@ -1081,13 +1082,13 @@ class AIOFormHeader extends _react.Component {
     let {
       title,
       onClose,
-      attrs = {},
       print,
       onBack,
       justify,
       onForward,
       rtl,
-      theme,
+      style,
+      className,
       getValue
     } = this.props;
     let subtitle = getValue({
@@ -1095,10 +1096,9 @@ class AIOFormHeader extends _react.Component {
     });
     return /*#__PURE__*/_react.default.createElement(_reactVirtualDom.default, {
       layout: {
-        className: 'aio-form-header' + (attrs.className ? ' ' + attrs.className : ''),
+        className: 'aio-form-header' + (className ? ' ' + className : ''),
         style: {
-          ...theme.header,
-          ...attrs.style
+          ...style
         },
         align: 'v',
         row: [{
@@ -1116,6 +1116,7 @@ class AIOFormHeader extends _react.Component {
           show: justify === true,
           flex: 1
         }, {
+          align: 'v',
           column: [{
             html: title,
             className: 'aio-form-title',
@@ -1173,7 +1174,8 @@ class AIOFormFooter extends _react.Component {
       footerAttrs = {},
       onReset,
       resetText,
-      isThereError
+      isThereError,
+      isModelChanged
     } = this.props;
     return /*#__PURE__*/_react.default.createElement(_reactVirtualDom.default, {
       layout: {
@@ -1193,7 +1195,7 @@ class AIOFormFooter extends _react.Component {
           show: onSubmit !== undefined,
           html: () => /*#__PURE__*/_react.default.createElement("button", {
             className: "aio-form-footer-button aio-form-submit-button",
-            disabled: isThereError,
+            disabled: isThereError || isModelChanged,
             onClick: () => onSubmit()
           }, submitText)
         }, {
